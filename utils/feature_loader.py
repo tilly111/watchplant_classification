@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+import constants
 from sklearn.model_selection import train_test_split
 
 
@@ -18,7 +19,7 @@ def load_tsfresh_feature(exp_name, sensor, clean=False):
         x_sensor = None
         for s in sensor:
             # TODO adjust path
-            f = pd.read_csv(f"../results/features_tsfresh/{exp}_{s}_features.csv")
+            f = pd.read_csv(f"results/features_tsfresh/{exp}_{s}_features.csv")
             f_stim = f[f.columns[:788]]
             f_no = f[f.columns[788:]]
             for name in f_no.columns:
@@ -57,12 +58,12 @@ def load_tsfresh_feature(exp_name, sensor, clean=False):
             if y_sensor is None:
                 y_sensor = np.concatenate((y_no, y_stim), axis=0)
                 x_sensor = pd.concat([f_no, f_stim], axis=0)
-                print(f"shape x sensor1: {x_sensor.shape}")
+                #print(f"shape x sensor1: {x_sensor.shape}")
             else:
                 #y_sensor = np.concatenate((y_sensor, np.concatenate((y_no, y_stim), axis=0)), axis=0)
-                print(f"to concat shapes: {x_sensor.shape}, {pd.concat([f_no, f_stim], axis=0).shape}")
+                #print(f"to concat shapes: {x_sensor.shape}, {pd.concat([f_no, f_stim], axis=0).shape}")
                 x_sensor = pd.concat([x_sensor, pd.concat([f_no, f_stim], axis=0)], axis=1)
-                print(f"shape x sensor2: {x_sensor.shape}")
+                #print(f"shape x sensor2: {x_sensor.shape}")
         if y_all is None:
             y_all = y_sensor
             x_all = x_sensor
@@ -74,8 +75,41 @@ def load_tsfresh_feature(exp_name, sensor, clean=False):
     return x_all, y_all
 
 
-x, y = load_tsfresh_feature("Exp44_Ivy2", ["pn1"], clean=True)
+def load_eddy_feature(exp_name, sensors, feature_selection=None, manual_features_stim=None, manual_features_no=None):
+    features = None
+    all_feature_names = None
+    for sensor in sensors:
+        features_tmp = pd.read_csv(f"results/features_median_filter/{exp_name}_{sensor}_features.csv")
+        if features is None:
+            features = features_tmp
+            all_feature_names = constants.NO_FEATURES
+        else:
+            features = pd.concat([features, features_tmp], axis=1)
+            all_feature_names = all_feature_names + constants.NO_FEATURES
+    print(f"raw data features: {features.shape}")
+    # drop nan values of all rows
+    features.dropna(axis=0, inplace=True)
+    print(f"raw data after dropping nans: {features.shape}")
+    if feature_selection == "manual":
+        no = features[manual_features_no].to_numpy()
+        stim = features[manual_features_stim].to_numpy()
+        all_feature_names = manual_features_no * len(sensors)
+    else:
+        no = features[constants.NO_FEATURES].to_numpy()
+        stim = features[constants.STIM_FEATURES].to_numpy()
 
-# shuffle stuff and split into train and validation set; make reproducible by setting random state
-x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=0.15, random_state=14)
+    x_no = no
+    y_no = np.zeros((no.shape[0],))
+    x_stim = stim
+    y_stim = np.ones((stim.shape[0],))
 
+    x_train = np.concatenate((x_no, x_stim), axis=0)
+    y_train = np.concatenate((y_no, y_stim), axis=0)
+
+    return x_train, y_train, all_feature_names
+
+# x, y = load_tsfresh_feature("Exp44_Ivy2", ["pn1"], clean=True)
+#
+# # shuffle stuff and split into train and validation set; make reproducible by setting random state
+# x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=0.15, random_state=14)
+#
