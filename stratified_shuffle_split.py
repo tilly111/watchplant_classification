@@ -11,7 +11,7 @@ from itertools import compress
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
 from sklearn.feature_selection import RFECV, SequentialFeatureSelector, RFE
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, roc_curve, auc
@@ -19,9 +19,6 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
 from utils.feature_loader import load_tsfresh_feature, load_eddy_feature
 
-import shap
-from sklearn.tree import export_text
-from sklearn.inspection import DecisionBoundaryDisplay
 
 # for interactive plots
 if platform.system() == "Darwin":
@@ -42,14 +39,14 @@ sensors = ["pn1"]  # "pn1", "pn3", "mu_ch1", "mu_ch2"
 
 x, y = load_tsfresh_feature(exp_names, sensors, clean=True)
 
-num_features_to_test = 5
-num_splits = 20
+num_features_to_test = 20
+num_splits = 5
 
 # split data
 sss = StratifiedShuffleSplit(n_splits=num_splits, test_size=0.3, random_state=0)
-features_to_test = range(1, num_features_to_test)
+features_to_test = range(1, num_features_to_test, 2)
 
-roc_auc_list = np.zeros((num_splits, num_features_to_test))
+roc_auc_list = np.zeros((num_splits, len(features_to_test)))
 
 # evaluate for various number of features
 for j, num_features in enumerate(features_to_test):
@@ -66,10 +63,11 @@ for j, num_features in enumerate(features_to_test):
 
         # train model
         # clf = DecisionTreeClassifier(criterion="entropy", max_depth=5)
-        clf = RandomForestClassifier()
+        # clf = RandomForestClassifier()
+        clf = ExtraTreesClassifier()
         # clf = LogisticRegression()
         # 'auto' , n_jobs=-1
-        selector = SequentialFeatureSelector(clf, n_features_to_select=num_features, direction="backward", tol=0.001, n_jobs=-1)
+        selector = SequentialFeatureSelector(clf, n_features_to_select=num_features, direction="forward", tol=0.001, n_jobs=-1)
         x_train = selector.fit_transform(x_train, y_train)
         x_test = selector.transform(x_test)
         clf.fit(x_train, y_train)
@@ -101,5 +99,5 @@ plt.fill_between(features_to_test, np.mean(roc_auc_list, axis=0) - np.std(roc_au
 plt.xlabel("Number of features")
 plt.ylabel("mean ROC AUC")
 plt.legend()
-plt.savefig("plots/feature_selection_5.pdf")
+plt.savefig("plots/feature_selection_6.pdf")
 plt.show()

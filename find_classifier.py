@@ -54,4 +54,5 @@ print(naml.chosen_model)
 print("---------------------------------")
 print(naml.history)
 
+naml.history.to_csv("results/naml_history.csv")
 plot_history(naml)
