@@ -4,3 +4,5 @@ plot*
 .idea
 venv
 __pycache__
+
+example_code_felix/

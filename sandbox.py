@@ -17,7 +17,8 @@ if platform.system() == "Darwin":
     matplotlib.use('QtAgg')
     pd.set_option('display.max_columns', None)
     plt.rcParams.update({'font.size': 22})
-    # pd.set_option('display.max_rows', None)
+    pd.set_option('display.max_rows', None)
+    pd.set_option('display.width', 1000)
 elif platform.system() == "Linux":
     matplotlib.use('TkAgg')
 
@@ -27,25 +28,29 @@ def cut_data(df, begin, end):
     df = df.loc[df.index <= end]
     return df
 
+res = pd.read_csv("results/naml_history.csv")
+res.drop(columns=["Unnamed: 0", "time", "runtime", "exception"], inplace=True)
+print(res.head())
 
-exp_names = ["Exp44_Ivy2"]  # "Exp44_Ivy2",, "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"
-plotting = False
+
+# exp_names = ["Exp44_Ivy2"]  # "Exp44_Ivy2",, "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"
+# plotting = False
 # if external drive is mounted:
 # DIR = f"/Volumes/Data/watchplant/gas_experiments/ozone_cut/{exp_name}"
 # else
 # DIR = f"data/gas_experiments/ozone_cut/{exp_name}"
 
-for exp_name in exp_names:
-    for i in range(17):
-        dir_path = f"data/gas_experiments/ozone_cut/{exp_name}/experiment_{i}.csv"
-        df = load_experiment(dir_path)
-        print(df.head())  # "differential_potential_CH1"
-        df_ch1 = df.dropna(subset=["differential_potential_CH1"])
-        df_ch2 = df.dropna(subset=["differential_potential_CH2"])
-        # df_ch1.plot(y="differential_potential_CH1")
-        # df_ch2.plot(y="differential_potential_CH2")
-        df_ch1['differential_potential_CH1'].hist(bins=100, edgecolor='black')
-        plt.show()
+# for exp_name in exp_names:
+#     for i in range(17):
+#         dir_path = f"data/gas_experiments/ozone_cut/{exp_name}/experiment_{i}.csv"
+#         df = load_experiment(dir_path)
+#         print(df.head())  # "differential_potential_CH1"
+#         df_ch1 = df.dropna(subset=["differential_potential_CH1"])
+#         df_ch2 = df.dropna(subset=["differential_potential_CH2"])
+#         # df_ch1.plot(y="differential_potential_CH1")
+#         # df_ch2.plot(y="differential_potential_CH2")
+#         df_ch1['differential_potential_CH1'].hist(bins=100, edgecolor='black')
+#         plt.show()
 
     # dir_path = "data"  # or "/Volumes/Data/watchplant"
     # DIR = f"{dir_path}/gas_experiments/ozone_cut/{exp_name}"

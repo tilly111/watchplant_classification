@@ -52,11 +52,11 @@ def load_tsfresh_feature(exp_name, sensor, clean=False):
                 f_no.drop(columns=f_nan, inplace=True)
                 # f_stim.dropna(axis=1, inplace=True)
                 # f_no.dropna(axis=1, inplace=True)
-            y_stim = np.ones((f_stim.shape[0],))
-            y_no = np.zeros((f_no.shape[0],))
+            y_stim = pd.DataFrame(np.ones((f_stim.shape[0],)), columns=["y"])
+            y_no = pd.DataFrame(np.zeros((f_no.shape[0],)), columns=["y"])
 
             if y_sensor is None:
-                y_sensor = np.concatenate((y_no, y_stim), axis=0)
+                y_sensor = pd.concat([y_no, y_stim], axis=0)
                 x_sensor = pd.concat([f_no, f_stim], axis=0)
                 #print(f"shape x sensor1: {x_sensor.shape}")
             else:
@@ -68,7 +68,7 @@ def load_tsfresh_feature(exp_name, sensor, clean=False):
             y_all = y_sensor
             x_all = x_sensor
         else:
-            y_all = np.concatenate((y_all, y_sensor), axis=0)
+            y_all = pd.concat([y_all, y_sensor], axis=0)
             x_all = pd.concat([x_all, x_sensor], axis=0)
 
 
