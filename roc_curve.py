@@ -29,8 +29,8 @@ sensors = ["pn1"]
 X, y = load_tsfresh_feature(exp_names, sensors, clean=True)
 
 ## select hyperparameters
-roc_repeats = 5
-number_trees = 10
+roc_repeats = 500
+number_trees = 1000
 
 
 learner = ExtraTreesClassifier(n_estimators=number_trees)
@@ -38,5 +38,5 @@ pl_interpretable = get_pipeline_for_features(learner, X, y, list(X.columns))
 
 fig, axs = plt.subplots(1, 1, figsize=(7, 7))
 get_mccv_ROC_display(pl_interpretable, X, y, repeats=roc_repeats, ax=axs)
-plt.savefig(f"plots/roc_curve_extra_tree_{number_trees}_all_features.pdf")
+plt.savefig(f"plots/roc_curve_repeats_{roc_repeats}_extra_tree_{number_trees}_all_features.pdf")
 plt.show()
