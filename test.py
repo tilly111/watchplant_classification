@@ -31,7 +31,7 @@ elif platform.system() == "Linux":
 
 
 # total 788 features
-f = pd.read_csv("results/features_tsfresh/Exp46_Ivy0_pn1_features.csv")
+f = pd.read_csv("data_preprocessed/features_tsfresh/Exp46_Ivy0_pn1_features.csv")
 print(f.shape)
 print(f.columns)
 

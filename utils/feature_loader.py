@@ -19,7 +19,7 @@ def load_tsfresh_feature(exp_name, sensor, clean=False):
         x_sensor = None
         for s in sensor:
             # TODO adjust path
-            f = pd.read_csv(f"results/features_tsfresh/{exp}_{s}_features.csv")
+            f = pd.read_csv(f"data_preprocessed/features_tsfresh/{exp}_{s}_features.csv")
             f_stim = f[f.columns[:788]]
             f_no = f[f.columns[788:]]
             for name in f_no.columns:
@@ -79,7 +79,7 @@ def load_eddy_feature(exp_name, sensors, feature_selection=None, manual_features
     features = None
     all_feature_names = None
     for sensor in sensors:
-        features_tmp = pd.read_csv(f"results/features_median_filter/{exp_name}_{sensor}_features.csv")
+        features_tmp = pd.read_csv(f"data_preprocessed/features_median_filter/{exp_name}_{sensor}_features.csv")
         if features is None:
             features = features_tmp
             all_feature_names = constants.NO_FEATURES
