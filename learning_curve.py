@@ -112,7 +112,7 @@ def get_learning_curve(learner, X, y, seed, schedule):
     for i, a in enumerate(schedule):
         X_train, X_val, y_train, y_val = train_test_split(X, y, train_size=a, stratify=y, random_state=seed)
         l_copy = clone(learner)
-        l_copy.fit(X_train, y_train)
+        l_copy.fit(X_train, y_train.values.ravel())
         auc_train.append(roc_auc_score(y_train, l_copy.predict_proba(X_train)[:,1]))
         auc_val.append(roc_auc_score(y_val, l_copy.predict_proba(X_val)[:,1]))
     return auc_train, auc_val
@@ -175,8 +175,6 @@ def get_score_for_features(classifier, X, y, feature_list, repeats):
     results = []
     for seed in range(repeats):
         X_train, X_val, y_train, y_val = train_test_split(X_red, y, stratify=y, train_size=0.8, random_state=seed)
-        # print(type(y_train))
-        # exit(22)
         l = clone(pl_interpretable).fit(X_train, y_train.values.ravel())
         results.append(scorer(l, X_val, y_val))
     return results
@@ -199,9 +197,7 @@ def get_scores_for_feature_combinations_based_on_previous_selections(classifier,
     rows = []
 
     # Using ThreadPoolExecutor to parallelize the function calls
-    print(f"cpu count: {os.cpu_count()}")
-    exit(11)
-    with ProcessPoolExecutor(max_workers=6) as executor:
+    with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
 
         # Submit tasks to the executor
         futures = [
@@ -273,8 +269,8 @@ if __name__ == '__main__':
         X,
         y,
         max_feature_set_size,
-        repeats_per_size={i: 500 for i in range(1, max_feature_set_size + 1)},
-        num_combos_from_last_stage={i: 10 if i < 10 else (5 if i < 20 else 2) for i in range(2, max_feature_set_size + 1)}
+        repeats_per_size={i: 100 for i in range(1, max_feature_set_size + 1)},
+        num_combos_from_last_stage={i: 3 if i < 3 else (1 if i < 20 else 1) for i in range(2, max_feature_set_size + 1)}
     )
 
     k_s = list(range(1, len(df_auc_results_per_feature_combo) + 1))

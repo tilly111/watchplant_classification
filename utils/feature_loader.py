@@ -71,6 +71,8 @@ def load_tsfresh_feature(exp_name, sensor, clean=False):
             y_all = pd.concat([y_all, y_sensor], axis=0)
             x_all = pd.concat([x_all, x_sensor], axis=0)
 
+    # replace all " with _ to dont run into parsing errors later on
+    x_all.columns = [col.replace('"', '_') for col in x_all.columns]
 
     return x_all, y_all
 
