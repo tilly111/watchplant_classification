@@ -1,15 +1,13 @@
 import platform
-import glob
 import os
 import constants
 
 import pandas as pd
-from datetime import timedelta, datetime
+from datetime import timedelta
 import matplotlib
 import matplotlib.pyplot as plt
-from preprocessing.emd_filter import emd_filter
 
-from features import calc_all_features
+from preprocessing.features import calc_all_features, calc_ts_fresh
 
 # for interactive plots
 if platform.system() == "Darwin":
@@ -145,8 +143,8 @@ for exp_name in exp_names:
             plt.show()
 
         # cut data into time slices
-        bg_start = stimulus_application_begin - timedelta(minutes=60)
-        bg_end = stimulus_application_begin - timedelta(minutes=50)
+        bg_start = stimulus_application_begin - timedelta(minutes=20)
+        bg_end = stimulus_application_begin - timedelta(minutes=10)
         no_start = stimulus_application_begin - timedelta(minutes=10)
         no_end = stimulus_application_begin
 
@@ -179,20 +177,20 @@ for exp_name in exp_names:
 
         # calculate features
         if not df_pn_1.empty:
-            features_pn1.loc[i] = calc_all_features(bg_pn_1["differential_potential_pn1"],
+            features_pn1.loc[i] = calc_ts_fresh(bg_pn_1["differential_potential_pn1"],
                                                     no_pn_1["differential_potential_pn1"],
                                                     stim_pn_1["differential_potential_pn1"])
 
         if not df_pn_3.empty:
-            features_pn3.loc[i] = calc_all_features(bg_pn_3["differential_potential_pn3"],
+            features_pn3.loc[i] = calc_ts_fresh(bg_pn_3["differential_potential_pn3"],
                                                     no_pn_3["differential_potential_pn3"],
                                                     stim_pn_3["differential_potential_pn3"])
 
-        features_mu_ch1.loc[i] = calc_all_features(bg_mu["differential_potential_CH1"],
+        features_mu_ch1.loc[i] = calc_ts_fresh(bg_mu["differential_potential_CH1"],
                                                    no_mu["differential_potential_CH1"],
                                                    stim_mu["differential_potential_CH1"])
 
-        features_mu_ch2.loc[i] = calc_all_features(bg_mu["differential_potential_CH2"],
+        features_mu_ch2.loc[i] = calc_ts_fresh(bg_mu["differential_potential_CH2"],
                                                    no_mu["differential_potential_CH2"],
                                                    stim_mu["differential_potential_CH2"])
 

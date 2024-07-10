@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc
 from sklearn.base import clone
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -20,7 +21,7 @@ def get_mccv_ROC_display(learner, X, y, repeats, ax=None):
     for train, test in cv.split(X, y):
         # Train the model
         classifier = clone(learner)
-        y_score = classifier.fit(X.iloc[train], y.iloc[train]).predict_proba(X.iloc[test])
+        y_score = classifier.fit(X.iloc[train], y.iloc[train].values.ravel()).predict_proba(X.iloc[test])
 
         # Compute ROC curve and ROC area for each class
         fpr, tpr, _ = roc_curve(y.iloc[test], y_score[:, -1])

@@ -31,28 +31,32 @@ def plot_history(naml):
     ax.set_ylim([median_val, max_val + (max_val - median_val)])
     plt.show()
 
-# do logging
-logger = logging.getLogger('naiveautoml')
-logger.setLevel(logging.INFO)
-ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-ch.setFormatter(formatter)
-logger.addHandler(ch)
 
-naml = naiveautoml.NaiveAutoML(max_hpo_iterations=20, show_progress=True, scoring="accuracy")
+if __name__ == "__main__":
+    # do logging
+    logger = logging.getLogger('naiveautoml')
+    logger.setLevel(logging.INFO)
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
 
-exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"]
-sensors = ["pn1"]  # "pn1", "pn3", "mu_ch1", "mu_ch2"
-x, y = load_tsfresh_feature(exp_names, sensors, clean=True)
-X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
-print(X_train.shape, y_train.shape)
-naml.fit(x, y)
+    # load data
+    exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"]
+    sensors = ["pn1"]  # "pn1", "pn3", "mu_ch1", "mu_ch2"
+    scoring = "accuracy"
+    X_train, y_train = load_tsfresh_feature(exp_names, sensors, split=False, clean=True)  # return the pre-split training data
+    X_train = X_train.to_numpy()
+    y_train = y_train.to_numpy().ravel()
 
-print("---------------------------------")
-print(naml.chosen_model)
-print("---------------------------------")
-print(naml.history)
+    naml = naiveautoml.NaiveAutoML(max_hpo_iterations=100, show_progress=True, scoring=scoring)
+    naml.fit(X_train, y_train)
 
-naml.history.to_csv("results/naml_history.csv")
-plot_history(naml)
+    print("---------------------------------")
+    # print(naml.chosen_model)
+    print("---------------------------------")
+    print(naml.history)
+
+    naml.history.to_csv(f"results/naml_history_{scoring}_{sensors}.csv")
+    plot_history(naml)

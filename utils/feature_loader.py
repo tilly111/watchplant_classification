@@ -5,11 +5,24 @@ import constants
 from sklearn.model_selection import train_test_split
 
 
-def load_tsfresh_feature(exp_name, sensor, clean=False):
+def load_tsfresh_feature(exp_name, sensor, clean=False, split=False):
+    '''
+    Load the tsfresh features for the given experiments and sensors
+    :param exp_name: experiments you want to load
+    :param sensor: sensors you want to load
+    :param clean: is ignored when split is true, otherwise remove all nan columns or wrong experiments
+    :param split: returns only the train data if true!
+    :return:
+    '''
     if type(exp_name) is str:
         exp_name = [exp_name]
     if type(sensor) is str:
         sensor = [sensor]
+
+    if split:
+        X_train = pd.read_csv(f"data_preprocessed/split_data/X_train_{sensor}.csv")
+        y_train = pd.read_csv(f"data_preprocessed/split_data/y_train_{sensor}.csv")
+        return X_train, y_train
 
     # load the data for all experiments
     y_all = None
@@ -18,15 +31,17 @@ def load_tsfresh_feature(exp_name, sensor, clean=False):
         y_sensor = None
         x_sensor = None
         for s in sensor:
+            print(f"loading {exp} {s}")
             # TODO adjust path
             f = pd.read_csv(f"data_preprocessed/features_tsfresh/{exp}_{s}_features.csv")
             f_stim = f[f.columns[:788]]
             f_no = f[f.columns[788:]]
             for name in f_no.columns:
-                rename_dict = {name: s + name[:-2]}  # Dictionary mapping old column name to new column name
+                # todo hack around to have pn1 and pn3 in the same column
+                rename_dict = {name: (s + name[:-2]).replace("pn3", "pn1")}  # Dictionary mapping old column name to new column name
                 f_no = f_no.rename(columns=rename_dict)
             for name in f_stim.columns:
-                rename_dict = {name: s + name}
+                rename_dict = {name: (s + name).replace("pn3", "pn1")}
                 f_stim = f_stim.rename(columns=rename_dict)
 
             if clean:
@@ -37,6 +52,9 @@ def load_tsfresh_feature(exp_name, sensor, clean=False):
                 if exp == "Exp44_Ivy2" and s == "pn3":
                     f_stim.drop(index=7, inplace=True)
                     f_no.drop(index=7, inplace=True)
+                if exp == "Exp45_Ivy4" and s == "pn3":
+                    f_stim.drop(index=0, inplace=True)
+                    f_no.drop(index=0, inplace=True)
                 # for i in f_stim.columns:
                 #     if f_stim[i].isna().any():
                 #         print(f"stim nan: {i}")
@@ -44,6 +62,7 @@ def load_tsfresh_feature(exp_name, sensor, clean=False):
                 stim_nan = f_stim.columns[f_stim.isna().any()]
                 no_nan = f_no.columns[f_no.isna().any()]
                 f_nan = stim_nan.append(no_nan)
+                # print(f"f_nan: {f_nan}")
                 # print(f"stim nan: {stim_nan}, {len(stim_nan)}")
                 # print(f"no nan: {no_nan}, {len(no_nan)}")
                 # print(f"f nan: {f_nan}, {len(f_nan)}")
@@ -54,16 +73,19 @@ def load_tsfresh_feature(exp_name, sensor, clean=False):
                 # f_no.dropna(axis=1, inplace=True)
             y_stim = pd.DataFrame(np.ones((f_stim.shape[0],)), columns=["y"])
             y_no = pd.DataFrame(np.zeros((f_no.shape[0],)), columns=["y"])
-
+            tmp_x_sensors = pd.concat([f_no, f_stim], axis=0).reset_index(drop=True)
+            tmp_y_sensors = pd.concat([y_no, y_stim], axis=0).reset_index(drop=True)
+            print(f"shapes of the individual sensors: {tmp_x_sensors.shape}, {tmp_y_sensors.shape}")
             if y_sensor is None:
-                y_sensor = pd.concat([y_no, y_stim], axis=0)
-                x_sensor = pd.concat([f_no, f_stim], axis=0)
-                #print(f"shape x sensor1: {x_sensor.shape}")
+                x_sensor = tmp_x_sensors
+                y_sensor = tmp_y_sensors
             else:
                 #y_sensor = np.concatenate((y_sensor, np.concatenate((y_no, y_stim), axis=0)), axis=0)
-                #print(f"to concat shapes: {x_sensor.shape}, {pd.concat([f_no, f_stim], axis=0).shape}")
-                x_sensor = pd.concat([x_sensor, pd.concat([f_no, f_stim], axis=0)], axis=1)
-                #print(f"shape x sensor2: {x_sensor.shape}")
+                # x_sensor.reset_index(drop=True, inplace=True)
+                x_sensor = pd.concat([x_sensor, tmp_x_sensors], axis=0)
+                y_sensor = pd.concat([y_sensor, tmp_y_sensors], axis=0)
+                print(f"shape x after concat: {x_sensor.shape}")
+
         if y_all is None:
             y_all = y_sensor
             x_all = x_sensor
