@@ -1,4 +1,6 @@
 import platform
+import sys
+
 import constants
 import os
 import json
@@ -39,7 +41,8 @@ if platform.system() == "Darwin":
     plt.rcParams.update({'font.size': 20})
     pd.set_option('display.max_rows', None)
 elif platform.system() == "Linux":
-    matplotlib.use('TkAgg')
+    # matplotlib.use('TkAgg')  # TODO removed because of server
+    pass
 elif platform.system() == "Windows":
     # TODO
     pass
@@ -171,7 +174,8 @@ def get_learning_curves(learner, X, y, repeats, first_anchor=0.1, last_anchor=0.
 
 def get_score_for_features(classifier, X, y, feature_list, repeats):
     X_red = X[feature_list]
-    pl_interpretable = get_pipeline_for_features(classifier, X, y, feature_list)
+    # pl_interpretable = get_pipeline_for_features(classifier, X, y, feature_list)
+    pl_interpretable = classifier
     scorer = get_scorer("roc_auc")
 
     results = []
@@ -227,12 +231,12 @@ def get_scores_for_feature_combinations_based_on_previous_selections(classifier,
     return pd.DataFrame(rows, columns=["combo", "scores", "score_mean"]).sort_values("score_mean", ascending=False)
 
 
-def get_scores_for_feature_combinations(classifier, X, y, max_size, repeats_per_size, num_combos_from_last_stage):
+def get_scores_for_feature_combinations(classifier, X, y, max_size, dir, repeats_per_size, num_combos_from_last_stage):
     dfs = {}
 
     for k in range(1, max_size + 1):
 
-        path = f"results/feature_combinations/feature_selection_results_{k}.csv"
+        path = f"{dir}results/feature_combinations/feature_selection_results_{k}.csv"
         if os.path.isfile(path):
             dfs[k] = pd.read_csv(path)
             dfs[k]["combo"] = [json.loads(e.replace("'", '"')) for e in dfs[k]["combo"]]
@@ -252,26 +256,57 @@ def get_scores_for_feature_combinations(classifier, X, y, max_size, repeats_per_
     return dfs
 
 
-## TODO from felix
-
 if __name__ == '__main__':
     ## select hyperparameters
+    dir = "/abyss/home/code/watchplant_classification/"  # "/abyss/home/code/watchplant_classification/" or "" depending on the machine
+    plotting = False
     exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"]
-    sensors = ["pn1"]
 
+    sensors = []
+    for arg in sys.argv:
+        if arg in constants.SENSOR_NAMES:
+            sensors.append(str(arg))
 
+    print(f"Utilizing {os.cpu_count()} cpus.")
+
+    if len(sensors) == 1 and sensors[0] == "pn1":
+        data_pre_processor = None
+        learner = RandomForestClassifier(criterion='entropy', max_features=7,
+                                         min_samples_leaf=6,
+                                         min_samples_split=14, n_estimators=512,
+                                         warm_start=True)
+    elif len(sensors) == 1 and sensors[0] == "pn3":
+        data_pre_processor = Normalizer()
+        learner = ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                              max_features=0.7074865514350775,
+                                              min_samples_leaf=2, min_samples_split=4,
+                                              n_estimators=512, warm_start=True)
+    elif len(sensors) == 2 and sensors[0] == "pn1" and sensors[1] == "pn3":
+        data_pre_processor = GenericUnivariateSelect(mode='fpr', param=0.3238036840257909)
+        learner = HistGradientBoostingClassifier(early_stopping=False,
+                                                        l2_regularization=0.7089955744242014,
+                                                        learning_rate=0.3800630768981142,
+                                                        max_iter=512, max_leaf_nodes=77,
+                                                        min_samples_leaf=1,
+                                                        n_iter_no_change=1,
+                                                        validation_fraction=None,
+                                                        warm_start=True)
+    else:
+        print("Please provide the correct sensors.")
+        exit(11)
 
     # load data
-    X, y = load_tsfresh_feature(exp_names, sensors, split=True)
+    X, y = load_tsfresh_feature(exp_names, sensors, split=True, dir=dir)
     max_feature_set_size = X.shape[1]
 
-    learner = ExtraTreesClassifier(n_estimators=number_trees)
+    pl_interpretable = get_pipeline_for_features(learner, data_pre_processor, X, y, list(X.columns))
 
     df_auc_results_per_feature_combo = get_scores_for_feature_combinations(
-        learner,
+        pl_interpretable,
         X,
         y,
         max_feature_set_size,
+        dir,
         repeats_per_size={i: 100 for i in range(1, max_feature_set_size + 1)},
         num_combos_from_last_stage={i: 10 if i < 40 else (5 if i < 100 else 3) for i in range(2, max_feature_set_size + 1)}
     )
@@ -286,19 +321,20 @@ if __name__ == '__main__':
         print(k, np.mean(best_scores_per_k[-1]), np.std(best_scores_per_k[-1]))
 
     # plot best combos
-    fig, ax = plt.subplots(figsize=(10, 3))
-    mu = np.array([np.mean(v) for v in best_scores_per_k])
-    std = np.array([np.std(v) for v in best_scores_per_k])
-    print(std)
-    ax.plot(k_s, mu)
-    ax.fill_between(k_s, mu - std, mu + std, alpha=0.2)
-    for k, combo, score in zip(k_s, best_combos_per_k, mu):
-        print("Chosen feature combinations for", k, score, str(combo))  # , rotation=90)
-    ax.set_xlabel("Number of Features")
-    ax.set_ylabel("AUC ROC")
-    # ax.set_ylim([0.6, 0.8])
-    ax.axhline(max(mu), color="black", linestyle="--")
-    plt.show()
+    if plotting:
+        fig, ax = plt.subplots(figsize=(10, 3))
+        mu = np.array([np.mean(v) for v in best_scores_per_k])
+        std = np.array([np.std(v) for v in best_scores_per_k])
+        print(std)
+        ax.plot(k_s, mu)
+        ax.fill_between(k_s, mu - std, mu + std, alpha=0.2)
+        for k, combo, score in zip(k_s, best_combos_per_k, mu):
+            print("Chosen feature combinations for", k, score, str(combo))  # , rotation=90)
+        ax.set_xlabel("Number of Features")
+        ax.set_ylabel("AUC ROC")
+        # ax.set_ylim([0.6, 0.8])
+        ax.axhline(max(mu), color="black", linestyle="--")
+        plt.show()
 
 
     ks_for_lcs = range(1, max_feature_set_size + 1)
@@ -306,10 +342,10 @@ if __name__ == '__main__':
     lcs = {}  # learning classifier system for each k
     for k in ks_for_lcs:
         combo = best_combos_per_k[k-1]
-        lc_file = f"results/lcs/lcs_{k}.csv"
+        lc_file = f"{dir}results/lcs/lcs_{k}.csv"
         print(f"Get curves for {k} features with combo {combo}.")
         lcs[k] = get_learning_curves(
-            learner=get_pipeline_for_features(learner, X, y, combo),
+            learner=pl_interpretable,
             X=X[combo],
             y=y,
             repeats=500,
@@ -319,19 +355,20 @@ if __name__ == '__main__':
             filename=lc_file
         )
     # plot learning curves
-    fig, ax = plt.subplots(figsize=(16, 6))
-    # ax.plot(schedule, lc[0].mean(axis=1), label="train AUC")
-    for k in [1, 2]:  # , 4, 8, 16]:
-        schedule, lc = [float(v) for v in lcs[k].columns], lcs[k].values
-        mu = lc.mean(axis=0)
-        std = lc.std(axis=0)
-        ax.plot(schedule, mu, label=f"{k} features")
-        ax.fill_between(schedule, mu - std, mu + std, alpha=0.3)
-    ax.set_title(f"Learning Curves for Validation AUROC")
-    ax.legend()
-    ax.set_xlim([0, 1.6])
-    # ax.set_ylim([0.45,0.8])
-    ax.axhline(0.725, color="blue", linestyle="--")
-    ax.axhline(0.5, color="red", linestyle="--")
-    plt.show()
+    if plotting:
+        fig, ax = plt.subplots(figsize=(16, 6))
+        # ax.plot(schedule, lc[0].mean(axis=1), label="train AUC")
+        for k in [1, 2]:  # , 4, 8, 16]:
+            schedule, lc = [float(v) for v in lcs[k].columns], lcs[k].values
+            mu = lc.mean(axis=0)
+            std = lc.std(axis=0)
+            ax.plot(schedule, mu, label=f"{k} features")
+            ax.fill_between(schedule, mu - std, mu + std, alpha=0.3)
+        ax.set_title(f"Learning Curves for Validation AUCROC")
+        ax.legend()
+        ax.set_xlim([0, 1.6])
+        # ax.set_ylim([0.45,0.8])
+        ax.axhline(0.725, color="blue", linestyle="--")
+        ax.axhline(0.5, color="red", linestyle="--")
+        plt.show()
 

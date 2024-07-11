@@ -1,11 +1,13 @@
 data
 results
 plots*
-plotting.py
-plotting_cut_series.py
+plotting_scripts/plotting.py
+plotting_scripts/plotting_cut_series.py
 .idea
 venv
 __pycache__
 
 example_code_felix/
 data_preprocessed/
+server/
+sandbox.py

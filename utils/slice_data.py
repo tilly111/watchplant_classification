@@ -1,6 +1,9 @@
+'''
+This script slices the raw air pollution experiment data into 130 minute intervals (60 min before and 70 min after the
+stimulus). The sliced data are merged together and saved as a csv file in a specified folder.
+'''
+
 import platform
-import glob
-import os
 
 import pandas as pd
 from datetime import timedelta, datetime
@@ -17,8 +20,7 @@ if platform.system() == "Darwin":
 elif platform.system() == "Linux":
     matplotlib.use('TkAgg')
 
-# /Volumes/Data/watchplant/gas_experiments/ozone_cut/Exp44_Ivy2
-# exp_name = "Exp44_Ivy2"
+
 exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"]
 
 for exp_name in exp_names:

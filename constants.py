@@ -40,3 +40,5 @@ STIM_FEATURES = ["stim_mean",
                 "stim_hjorth_comp",
                 "stim_wavelet_entropy",
                 "stim_power_spectral_density"]
+
+SENSOR_NAMES = ["pn1", "pn3", "mu_ch1", "mu_ch2"]

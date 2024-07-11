@@ -1,3 +1,7 @@
+'''
+This script splits the processed features into training and testing sets (to keep them fix during experimentation).
+'''
+
 from sklearn.model_selection import train_test_split
 from utils.feature_loader import load_tsfresh_feature
 import numpy as np
