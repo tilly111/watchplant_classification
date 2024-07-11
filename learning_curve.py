@@ -14,7 +14,9 @@ from itertools import compress
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
+from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, HistGradientBoostingClassifier
+from sklearn.preprocessing._data import Normalizer
+from sklearn.feature_selection._univariate_selection import GenericUnivariateSelect
 from sklearn.feature_selection import RFECV, SequentialFeatureSelector, RFE
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, roc_curve, auc, roc_auc_score
@@ -254,12 +256,13 @@ def get_scores_for_feature_combinations(classifier, X, y, max_size, repeats_per_
 
 if __name__ == '__main__':
     ## select hyperparameters
-    number_trees = 1000
-    exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0"]
+    exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"]
     sensors = ["pn1"]
 
+
+
     # load data
-    X, y = load_tsfresh_feature(exp_names, sensors, clean=True)
+    X, y = load_tsfresh_feature(exp_names, sensors, split=True)
     max_feature_set_size = X.shape[1]
 
     learner = ExtraTreesClassifier(n_estimators=number_trees)
@@ -270,7 +273,7 @@ if __name__ == '__main__':
         y,
         max_feature_set_size,
         repeats_per_size={i: 100 for i in range(1, max_feature_set_size + 1)},
-        num_combos_from_last_stage={i: 3 if i < 3 else (1 if i < 20 else 1) for i in range(2, max_feature_set_size + 1)}
+        num_combos_from_last_stage={i: 10 if i < 40 else (5 if i < 100 else 3) for i in range(2, max_feature_set_size + 1)}
     )
 
     k_s = list(range(1, len(df_auc_results_per_feature_combo) + 1))
