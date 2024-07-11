@@ -37,11 +37,12 @@ def load_tsfresh_feature(exp_name, sensor, clean=False, split=False):
             f_stim = f[f.columns[:788]]
             f_no = f[f.columns[788:]]
             for name in f_no.columns:
-                # todo hack around to have pn1 and pn3 in the same column
-                rename_dict = {name: (s + name[:-2]).replace("pn3", "pn1")}  # Dictionary mapping old column name to new column name
+                rename_dict = {name: s + name[:-2]}  # Dictionary mapping old column name to new column name
+                # rename_dict = {name: (s + name[:-2]).replace("pn3", "pn1")}  # TODO if you want to have pn1 after pn3
                 f_no = f_no.rename(columns=rename_dict)
             for name in f_stim.columns:
-                rename_dict = {name: (s + name).replace("pn3", "pn1")}
+                rename_dict = {name: s + name}
+                # rename_dict = {name: (s + name).replace("pn3", "pn1")}
                 f_stim = f_stim.rename(columns=rename_dict)
 
             if clean:
@@ -80,10 +81,11 @@ def load_tsfresh_feature(exp_name, sensor, clean=False, split=False):
                 x_sensor = tmp_x_sensors
                 y_sensor = tmp_y_sensors
             else:
-                #y_sensor = np.concatenate((y_sensor, np.concatenate((y_no, y_stim), axis=0)), axis=0)
-                # x_sensor.reset_index(drop=True, inplace=True)
-                x_sensor = pd.concat([x_sensor, tmp_x_sensors], axis=0)
-                y_sensor = pd.concat([y_sensor, tmp_y_sensors], axis=0)
+                if exp == "Exp45_Ivy4" and s == "pn3" and len(sensor) > 1:
+                    # tmp_x_sensors.reset_index(drop=True, inplace=True)
+                    tmp_x_sensors.index = [30, 31, 32, 33, 34, 35, 36, 37]
+                    tmp_x_sensors = pd.concat([pd.DataFrame(index=range(30)), tmp_x_sensors], axis=0)
+                x_sensor = pd.concat([x_sensor, tmp_x_sensors], axis=1)
                 print(f"shape x after concat: {x_sensor.shape}")
 
         if y_all is None:
