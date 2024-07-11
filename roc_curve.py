@@ -36,6 +36,7 @@ number_trees = 1000
 setting = pd.read_csv(f"results/naml_history_{scoring}_{sensors}.csv")
 setting.sort_values(by=scoring, inplace=True, ascending=False)
 pipeline = setting.iloc[0]["pipeline"]
+print(pipeline)
 
 
 data_pre_processor = None
@@ -43,7 +44,7 @@ learner = RandomForestClassifier(criterion='entropy', max_features=7,
                                         min_samples_leaf=6,
                                         min_samples_split=14, n_estimators=512,
                                         warm_start=True)
-pl_interpretable = get_pipeline_for_features(learner, X, y, list(X.columns))
+pl_interpretable = get_pipeline_for_features(learner, data_pre_processor, X, y, list(X.columns))
 
 fig, axs = plt.subplots(1, 1, figsize=(7, 7))
 get_mccv_ROC_display(pl_interpretable, X, y, repeats=roc_repeats, ax=axs)
