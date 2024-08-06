@@ -47,70 +47,7 @@ elif platform.system() == "Windows":
     # TODO
     pass
 
-# load data: only for testing! "Exp47_Ivy5"
-# exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0"]
-# sensors = ["pn1"]  # "pn1", "pn3", "mu_ch1", "mu_ch2"
-#
-# X, y = load_tsfresh_feature(exp_names, sensors, clean=True)
-#
-# num_splits = 10  # TODO make 500
-#
-# print(type(x))
-# print(type(y))
-#
-# x_0 = x.loc[y == 0]
-# x_1 = x.loc[y == 1]
-#
-# print(x_0.shape, x_1.shape)
-#
-#
-# # print(x_train.shape, y_train.shape)
-# # print(y_train)
-#
-# # TODO: dont use the same data -> sample alwyas random
-# idxs = np.random.permutation(66)  # use for random sampling
-# idx_test = range(66, 76)
-#
-# x_0_tmp = x_0.iloc[idx_test]
-# x_1_tmp = x_1.iloc[idx_test]
-# y_0_tmp = np.zeros((x_0_tmp.shape[0],))
-# y_1_tmp = np.ones((x_1_tmp.shape[0],))
-# x_test = pd.concat([x_0_tmp, x_1_tmp])
-# y_test = np.concatenate((y_0_tmp, y_1_tmp))
-#
-# print(f"test: {x_test.shape}, {y_test.shape}")
-#
-# data_set_size = []
-# roc_auc_list = []
-#
-# for i in range(1, idxs.shape[0], 2):
-#     # split training data into two classes
-#     train_idxs = idxs[:i]
-#     x_0_tmp = x_0.iloc[train_idxs]
-#     x_1_tmp = x_1.iloc[train_idxs]
-#     y_0_tmp = np.zeros((x_0_tmp.shape[0],))
-#     y_1_tmp = np.ones((x_1_tmp.shape[0],))
-#
-#     x_tmp = pd.concat([x_0_tmp, x_1_tmp])
-#     y_tmp = np.concatenate((y_0_tmp, y_1_tmp))
-#
-#     # irgendwas mit classifier
-#     clf = ExtraTreesClassifier()
-#     clf.fit(x_tmp, y_tmp)
-#     y_pred = clf.predict_proba(x_test)[:, 1]
-#
-#     fpr, tpr, thresholds = roc_curve(y_test, y_pred)  # , pos_label=2
-#     roc_auc = auc(fpr, tpr)
-#     print(f"training size: {i*2}")
-#     print(f"roc_auc: {roc_auc}")
-#     data_set_size.append(i*2)
-#     roc_auc_list.append(roc_auc)
-#
-# plt.figure()
-# plt.plot(data_set_size, roc_auc_list, label="mean ROC AUC")
-# plt.xlabel("Number of samples")
-# plt.ylabel("ROC AUC")
-# plt.show()
+
 def get_learning_curve(learner, X, y, seed, schedule):
     auc_train = []
     auc_val = []
@@ -231,12 +168,13 @@ def get_scores_for_feature_combinations_based_on_previous_selections(classifier,
     return pd.DataFrame(rows, columns=["combo", "scores", "score_mean"]).sort_values("score_mean", ascending=False)
 
 
-def get_scores_for_feature_combinations(classifier, X, y, max_size, dir, repeats_per_size, num_combos_from_last_stage):
+def get_scores_for_feature_combinations(classifier, X, y, max_size, dir, repeats_per_size, num_combos_from_last_stage, sensors_names="pn1"):
     dfs = {}
 
     for k in range(1, max_size + 1):
 
-        path = f"{dir}results/feature_combinations/feature_selection_results_{k}.csv"
+        path = f"{dir}results/feature_combinations/{sensors}_feature_selection_results_{k}.csv"
+        # path = f"{dir}results/feature_combinations/feature_selection_results_{k}.csv"
         if os.path.isfile(path):
             dfs[k] = pd.read_csv(path)
             dfs[k]["combo"] = [json.loads(e.replace("'", '"')) for e in dfs[k]["combo"]]
@@ -257,32 +195,38 @@ def get_scores_for_feature_combinations(classifier, X, y, max_size, dir, repeats
 
 
 if __name__ == '__main__':
-    ## select hyperparameters
-    dir = "/abyss/home/code/watchplant_classification/"  # "/abyss/home/code/watchplant_classification/" or "" depending on the machine
-    plotting = False
+    ## on server
+    # dir = "/abyss/home/code/watchplant_classification/"  # "/abyss/home/code/watchplant_classification/" or "" depending on the machine
+    # local machine with hard drive mounted
+    dir = "/Volumes/Data/watchplant/Results/2024_felix/"
+
+    plotting = True
     exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"]
 
     sensors = []
     for arg in sys.argv:
         if arg in constants.SENSOR_NAMES:
             sensors.append(str(arg))
+    sensors_names = "_".join(sensors)
 
     print(f"Utilizing {os.cpu_count()} cpus.")
+    print(f"Using sensors: {sensors}")
 
-    if len(sensors) == 1 and sensors[0] == "pn1":
+    if len(sensors) == 1 and sensors[0] == "pn1":  # based on roc auc score
         data_pre_processor = None
         learner = RandomForestClassifier(criterion='entropy', max_features=7,
                                          min_samples_leaf=6,
                                          min_samples_split=14, n_estimators=512,
                                          warm_start=True)
-    elif len(sensors) == 1 and sensors[0] == "pn3":
+    elif len(sensors) == 1 and sensors[0] == "pn3":  # based on roc auc score
         data_pre_processor = Normalizer()
         learner = ExtraTreesClassifier(bootstrap=True, criterion='entropy',
                                               max_features=0.7074865514350775,
                                               min_samples_leaf=2, min_samples_split=4,
                                               n_estimators=512, warm_start=True)
-    elif len(sensors) == 2 and sensors[0] == "pn1" and sensors[1] == "pn3":
-        data_pre_processor = GenericUnivariateSelect(mode='fpr', param=0.3238036840257909)
+    elif len(sensors) == 2 and sensors[0] == "pn1" and sensors[1] == "pn3":  # based on accuracy?
+        # data_pre_processor = GenericUnivariateSelect(mode='fpr', param=0.3238036840257909)
+        data_pre_processor = None
         learner = HistGradientBoostingClassifier(early_stopping=False,
                                                         l2_regularization=0.7089955744242014,
                                                         learning_rate=0.3800630768981142,
@@ -291,13 +235,27 @@ if __name__ == '__main__':
                                                         n_iter_no_change=1,
                                                         validation_fraction=None,
                                                         warm_start=True)
+        # HistGradientBoostingClassifier(early_stopping=True,
+        #                                l2_regularization=5.617558408598586e-07,
+        #                                learning_rate=0.05202510577396622,
+        #                                max_iter=512,
+        #                                max_leaf_nodes=618,
+        #                                min_samples_leaf=17,
+        #                                n_iter_no_change=5,
+        #                                validation_fraction=0.029399129398777306,
+        #                                warm_start=True)
     else:
         print("Please provide the correct sensors.")
         exit(11)
 
     # load data
-    X, y = load_tsfresh_feature(exp_names, sensors, split=True, dir=dir)
+    X, y = load_tsfresh_feature(exp_names, sensors_names, split=True, dir="")  # TODO change back to dir=dir
     max_feature_set_size = X.shape[1]
+    if len(sensors) == 2:  # remove constant features for pn1 and pn3
+        constant_columns = [col for col in X.columns if X[col].nunique() == 1]
+        X.drop(columns=constant_columns, inplace=True)
+        print(f"Removing constant features (in total {len(constant_columns)} feature(s)).")
+        print(f"New shape: {X.shape}.")
 
     pl_interpretable = get_pipeline_for_features(learner, data_pre_processor, X, y, list(X.columns))
 
@@ -308,7 +266,10 @@ if __name__ == '__main__':
         max_feature_set_size,
         dir,
         repeats_per_size={i: 100 for i in range(1, max_feature_set_size + 1)},
-        num_combos_from_last_stage={i: 10 if i < 40 else (5 if i < 100 else 3) for i in range(2, max_feature_set_size + 1)}
+        # num_combos_from_last_stage={i: 10 if i < 40 else (5 if i < 100 else 3) for i in range(2, max_feature_set_size + 1)},
+        num_combos_from_last_stage={i: 1 if i < 40 else (1 if i < 100 else 1) for i in
+                                    range(2, max_feature_set_size + 1)},
+        sensors_names=sensors_names
     )
 
     k_s = list(range(1, len(df_auc_results_per_feature_combo) + 1))
@@ -321,28 +282,31 @@ if __name__ == '__main__':
         print(k, np.mean(best_scores_per_k[-1]), np.std(best_scores_per_k[-1]))
 
     # plot best combos
-    if plotting:
-        fig, ax = plt.subplots(figsize=(10, 3))
-        mu = np.array([np.mean(v) for v in best_scores_per_k])
-        std = np.array([np.std(v) for v in best_scores_per_k])
-        print(std)
-        ax.plot(k_s, mu)
-        ax.fill_between(k_s, mu - std, mu + std, alpha=0.2)
-        for k, combo, score in zip(k_s, best_combos_per_k, mu):
-            print("Chosen feature combinations for", k, score, str(combo))  # , rotation=90)
-        ax.set_xlabel("Number of Features")
-        ax.set_ylabel("AUC ROC")
-        # ax.set_ylim([0.6, 0.8])
-        ax.axhline(max(mu), color="black", linestyle="--")
-        plt.show()
+    # if plotting:
+    #     fig, ax = plt.subplots(figsize=(10, 3))
+    #     mu = np.array([np.mean(v) for v in best_scores_per_k])
+    #     std = np.array([np.std(v) for v in best_scores_per_k])
+    #     print(std)
+    #     ax.plot(k_s, mu)
+    #     ax.fill_between(k_s, mu - std, mu + std, alpha=0.2)
+    #     for k, combo, score in zip(k_s, best_combos_per_k, mu):
+    #         print("Chosen feature combinations for", k, score, str(combo))  # , rotation=90)
+    #     ax.set_xlabel("Number of Features")
+    #     ax.set_ylabel("AUC ROC")
+    #     # ax.set_ylim([0.6, 0.8])
+    #     ax.axhline(max(mu), color="black", linestyle="--")
+    #     print(f"Best score {max(mu)} at {k_s[np.argmax(mu)]} features.")
+    #     plt.show()
 
 
     ks_for_lcs = range(1, max_feature_set_size + 1)
+    # ks_for_lcs = range(1, 300)
 
     lcs = {}  # learning classifier system for each k
     for k in ks_for_lcs:
         combo = best_combos_per_k[k-1]
-        lc_file = f"{dir}results/lcs/lcs_{k}.csv"
+        lc_file = f"{dir}results/lcs/{sensors_names}_lcs_{k}.csv"
+        # lc_file = f"{dir}results/lcs/lcs_{k}.csv"
         print(f"Get curves for {k} features with combo {combo}.")
         lcs[k] = get_learning_curves(
             learner=pl_interpretable,
@@ -358,7 +322,7 @@ if __name__ == '__main__':
     if plotting:
         fig, ax = plt.subplots(figsize=(16, 6))
         # ax.plot(schedule, lc[0].mean(axis=1), label="train AUC")
-        for k in [1, 2]:  # , 4, 8, 16]:
+        for k in [1, 62, 787]:  # , 4, 8, 16]:
             schedule, lc = [float(v) for v in lcs[k].columns], lcs[k].values
             mu = lc.mean(axis=0)
             std = lc.std(axis=0)

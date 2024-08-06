@@ -28,13 +28,25 @@ def load_dic(dic_path, device="PN"):
     df.sort_values(by='timestamp', inplace=True)
     return df
 
-def load_experiment(data_path):
+def load_experiment(data_path, date_format="%Y-%m-%d %H:%M:%S.%f"):
     df = pd.read_csv(data_path)
 
-    df["timestamp"] = pd.to_datetime(df["timestamp"], format="%Y-%m-%d %H:%M:%S.%f")
+    df["timestamp"] = pd.to_datetime(df["timestamp"], format=date_format)
     df["timestamp"] = df["timestamp"].astype('datetime64[ms]')
     df.sort_values(by='timestamp', inplace=True)
     df["timestamp"] = df["timestamp"] - df["timestamp"].iloc[0]
+    df.set_index('timestamp', inplace=True)
+
+    return df
+
+def load_experiment_excel(data_path):
+    df = pd.read_excel(data_path)
+
+    df["date"] = pd.to_datetime(df["date"], format="%Y-%m-%d %H:%M:%S.%f")
+    df["date"] = df["date"].astype('datetime64[ms]')
+    df.sort_values(by='date', inplace=True)
+    # df["date"] = df["date"] - df["timestamp"].iloc[0]
+    df.rename(columns={"date": "timestamp"}, inplace=True)
     df.set_index('timestamp', inplace=True)
 
     return df

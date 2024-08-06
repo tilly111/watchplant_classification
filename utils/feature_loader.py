@@ -5,7 +5,7 @@ import constants
 from sklearn.model_selection import train_test_split
 
 
-def load_tsfresh_feature(exp_name, sensor, clean=False, split=False, dir=""):
+def load_tsfresh_feature(exp_name, sensor, clean=False, split=False, dir="", test=False):
     '''
     Load the tsfresh features for the given experiments and sensors
     :param exp_name: experiments you want to load
@@ -14,15 +14,19 @@ def load_tsfresh_feature(exp_name, sensor, clean=False, split=False, dir=""):
     :param split: returns only the train data if true!
     :return:
     '''
+    if split:
+        if test:
+            X = pd.read_csv(f"{dir}data_preprocessed/split_data/X_test_{sensor}.csv")
+            y = pd.read_csv(f"{dir}data_preprocessed/split_data/y_test_{sensor}.csv")
+        else:
+            X = pd.read_csv(f"{dir}data_preprocessed/split_data/X_train_{sensor}.csv")
+            y = pd.read_csv(f"{dir}data_preprocessed/split_data/y_train_{sensor}.csv")
+        return X, y
+
     if type(exp_name) is str:
         exp_name = [exp_name]
     if type(sensor) is str:
         sensor = [sensor]
-
-    if split:
-        X_train = pd.read_csv(f"{dir}data_preprocessed/split_data/X_train_{sensor}.csv")
-        y_train = pd.read_csv(f"{dir}data_preprocessed/split_data/y_train_{sensor}.csv")
-        return X_train, y_train
 
     # load the data for all experiments
     y_all = None

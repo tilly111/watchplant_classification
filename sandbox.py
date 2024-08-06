@@ -2,9 +2,12 @@ import platform
 import os
 
 import pandas as pd
+import numpy as np
 from datetime import timedelta
 import matplotlib
 import matplotlib.pyplot as plt
+from utils.helper import load_experiment_excel, load_experiment
+
 
 # for interactive plots
 if platform.system() == "Darwin":
@@ -26,74 +29,101 @@ def exclude_data(df, begin, end):
     df = df.drop(df[((df.index >= begin) & (df.index <= end))].index)
     return df
 
-# res = pd.read_csv("results/naml_history.csv")
-# res.drop(columns=["Unnamed: 0", "time", "runtime", "exception"], inplace=True)
-# print(res.head())
+
+ozone_threhsold = 100
+setups = [1, 2, 3, 4]
+
+for setup in setups:
+
+    df = load_experiment(f"/Volumes/Data/watchplant/2024_Vic_M1/combined/cyb{setup}_o3.csv", date_format="%Y-%m-%d %H:%M:%S")
+
+    df["RMS_CH1_std"] = df["RMS_CH1"].rolling(window=100, min_periods=1).std()
+    df["RMS_CH2_std"] = df["RMS_CH2"].rolling(window=100, min_periods=1).std()
+
+    total_samples = df["O3"].count()
+
+    y_values = df["O3"].dropna()
+
+    all_X_data = None
+    all_y_data = None
+    for i in range(total_samples):
+        if y_values[i] > ozone_threhsold:
+            all_y_data = np.append(all_y_data, 1)
+            # print(f"High ozone {y_values.index[i]} has value {y_values[i]}")
+        else:
+            all_y_data = np.append(all_y_data, 0)
+            # print(f"Low ozone {y_values.index[i]} has value {y_values[i]}")
+
+        df_tmp = cut_data(df, y_values.index[i], y_values.index[i] + timedelta(minutes=30))
+
+        df_tmp.drop(columns=["O3"], inplace=True)
+        df_tmp.dropna(inplace=True)
+        df_tmp.index = df_tmp.index + pd.to_timedelta(0, unit='ms')
+        # print(df_tmp.shape)
+        # resample to have always the same length; maybe 144 length?
+        # new_index = np.linspace(0, len(df) - 1, 144)
+        df_resampled = df_tmp.resample('12S').mean()  # todo find better interpolation method
+        df_resampled = df_resampled.interpolate(method='linear').head(144)
+
+        if df_resampled.shape[0] != 144:
+            print(f"wrong shape: {df_resampled.shape} at {y_values.index[i]} in setup {setup}")
+            if df_resampled.shape[0] == 143:
+                print("fix by padding same value (1)")
+                df_resampled.loc[df_resampled.index[142] + pd.to_timedelta(12, unit='s')] = df_resampled.iloc[-1]
+            else:
+                print("unfixable... skipping this one")
+                continue
+
+        # df_resampled = np.interp(new_index, np.arange(len(df)), df_tmp['RMS_CH1'])
+        # print(df_resampled.shape)
+
+        # if df_tmp.shape[0] <= 100:
+        #     plt.plot(df_resampled.index, df_resampled["RMS_CH1"], label="resampled")
+        #     plt.plot(df_tmp.index, df_tmp["RMS_CH1"], label="original")
+        #     plt.legend()
+        #     plt.show()
 
 
-df = pd.read_csv("results/ozone_peak.csv")
-df.drop(columns=["Unnamed: 0"], inplace=True)
-exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"]
+        tmp_values = df_resampled.values
 
-for exp_name in exp_names:
-    print(f"{exp_name}: {df[exp_name].mean()} +- {df[exp_name].std()}")
+        tmp_values = tmp_values[np.newaxis, :]
 
-print(f"all experiments: {df.mean().mean()} +- {df.std().mean()}")
+        # print(tmp_values.shape)
+        all_X_data = np.concatenate((all_X_data, tmp_values), axis=0) if all_X_data is not None else tmp_values
 
-exit(22)
+    all_y_data = all_y_data[1:]
+    print(all_y_data)
+    print(all_X_data.shape)
+    print(all_y_data.shape)
 
+    print(f"prop of high ozone: {np.sum(all_y_data) / all_y_data.shape[0]}")
 
-exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"]  # "Exp44_Ivy2",
-plotting = False
-# if external drive is mounted:
-# DIR = f"/Volumes/Data/watchplant/gas_experiments/ozone_cut/{exp_name}"
-# else
-# DIR = f"data/gas_experiments/ozone_cut/{exp_name}"
+    np.save(f"/Volumes/Data/watchplant/2024_Vic_M1/preprocessed/X_data_ozone_threshold_{ozone_threhsold}_ppb_setup_{setup}.npy", all_X_data)
+    np.save(f"/Volumes/Data/watchplant/2024_Vic_M1/preprocessed/y_data_ozone_threshold_{ozone_threhsold}_ppb_setup_{setup}.npy", all_y_data)
 
-ozone_peak_df = pd.DataFrame(columns=exp_names, index=range(24))
-
-for exp_name in exp_names:
-    print(f"experiment {exp_name}")
-    dir_path = "/Volumes/Data/watchplant"  # "data" or "/Volumes/Data/watchplant"
-    DIR = f"{dir_path}/gas_experiments/ozone_cut/{exp_name}"
-    experiments = len([name for name in os.listdir(DIR) if os.path.isfile(os.path.join(DIR, name))])
-    timestamps = pd.read_csv(f"{dir_path}/gas_experiments/ozone/{exp_name}/times.csv")
+exit(1)
 
 
-    for i, ts in enumerate(timestamps["times"]):
-        print(f"experiment number {i}")
-        # get timings
-        stimulus_application_begin = pd.to_datetime(ts, format="%Y-%m-%d %H:%M:%S")
-        stimulus_application_end = stimulus_application_begin + timedelta(minutes=10)  # 10 min stimulus
 
-        # load data
-        path = os.path.join(DIR, f"experiment_{i}.csv")
-        df = pd.read_csv(path, index_col=["timestamp"], date_format="%Y-%m-%d %H:%M:%S.%f")
+df["O3_interpolated"] = df["O3"].interpolate(method="linear")
 
-        # get ozone
-        df_ozone = df[["O3_1", "O3_2"]]
-        df_ozone = df_ozone.dropna()
-        # cut data
-        df_ozone_app = cut_data(df_ozone, stimulus_application_begin, stimulus_application_end)
-        df_ozone_rec = exclude_data(df_ozone, stimulus_application_begin, stimulus_application_end)
 
-        # print(f"ozone: {df_ozone_app.head()}")
-        # print(f"shapes: {df_ozone.shape} = {df_ozone_app.shape} + {df_ozone_rec.shape}")
-        # plt.scatter(df_ozone_app.index, df_ozone_app["O3_1"], label="O3_1 app")
-        # plt.scatter(df_ozone_rec.index, df_ozone_rec["O3_1"], label="O3_1 rec")
-        # plt.scatter(df_ozone_app.index, df_ozone_app["O3_2"], label="O3_2 app")
-        # plt.scatter(df_ozone_rec.index, df_ozone_rec["O3_2"], label="O3_2 rec")
-        # plt.legend()
-        #
-        # plt.show()
 
-        # get ozone peak
-        ozone_peak = (df_ozone_app["O3_1"].max() + df_ozone_app["O3_2"].max()) / 2
 
-        ozone_peak_df[exp_name].iloc[i] = ozone_peak
+all_samples = df["O3_interpolated"].count()
+samples_larger_than_70 = df[df["O3_interpolated"] > 70]["O3_interpolated"].count()
+samples_larger_than_60 = df[df["O3_interpolated"] > 60]["O3_interpolated"].count()
+print(f"all samples: {all_samples}")
+print(f"Percentage of samples larger than 70: {samples_larger_than_70 / all_samples * 100}%")
+print(f"Percentage of samples larger than 60: {samples_larger_than_60 / all_samples * 100}%")
 
-print(ozone_peak_df)
-ozone_peak_df.to_csv("results/ozone_peak.csv")
+plt.figure()
+plt.hist(df["O3_interpolated"], bins=100)
+plt.axvline(70, color='r', linestyle='dashed', linewidth=1, label='70')
+plt.axvline(60, color='g', linestyle='dashed', linewidth=1, label='60')
+plt.show()
+
+print(df.head())
 
 
 

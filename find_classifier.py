@@ -45,8 +45,9 @@ if __name__ == "__main__":
     # load data
     exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"]
     sensors = ["pn1"]  # "pn1", "pn3", "mu_ch1", "mu_ch2"
+    sensors_names = "_".join(sensors)
     scoring = "accuracy"
-    X_train, y_train = load_tsfresh_feature(exp_names, sensors, split=True)  # return the pre-split training data
+    X_train, y_train = load_tsfresh_feature(exp_names, sensors_names, split=True)  # return the pre-split training data
     X_train = X_train.to_numpy()
     y_train = y_train.to_numpy().ravel()
 
@@ -58,5 +59,5 @@ if __name__ == "__main__":
     print("---------------------------------")
     print(naml.history)
 
-    naml.history.to_csv(f"results/naml_history_{scoring}_{sensors}.csv")
+    naml.history.to_csv(f"results/naml_history_{scoring}_{sensors_names}.csv")
     plot_history(naml)
