@@ -19,7 +19,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, HistGradientBoostingClassifier
 from sklearn.preprocessing._data import Normalizer
 from sklearn.feature_selection._univariate_selection import GenericUnivariateSelect
-from sklearn.feature_selection import RFECV, SequentialFeatureSelector, RFE
+from sklearn.feature_selection import RFECV, SequentialFeatureSelector, RFE, VarianceThreshold
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, roc_curve, auc, roc_auc_score
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
@@ -32,7 +32,6 @@ from utils.learner_pipeline import get_pipeline_for_features
 from utils.feature_loader import load_tsfresh_feature, load_eddy_feature
 
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
-
 
 # for interactive plots
 if platform.system() == "Darwin":
@@ -48,18 +47,23 @@ elif platform.system() == "Windows":
     pass
 
 
-def get_learning_curve(learner, X, y, seed, schedule):
+def get_learning_curve(learner, X, y, seed, schedule, scoring="roc_auc"):
     auc_train = []
     auc_val = []
     for i, a in enumerate(schedule):
         X_train, X_val, y_train, y_val = train_test_split(X, y, train_size=a, stratify=y, random_state=seed)
         l_copy = clone(learner)
         l_copy.fit(X_train, y_train.values.ravel())
-        auc_train.append(roc_auc_score(y_train, l_copy.predict_proba(X_train)[:,1]))
-        auc_val.append(roc_auc_score(y_val, l_copy.predict_proba(X_val)[:,1]))
+        if scoring == "roc_auc":
+            auc_train.append(roc_auc_score(y_train, l_copy.predict_proba(X_train)[:, 1]))
+            auc_val.append(roc_auc_score(y_val, l_copy.predict_proba(X_val)[:, 1]))
+        elif scoring == "accuracy":
+            auc_train.append(accuracy_score(y_train, l_copy.predict(X_train)))
+            auc_val.append(accuracy_score(y_val, l_copy.predict(X_val)))
     return auc_train, auc_val
 
-def get_learning_curves(learner, X, y, repeats, first_anchor=0.1, last_anchor=0.8, steps=10, filename=None):
+
+def get_learning_curves(learner, X, y, repeats, first_anchor=0.1, last_anchor=0.8, steps=10, filename=None, scoring="roc_auc"):
     schedule = np.linspace(first_anchor, last_anchor, steps)
 
     if filename is None or not os.path.isfile(filename):
@@ -81,7 +85,8 @@ def get_learning_curves(learner, X, y, repeats, first_anchor=0.1, last_anchor=0.
                          X,
                          y,
                          seed,
-                         schedule
+                         schedule,
+                         scoring
                      )
                      )
                 )
@@ -109,6 +114,7 @@ def get_learning_curves(learner, X, y, repeats, first_anchor=0.1, last_anchor=0.
 
     return lcs
 
+
 def get_score_for_features(classifier, X, y, feature_list, repeats):
     X_red = X[feature_list]
     # pl_interpretable = get_pipeline_for_features(classifier, X, y, feature_list)
@@ -121,6 +127,7 @@ def get_score_for_features(classifier, X, y, feature_list, repeats):
         l = clone(pl_interpretable).fit(X_train, y_train.values.ravel())
         results.append(scorer(l, X_val, y_val))
     return results
+
 
 def get_scores_for_feature_combinations_based_on_previous_selections(classifier, X, y, repeats_per_size, df_last_stage,
                                                                      num_combos_from_last_stage):
@@ -168,14 +175,16 @@ def get_scores_for_feature_combinations_based_on_previous_selections(classifier,
     return pd.DataFrame(rows, columns=["combo", "scores", "score_mean"]).sort_values("score_mean", ascending=False)
 
 
-def get_scores_for_feature_combinations(classifier, X, y, max_size, dir, repeats_per_size, num_combos_from_last_stage, sensors_names="pn1"):
+def get_scores_for_feature_combinations(classifier, X, y, max_size, dir, repeats_per_size, num_combos_from_last_stage,
+                                        sensors_names="pn1"):
     dfs = {}
 
     for k in range(1, max_size + 1):
 
-        path = f"{dir}results/feature_combinations/{sensors}_feature_selection_results_{k}.csv"
+        path = f"{dir}results/feature_combinations/{sensors_names}_feature_selection_results_{k}.csv"
         # path = f"{dir}results/feature_combinations/feature_selection_results_{k}.csv"
         if os.path.isfile(path):
+            print(f"Loading {path}...")
             dfs[k] = pd.read_csv(path)
             dfs[k]["combo"] = [json.loads(e.replace("'", '"')) for e in dfs[k]["combo"]]
             dfs[k]["scores"] = [json.loads(e) for e in dfs[k]["scores"]]
@@ -195,12 +204,14 @@ def get_scores_for_feature_combinations(classifier, X, y, max_size, dir, repeats
 
 
 if __name__ == '__main__':
-    ## on server
-    # dir = "/abyss/home/code/watchplant_classification/"  # "/abyss/home/code/watchplant_classification/" or "" depending on the machine
     # local machine with hard drive mounted
-    dir = "/Volumes/Data/watchplant/Results/2024_felix/"
+    if platform.system() == "Darwin":
+        dir = "/Volumes/Data/watchplant/Results/2024_felix/"
+        plotting = True
+    else:  # on server
+        dir = "/abyss/home/code/watchplant_classification/"
+        plotting = False
 
-    plotting = True
     exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"]
 
     sensors = []
@@ -221,41 +232,31 @@ if __name__ == '__main__':
     elif len(sensors) == 1 and sensors[0] == "pn3":  # based on roc auc score
         data_pre_processor = Normalizer()
         learner = ExtraTreesClassifier(bootstrap=True, criterion='entropy',
-                                              max_features=0.7074865514350775,
-                                              min_samples_leaf=2, min_samples_split=4,
-                                              n_estimators=512, warm_start=True)
-    elif len(sensors) == 2 and sensors[0] == "pn1" and sensors[1] == "pn3":  # based on accuracy?
+                                       max_features=0.7074865514350775,
+                                       min_samples_leaf=2, min_samples_split=4,
+                                       n_estimators=512, warm_start=True)
+    elif len(sensors) == 2 and sensors[0] == "pn1" and sensors[1] == "pn3":  # based on roc auc score
         # data_pre_processor = GenericUnivariateSelect(mode='fpr', param=0.3238036840257909)
-        data_pre_processor = None
-        learner = HistGradientBoostingClassifier(early_stopping=False,
-                                                        l2_regularization=0.7089955744242014,
-                                                        learning_rate=0.3800630768981142,
-                                                        max_iter=512, max_leaf_nodes=77,
-                                                        min_samples_leaf=1,
-                                                        n_iter_no_change=1,
-                                                        validation_fraction=None,
-                                                        warm_start=True)
-        # HistGradientBoostingClassifier(early_stopping=True,
-        #                                l2_regularization=5.617558408598586e-07,
-        #                                learning_rate=0.05202510577396622,
-        #                                max_iter=512,
-        #                                max_leaf_nodes=618,
-        #                                min_samples_leaf=17,
-        #                                n_iter_no_change=5,
-        #                                validation_fraction=0.029399129398777306,
-        #                                warm_start=True)
+        data_pre_processor = None  # VarianceThreshold()
+        # data_pre_processor = GenericUnivariateSelect(mode='fdr', param=0.29998771459507223)
+
+        # learner = ExtraTreesClassifier(criterion='entropy', max_features=0.32610721820585975, min_samples_leaf=13,
+        #                                min_samples_split=5, n_estimators=512, warm_start=True)
+        learner = ExtraTreesClassifier(bootstrap=True, criterion='entropy', max_features=0.1741962585712563,
+                             min_samples_leaf=8, n_estimators=512, warm_start=True)
     else:
         print("Please provide the correct sensors.")
         exit(11)
 
     # load data
-    X, y = load_tsfresh_feature(exp_names, sensors_names, split=True, dir="")  # TODO change back to dir=dir
-    max_feature_set_size = X.shape[1]
+    X, y = load_tsfresh_feature(exp_names, sensors_names, split=True, dir=dir)
+    X.dropna(axis=1, how='all', inplace=True)  # remove all nan value features (if any)
     if len(sensors) == 2:  # remove constant features for pn1 and pn3
         constant_columns = [col for col in X.columns if X[col].nunique() == 1]
         X.drop(columns=constant_columns, inplace=True)
         print(f"Removing constant features (in total {len(constant_columns)} feature(s)).")
         print(f"New shape: {X.shape}.")
+    max_feature_set_size = X.shape[1]
 
     pl_interpretable = get_pipeline_for_features(learner, data_pre_processor, X, y, list(X.columns))
 
@@ -266,9 +267,10 @@ if __name__ == '__main__':
         max_feature_set_size,
         dir,
         repeats_per_size={i: 100 for i in range(1, max_feature_set_size + 1)},
-        # num_combos_from_last_stage={i: 10 if i < 40 else (5 if i < 100 else 3) for i in range(2, max_feature_set_size + 1)},
-        num_combos_from_last_stage={i: 1 if i < 40 else (1 if i < 100 else 1) for i in
-                                    range(2, max_feature_set_size + 1)},
+        # repeats_per_size={i: 10 for i in range(1, max_feature_set_size + 1)},
+        num_combos_from_last_stage={i: 10 if i < 40 else (5 if i < 100 else 3) for i in range(2, max_feature_set_size + 1)},
+        # num_combos_from_last_stage={i: 1 if i < 40 else (1 if i < 100 else 1) for i in
+        #                             range(2, max_feature_set_size + 1)},
         sensors_names=sensors_names
     )
 
@@ -282,29 +284,28 @@ if __name__ == '__main__':
         print(k, np.mean(best_scores_per_k[-1]), np.std(best_scores_per_k[-1]))
 
     # plot best combos
-    # if plotting:
-    #     fig, ax = plt.subplots(figsize=(10, 3))
-    #     mu = np.array([np.mean(v) for v in best_scores_per_k])
-    #     std = np.array([np.std(v) for v in best_scores_per_k])
-    #     print(std)
-    #     ax.plot(k_s, mu)
-    #     ax.fill_between(k_s, mu - std, mu + std, alpha=0.2)
-    #     for k, combo, score in zip(k_s, best_combos_per_k, mu):
-    #         print("Chosen feature combinations for", k, score, str(combo))  # , rotation=90)
-    #     ax.set_xlabel("Number of Features")
-    #     ax.set_ylabel("AUC ROC")
-    #     # ax.set_ylim([0.6, 0.8])
-    #     ax.axhline(max(mu), color="black", linestyle="--")
-    #     print(f"Best score {max(mu)} at {k_s[np.argmax(mu)]} features.")
-    #     plt.show()
-
+    if plotting:
+        fig, ax = plt.subplots(figsize=(10, 3))
+        mu = np.array([np.mean(v) for v in best_scores_per_k])
+        std = np.array([np.std(v) for v in best_scores_per_k])
+        print(std)
+        ax.plot(k_s, mu)
+        ax.fill_between(k_s, mu - std, mu + std, alpha=0.2)
+        for k, combo, score in zip(k_s, best_combos_per_k, mu):
+            print("Chosen feature combinations for", k, score, str(combo))  # , rotation=90)
+        ax.set_xlabel("Number of Features")
+        ax.set_ylabel("AUC ROC")
+        # ax.set_ylim([0.6, 0.8])
+        ax.axhline(max(mu), color="black", linestyle="--")
+        print(f"Best score {max(mu)} at {k_s[np.argmax(mu)]} features.")
+        plt.show()
 
     ks_for_lcs = range(1, max_feature_set_size + 1)
     # ks_for_lcs = range(1, 300)
 
     lcs = {}  # learning classifier system for each k
     for k in ks_for_lcs:
-        combo = best_combos_per_k[k-1]
+        combo = best_combos_per_k[k - 1]
         lc_file = f"{dir}results/lcs/{sensors_names}_lcs_{k}.csv"
         # lc_file = f"{dir}results/lcs/lcs_{k}.csv"
         print(f"Get curves for {k} features with combo {combo}.")
@@ -316,23 +317,23 @@ if __name__ == '__main__':
             first_anchor=0.05,
             last_anchor=0.9,
             steps=10,
-            filename=lc_file
+            filename=lc_file,
+            scoring="roc_auc"
         )
     # plot learning curves
     if plotting:
         fig, ax = plt.subplots(figsize=(16, 6))
         # ax.plot(schedule, lc[0].mean(axis=1), label="train AUC")
-        for k in [1, 62, 787]:  # , 4, 8, 16]:
+        for k in [1, 5, 10]:  # , 4, 8, 16]:
             schedule, lc = [float(v) for v in lcs[k].columns], lcs[k].values
             mu = lc.mean(axis=0)
             std = lc.std(axis=0)
             ax.plot(schedule, mu, label=f"{k} features")
             ax.fill_between(schedule, mu - std, mu + std, alpha=0.3)
-        ax.set_title(f"Learning Curves for Validation AUCROC")
+        ax.set_title(f"Learning Curves for Validation ROC AUC")
         ax.legend()
         ax.set_xlim([0, 1.6])
         # ax.set_ylim([0.45,0.8])
         ax.axhline(0.725, color="blue", linestyle="--")
         ax.axhline(0.5, color="red", linestyle="--")
         plt.show()
-

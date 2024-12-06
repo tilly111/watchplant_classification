@@ -44,10 +44,17 @@ if __name__ == "__main__":
 
     # load data
     exp_names = ["Exp44_Ivy2", "Exp45_Ivy4", "Exp46_Ivy0", "Exp47_Ivy5"]
-    sensors = ["pn1"]  # "pn1", "pn3", "mu_ch1", "mu_ch2"
+    sensors = ["pn1", "pn3"]  # "pn1", "pn3", "mu_ch1", "mu_ch2", "bnb_no_wind" (for bnb paper)
     sensors_names = "_".join(sensors)
-    scoring = "accuracy"
+    scoring = "roc_auc"  # "roc_auc", "accuracy"
     X_train, y_train = load_tsfresh_feature(exp_names, sensors_names, split=True)  # return the pre-split training data
+    X_train.dropna(axis=1, how='all', inplace=True)  # remove all nan value features (if any)
+    if len(sensors) == 2:  # remove constant features for pn1 and pn3
+        constant_columns = [col for col in X_train.columns if X_train[col].nunique() == 1]
+        X_train.drop(columns=constant_columns, inplace=True)
+        print(f"Removing constant features (in total {len(constant_columns)} feature(s)).")
+        print(f"New shape: {X_train.shape}.")
+
     X_train = X_train.to_numpy()
     y_train = y_train.to_numpy().ravel()
 
@@ -59,5 +66,5 @@ if __name__ == "__main__":
     print("---------------------------------")
     print(naml.history)
 
-    naml.history.to_csv(f"results/naml_history_{scoring}_{sensors_names}.csv")
+    naml.history.to_csv(f"results/naml_history_{scoring}_{sensors_names}_new2.csv")
     plot_history(naml)
