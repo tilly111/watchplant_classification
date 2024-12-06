@@ -1,0 +1,417 @@
+,time,runtime,pipeline,default_hp,accuracy,new_best,evaluation_report,status,exception,data-pre-processor_class,data-pre-processor_hps,feature-pre-processor_class,feature-pre-processor_hps,learner_class,learner_hps
+0,1720630193.2748976,0.1799027919769287,"Pipeline(steps=[('learner', ExtraTreesClassifier())])",True,0.59,True,"{'accuracy': [0.55, 0.6, 0.65, 0.6, 0.55]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,
+1,1720630193.5870473,0.3113276958465576,"Pipeline(steps=[('learner', RandomForestClassifier())])",True,0.61,True,"{'accuracy': [0.5, 0.65, 0.65, 0.55, 0.7]}",ok,,,,,,sklearn.ensemble._forest.RandomForestClassifier,
+2,1720630193.9407218,0.3524777889251709,"Pipeline(steps=[('learner', HistGradientBoostingClassifier())])",True,0.65,True,"{'accuracy': [0.5, 0.75, 0.6, 0.75, 0.65]}",ok,,,,,,sklearn.ensemble.HistGradientBoostingClassifier,
+3,1720630193.949206,0.007929086685180664,"Pipeline(steps=[('learner', BernoulliNB())])",True,0.64,False,"{'accuracy': [0.6, 0.6, 0.7, 0.75, 0.55]}",ok,,,,,,sklearn.naive_bayes.BernoulliNB,
+4,1720630193.9973125,0.04756355285644531,"Pipeline(steps=[('learner', DecisionTreeClassifier())])",True,0.67,True,"{'accuracy': [0.9, 0.5, 0.7, 0.65, 0.6]}",ok,,,,,,sklearn.tree._classes.DecisionTreeClassifier,
+5,1720630194.0027628,0.005120277404785156,"Pipeline(steps=[('learner', GaussianNB())])",True,0.45,False,"{'accuracy': [0.4, 0.45, 0.35, 0.55, 0.5]}",ok,,,,,,sklearn.naive_bayes.GaussianNB,
+6,1720630194.0203655,0.01725602149963379,"Pipeline(steps=[('learner', KNeighborsClassifier())])",True,0.69,True,"{'accuracy': [0.65, 0.8, 0.7, 0.6, 0.7]}",ok,,,,,,sklearn.neighbors._classification.KNeighborsClassifier,
+7,1720630194.5069697,0.48601651191711426,"Pipeline(steps=[('learner', LinearDiscriminantAnalysis())])",True,0.58,False,"{'accuracy': [0.75, 0.5, 0.45, 0.7, 0.5]}",ok,,,,,,sklearn.discriminant_analysis.LinearDiscriminantAnalysis,
+8,1720630194.608109,0.1006312370300293,"Pipeline(steps=[('learner', QuadraticDiscriminantAnalysis())])",True,0.45,False,"{'accuracy': [0.4, 0.45, 0.5, 0.45, 0.45]}",ok,,,,,,sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis,
+9,1720630194.9652693,0.35590028762817383,"Pipeline(steps=[('learner', SVC(kernel='linear'))])",True,0.5,False,"{'accuracy': [0.6, 0.4, 0.55, 0.45, 0.5]}",ok,,,,,,sklearn.svm._classes.SVC,
+10,1720630194.9870567,0.020605802536010742,"Pipeline(steps=[('learner', SVC())])",True,0.54,False,"{'accuracy': [0.4, 0.7, 0.5, 0.55, 0.55]}",ok,,,,,,sklearn.svm._classes.SVC,
+11,1720630195.0079057,0.01960468292236328,"Pipeline(steps=[('learner', SVC(kernel='poly'))])",True,0.47,False,"{'accuracy': [0.5, 0.4, 0.5, 0.45, 0.5]}",ok,,,,,,sklearn.svm._classes.SVC,
+12,1720630195.0287378,0.019613027572631836,"Pipeline(steps=[('learner', SVC(kernel='sigmoid'))])",True,0.6,False,"{'accuracy': [0.55, 0.75, 0.7, 0.55, 0.45]}",ok,,,,,,sklearn.svm._classes.SVC,
+13,1720630195.363019,0.3317108154296875,"Pipeline(steps=[('learner', MLPClassifier())])",True,0.51,False,"{'accuracy': [0.5, 0.35, 0.55, 0.55, 0.6]}",ok,,,,,,sklearn.neural_network._multilayer_perceptron.MLPClassifier,
+14,1720630195.366505,0.002627134323120117,"Pipeline(steps=[('learner', MultinomialNB())])",True,,False,,exception,"Traceback (most recent call last):
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/commons.py"", line 168, in evaluate
+    scores, evaluation_report = self.evaluation_fun(pl, self.X, self.y, [self.scoring] + self.side_scores)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 95, in __call__
+    scores = self.evaluate_splits(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 121, in evaluate_splits
+    split_results = self.evaluate_split(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 142, in evaluate_split
+    pl_copy.fit(X_train, y_train)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/base.py"", line 1351, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/pipeline.py"", line 475, in fit
+    self._final_estimator.fit(Xt, y, **last_step_params[""fit""])
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/base.py"", line 1351, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/naive_bayes.py"", line 759, in fit
+    self._count(X, Y)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/naive_bayes.py"", line 881, in _count
+    check_non_negative(X, ""MultinomialNB (input X)"")
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/utils/validation.py"", line 1572, in check_non_negative
+    raise ValueError(""Negative values in data passed to %s"" % whom)
+ValueError: Negative values in data passed to MultinomialNB (input X)
+",,,,,sklearn.naive_bayes.MultinomialNB,
+15,1720630195.5617652,0.1948399543762207,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier())])",True,0.72,True,"{'accuracy': [0.65, 0.65, 0.8, 0.8, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,
+16,1720630195.576663,0.013694286346435547,"Pipeline(steps=[('data-pre-processor', Normalizer()),
+                ('learner', KNeighborsClassifier())])",True,0.64,False,"{'accuracy': [0.7, 0.5, 0.65, 0.55, 0.8]}",ok,,sklearn.preprocessing._data.Normalizer,,,,sklearn.neighbors._classification.KNeighborsClassifier,
+17,1720630197.114438,1.5373790264129639,"Pipeline(steps=[('data-pre-processor', PowerTransformer()),
+                ('learner', KNeighborsClassifier())])",True,0.68,False,"{'accuracy': [0.55, 0.8, 0.8, 0.65, 0.6]}",ok,,sklearn.preprocessing._data.PowerTransformer,,,,sklearn.neighbors._classification.KNeighborsClassifier,
+18,1720630197.3594034,0.24447989463806152,"Pipeline(steps=[('data-pre-processor', QuantileTransformer()),
+                ('learner', KNeighborsClassifier())])",True,0.64,False,"{'accuracy': [0.7, 0.55, 0.6, 0.75, 0.6]}",ok,,sklearn.preprocessing._data.QuantileTransformer,,,,sklearn.neighbors._classification.KNeighborsClassifier,
+19,1720630197.4789515,0.11903905868530273,"Pipeline(steps=[('data-pre-processor', RobustScaler()),
+                ('learner', KNeighborsClassifier())])",True,0.65,False,"{'accuracy': [0.75, 0.65, 0.7, 0.6, 0.55]}",ok,,sklearn.preprocessing._data.RobustScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,
+20,1720630197.4872394,0.007941961288452148,"Pipeline(steps=[('data-pre-processor', StandardScaler()),
+                ('learner', KNeighborsClassifier())])",True,0.6,False,"{'accuracy': [0.65, 0.6, 0.55, 0.55, 0.65]}",ok,,sklearn.preprocessing._data.StandardScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,
+21,1720630197.4978514,0.010365962982177734,"Pipeline(steps=[('data-pre-processor', VarianceThreshold()),
+                ('learner', KNeighborsClassifier())])",True,0.7,False,"{'accuracy': [0.4, 0.75, 0.8, 0.8, 0.75]}",ok,,sklearn.feature_selection._variance_threshold.VarianceThreshold,,,,sklearn.neighbors._classification.KNeighborsClassifier,
+22,1720630203.3804104,5.882026672363281,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('feature-pre-processor', FastICA()),
+                ('learner', KNeighborsClassifier())])",True,0.43,False,"{'accuracy': [0.5, 0.35, 0.45, 0.4, 0.45]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,sklearn.decomposition._fastica.FastICA,,sklearn.neighbors._classification.KNeighborsClassifier,
+23,1720630203.4557028,0.07462739944458008,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('feature-pre-processor', FeatureAgglomeration()),
+                ('learner', KNeighborsClassifier())])",True,0.7,False,"{'accuracy': [0.7, 0.75, 0.8, 0.75, 0.5]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,sklearn.cluster._agglomerative.FeatureAgglomeration,,sklearn.neighbors._classification.KNeighborsClassifier,
+24,1720630203.4581003,0.0014178752899169922,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('feature-pre-processor', KernelPCA()),
+                ('learner', KNeighborsClassifier())])",True,,False,,avoided,,sklearn.preprocessing._data.MinMaxScaler,,sklearn.decomposition._kernel_pca.KernelPCA,,sklearn.neighbors._classification.KNeighborsClassifier,
+25,1720630203.4596572,0.0010933876037597656,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('feature-pre-processor', RBFSampler()),
+                ('learner', KNeighborsClassifier())])",True,,False,,avoided,,sklearn.preprocessing._data.MinMaxScaler,,sklearn.kernel_approximation.RBFSampler,,sklearn.neighbors._classification.KNeighborsClassifier,
+26,1720630203.4614275,0.0011372566223144531,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('feature-pre-processor', Nystroem()),
+                ('learner', KNeighborsClassifier())])",True,,False,,avoided,,sklearn.preprocessing._data.MinMaxScaler,,sklearn.kernel_approximation.Nystroem,,sklearn.neighbors._classification.KNeighborsClassifier,
+27,1720630206.6241775,3.1623480319976807,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('feature-pre-processor', PCA()),
+                ('learner', KNeighborsClassifier())])",True,0.67,False,"{'accuracy': [0.8, 0.7, 0.65, 0.6, 0.6]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,sklearn.decomposition._pca.PCA,,sklearn.neighbors._classification.KNeighborsClassifier,
+28,1720630511.699148,305.073903799057,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('feature-pre-processor', PolynomialFeatures()),
+                ('learner', KNeighborsClassifier())])",True,,False,,timeout,,sklearn.preprocessing._data.MinMaxScaler,,sklearn.preprocessing._polynomial.PolynomialFeatures,,sklearn.neighbors._classification.KNeighborsClassifier,
+29,1720630511.8144906,0.11266946792602539,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('feature-pre-processor', SelectPercentile()),
+                ('learner', KNeighborsClassifier())])",True,0.67,False,"{'accuracy': [0.75, 0.65, 0.65, 0.65, 0.65]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,sklearn.feature_selection._univariate_selection.SelectPercentile,,sklearn.neighbors._classification.KNeighborsClassifier,
+30,1720630511.8185527,0.0034813880920410156,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('feature-pre-processor', GenericUnivariateSelect()),
+                ('learner', KNeighborsClassifier())])",True,,False,,exception,"Traceback (most recent call last):
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/commons.py"", line 168, in evaluate
+    scores, evaluation_report = self.evaluation_fun(pl, self.X, self.y, [self.scoring] + self.side_scores)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 95, in __call__
+    scores = self.evaluate_splits(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 121, in evaluate_splits
+    split_results = self.evaluate_split(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 142, in evaluate_split
+    pl_copy.fit(X_train, y_train)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/base.py"", line 1351, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/pipeline.py"", line 475, in fit
+    self._final_estimator.fit(Xt, y, **last_step_params[""fit""])
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/base.py"", line 1351, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/neighbors/_classification.py"", line 238, in fit
+    return self._fit(X, y)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/neighbors/_base.py"", line 476, in _fit
+    X, y = self._validate_data(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/base.py"", line 650, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/utils/validation.py"", line 1192, in check_X_y
+    X = check_array(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/utils/validation.py"", line 1035, in check_array
+    raise ValueError(
+ValueError: Found array with 0 feature(s) (shape=(77, 0)) while a minimum of 1 is required by KNeighborsClassifier.
+",sklearn.preprocessing._data.MinMaxScaler,,sklearn.feature_selection._univariate_selection.GenericUnivariateSelect,,sklearn.neighbors._classification.KNeighborsClassifier,
+31,1720630511.821235,0.010551214218139648,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=1, weights='distance'))])",False,0.46,True,"{'accuracy': [0.5, 0.35, 0.45, 0.45, 0.55]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'distance'}"
+32,1720630511.8328657,0.008753061294555664,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=3, weights='distance'))])",False,0.58,True,"{'accuracy': [0.65, 0.5, 0.55, 0.65, 0.55]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 3, 'p': 2, 'weights': 'distance'}"
+33,1720630511.8427875,0.007714748382568359,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=37))])",False,0.61,True,"{'accuracy': [0.6, 0.6, 0.75, 0.6, 0.5]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 37, 'p': 2, 'weights': 'uniform'}"
+34,1720630511.8516462,0.008916378021240234,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=4, p=1))])",False,0.63,True,"{'accuracy': [0.65, 0.65, 0.6, 0.55, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 4, 'p': 1, 'weights': 'uniform'}"
+35,1720630511.8616343,0.010144948959350586,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=19, weights='distance'))])",False,0.75,True,"{'accuracy': [0.7, 0.8, 0.75, 0.7, 0.8]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 19, 'p': 2, 'weights': 'distance'}"
+36,1720630511.8728502,0.00798177719116211,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=65))])",False,0.61,True,"{'accuracy': [0.8, 0.6, 0.5, 0.6, 0.55]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 65, 'p': 2, 'weights': 'uniform'}"
+37,1720630511.8818579,0.008907079696655273,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1, p=1))])",False,0.56,True,"{'accuracy': [0.5, 0.55, 0.45, 0.65, 0.65]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 1, 'weights': 'uniform'}"
+38,1720630511.8918083,0.007356882095336914,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1))])",False,0.55,True,"{'accuracy': [0.6, 0.5, 0.55, 0.55, 0.55]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'uniform'}"
+39,1720630511.9002256,0.0012230873107910156,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1, p=1))])",False,0.56,True,"{'accuracy': [0.5, 0.55, 0.45, 0.65, 0.65]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 1, 'weights': 'uniform'}"
+40,1720630511.9025578,0.01251530647277832,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=68, p=1,
+                                      weights='distance'))])",False,0.6,True,"{'accuracy': [0.55, 0.55, 0.6, 0.55, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 68, 'p': 1, 'weights': 'distance'}"
+41,1720630511.916131,0.010368108749389648,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=1, p=1, weights='distance'))])",False,0.6,True,"{'accuracy': [0.55, 0.55, 0.5, 0.85, 0.55]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 1, 'weights': 'distance'}"
+42,1720630511.927607,0.009962320327758789,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=4, p=1, weights='distance'))])",False,0.66,True,"{'accuracy': [0.8, 0.65, 0.65, 0.6, 0.6]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 4, 'p': 1, 'weights': 'distance'}"
+43,1720630511.9386482,0.001071929931640625,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=1, weights='distance'))])",False,0.46,True,"{'accuracy': [0.5, 0.35, 0.45, 0.45, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'distance'}"
+44,1720630511.9407458,0.0011529922485351562,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=4, p=1, weights='distance'))])",False,0.66,True,"{'accuracy': [0.8, 0.65, 0.65, 0.6, 0.6]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 4, 'p': 1, 'weights': 'distance'}"
+45,1720630511.9429462,0.007470369338989258,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=18))])",False,0.75,True,"{'accuracy': [0.7, 0.7, 0.9, 0.55, 0.9]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 18, 'p': 2, 'weights': 'uniform'}"
+46,1720630511.951455,0.0008752346038818359,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1))])",False,0.55,True,"{'accuracy': [0.6, 0.5, 0.55, 0.55, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'uniform'}"
+47,1720630511.9533484,0.010333538055419922,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=3, p=1, weights='distance'))])",False,0.66,True,"{'accuracy': [0.65, 0.55, 0.65, 0.55, 0.9]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 3, 'p': 1, 'weights': 'distance'}"
+48,1720630511.9647193,0.008355855941772461,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=44, weights='distance'))])",False,0.71,True,"{'accuracy': [0.7, 0.7, 0.6, 0.7, 0.85]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 44, 'p': 2, 'weights': 'distance'}"
+49,1720630511.9741106,0.00092315673828125,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1, p=1))])",False,0.56,True,"{'accuracy': [0.5, 0.55, 0.45, 0.65, 0.65]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 1, 'weights': 'uniform'}"
+50,1720630511.9760602,0.0009317398071289062,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1, p=1))])",False,0.56,True,"{'accuracy': [0.5, 0.55, 0.45, 0.65, 0.65]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 1, 'weights': 'uniform'}"
+51,1720630511.9780169,0.008003950119018555,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=2, weights='distance'))])",False,0.55,True,"{'accuracy': [0.45, 0.6, 0.75, 0.65, 0.3]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 2, 'p': 2, 'weights': 'distance'}"
+52,1720630511.987065,0.010186433792114258,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=18, p=1,
+                                      weights='distance'))])",False,0.72,True,"{'accuracy': [0.8, 1.0, 0.65, 0.55, 0.6]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 18, 'p': 1, 'weights': 'distance'}"
+53,1720630511.998281,0.007387638092041016,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=13))])",False,0.71,True,"{'accuracy': [0.65, 0.8, 0.8, 0.6, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 13, 'p': 2, 'weights': 'uniform'}"
+54,1720630512.0066986,0.0011627674102783203,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=3, p=1, weights='distance'))])",False,0.66,True,"{'accuracy': [0.65, 0.55, 0.65, 0.55, 0.9]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 3, 'p': 1, 'weights': 'distance'}"
+55,1720630512.0090375,0.009113073348999023,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=2, p=1))])",False,0.62,True,"{'accuracy': [0.5, 0.7, 0.55, 0.65, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 2, 'p': 1, 'weights': 'uniform'}"
+56,1720630512.019208,0.0008907318115234375,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1))])",False,0.55,True,"{'accuracy': [0.6, 0.5, 0.55, 0.55, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'uniform'}"
+57,1720630512.0211418,0.008809089660644531,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=36, weights='distance'))])",False,0.69,True,"{'accuracy': [0.7, 0.75, 0.65, 0.65, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 36, 'p': 2, 'weights': 'distance'}"
+58,1720630512.0310428,0.009160757064819336,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=18, p=1))])",False,0.68,True,"{'accuracy': [0.65, 0.75, 0.7, 0.6, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 18, 'p': 1, 'weights': 'uniform'}"
+59,1720630512.0412261,0.010212898254394531,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=12, weights='distance'))])",False,0.76,True,"{'accuracy': [0.7, 0.85, 0.8, 0.8, 0.65]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 12, 'p': 2, 'weights': 'distance'}"
+60,1720630512.0525157,0.0010602474212646484,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=2, weights='distance'))])",False,0.55,True,"{'accuracy': [0.45, 0.6, 0.75, 0.65, 0.3]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 2, 'p': 2, 'weights': 'distance'}"
+61,1720630512.0546207,0.010270833969116211,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=15, p=1,
+                                      weights='distance'))])",False,0.71,True,"{'accuracy': [0.7, 0.75, 0.7, 0.8, 0.6]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 15, 'p': 1, 'weights': 'distance'}"
+62,1720630512.065912,0.008984804153442383,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=3, p=1))])",False,0.72,True,"{'accuracy': [0.75, 0.7, 0.9, 0.6, 0.65]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 3, 'p': 1, 'weights': 'uniform'}"
+63,1720630512.0759566,0.0009171962738037109,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1, p=1))])",False,0.56,True,"{'accuracy': [0.5, 0.55, 0.45, 0.65, 0.65]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 1, 'weights': 'uniform'}"
+64,1720630512.0779645,0.00781559944152832,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=8))])",False,0.75,True,"{'accuracy': [0.65, 0.75, 0.9, 0.7, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 8, 'p': 2, 'weights': 'uniform'}"
+65,1720630512.087478,0.02283000946044922,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=25, p=1,
+                                      weights='distance'))])",False,0.75,True,"{'accuracy': [0.7, 0.7, 0.65, 0.85, 0.85]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 25, 'p': 1, 'weights': 'distance'}"
+66,1720630512.1125789,0.0018794536590576172,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=1, weights='distance'))])",False,0.46,True,"{'accuracy': [0.5, 0.35, 0.45, 0.45, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'distance'}"
+67,1720630512.1163113,0.012630462646484375,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=100, p=1,
+                                      weights='distance'))])",False,0.72,True,"{'accuracy': [0.65, 0.65, 0.8, 0.8, 0.7]}",exception,"Traceback (most recent call last):
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/commons.py"", line 168, in evaluate
+    scores, evaluation_report = self.evaluation_fun(pl, self.X, self.y, [self.scoring] + self.side_scores)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 95, in __call__
+    scores = self.evaluate_splits(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 121, in evaluate_splits
+    split_results = self.evaluate_split(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 169, in evaluate_split
+    out[scoring[""name""]] = scorer(pl_copy, X_test, y_test)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/metrics/_scorer.py"", line 253, in __call__
+    return self._score(partial(_cached_call, None), estimator, X, y_true, **_kwargs)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/metrics/_scorer.py"", line 345, in _score
+    y_pred = method_caller(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/metrics/_scorer.py"", line 87, in _cached_call
+    result, _ = _get_response_values(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/utils/_response.py"", line 210, in _get_response_values
+    y_pred = prediction_method(X)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/pipeline.py"", line 603, in predict
+    return self.steps[-1][1].predict(Xt, **params)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/neighbors/_classification.py"", line 274, in predict
+    neigh_dist, neigh_ind = self.kneighbors(X)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/neighbors/_base.py"", line 835, in kneighbors
+    raise ValueError(
+ValueError: Expected n_neighbors <= n_samples_fit, but n_neighbors = 100, n_samples_fit = 77, n_samples = 20
+",sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 100, 'p': 1, 'weights': 'distance'}"
+68,1720630512.1300638,0.010099172592163086,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=21, weights='distance'))])",False,0.66,True,"{'accuracy': [0.7, 0.75, 0.55, 0.65, 0.65]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 21, 'p': 2, 'weights': 'distance'}"
+69,1720630512.1415372,0.009506464004516602,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=54))])",False,0.53,True,"{'accuracy': [0.45, 0.7, 0.55, 0.45, 0.5]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 54, 'p': 2, 'weights': 'uniform'}"
+70,1720630512.154006,0.010813474655151367,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=6, weights='distance'))])",False,0.67,True,"{'accuracy': [0.7, 0.7, 0.5, 0.75, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 6, 'p': 2, 'weights': 'distance'}"
+71,1720630512.1667297,0.011661767959594727,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=56, weights='distance'))])",False,0.73,True,"{'accuracy': [0.75, 0.6, 0.8, 0.75, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 56, 'p': 2, 'weights': 'distance'}"
+72,1720630512.180249,0.010872840881347656,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=7, p=1))])",False,0.73,True,"{'accuracy': [0.85, 0.75, 0.65, 0.7, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 7, 'p': 1, 'weights': 'uniform'}"
+73,1720630512.192636,0.00982213020324707,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=76))])",False,0.5,True,"{'accuracy': [0.5, 0.5, 0.5, 0.5, 0.5]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 76, 'p': 2, 'weights': 'uniform'}"
+74,1720630512.2043948,0.0011930465698242188,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1))])",False,0.55,True,"{'accuracy': [0.6, 0.5, 0.55, 0.55, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'uniform'}"
+75,1720630512.2068946,0.008917093276977539,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=21))])",False,0.7,True,"{'accuracy': [0.6, 0.65, 0.65, 0.75, 0.85]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 21, 'p': 2, 'weights': 'uniform'}"
+76,1720630512.2180083,0.010923385620117188,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=29, weights='distance'))])",False,0.71,True,"{'accuracy': [0.6, 0.75, 0.7, 0.75, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 29, 'p': 2, 'weights': 'distance'}"
+77,1720630512.2310581,0.010170698165893555,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=6, p=1))])",False,0.65,True,"{'accuracy': [0.5, 0.55, 0.75, 0.75, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 6, 'p': 1, 'weights': 'uniform'}"
+78,1720630512.24261,0.009843587875366211,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=11, weights='distance'))])",False,0.77,True,"{'accuracy': [0.8, 0.75, 0.7, 0.75, 0.85]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 11, 'p': 2, 'weights': 'distance'}"
+79,1720630512.2538736,0.0011739730834960938,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=36, weights='distance'))])",False,0.69,True,"{'accuracy': [0.7, 0.75, 0.65, 0.65, 0.7]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 36, 'p': 2, 'weights': 'distance'}"
+80,1720630512.2563071,0.01238107681274414,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=24, p=1,
+                                      weights='distance'))])",False,0.7,True,"{'accuracy': [0.75, 0.65, 0.55, 0.8, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 24, 'p': 1, 'weights': 'distance'}"
+81,1720630512.269804,0.007309436798095703,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=4))])",False,0.69,True,"{'accuracy': [0.75, 0.65, 0.65, 0.75, 0.65]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 4, 'p': 2, 'weights': 'uniform'}"
+82,1720630512.278168,0.009635686874389648,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(p=1, weights='distance'))])",False,0.7,True,"{'accuracy': [0.7, 0.75, 0.75, 0.55, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 5, 'p': 1, 'weights': 'distance'}"
+83,1720630512.2888472,0.00735163688659668,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=12))])",False,0.7,True,"{'accuracy': [0.65, 0.8, 0.6, 0.7, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 12, 'p': 2, 'weights': 'uniform'}"
+84,1720630512.2972891,0.010565042495727539,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=50, p=1,
+                                      weights='distance'))])",False,0.69,True,"{'accuracy': [0.7, 0.75, 0.6, 0.7, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 50, 'p': 1, 'weights': 'distance'}"
+85,1720630512.3088944,0.00091552734375,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1, p=1))])",False,0.56,True,"{'accuracy': [0.5, 0.55, 0.45, 0.65, 0.65]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 1, 'weights': 'uniform'}"
+86,1720630512.3108618,0.008314132690429688,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=27, weights='distance'))])",False,0.78,True,"{'accuracy': [0.85, 0.85, 0.75, 0.8, 0.65]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 27, 'p': 2, 'weights': 'distance'}"
+87,1720630512.3202658,0.00900721549987793,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=44, p=1))])",False,0.53,True,"{'accuracy': [0.55, 0.6, 0.45, 0.55, 0.5]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 44, 'p': 1, 'weights': 'uniform'}"
+88,1720630512.3303604,0.0012073516845703125,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=1, p=1, weights='distance'))])",False,0.6,True,"{'accuracy': [0.55, 0.55, 0.5, 0.85, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 1, 'weights': 'distance'}"
+89,1720630512.3326972,0.008765459060668945,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=59))])",False,0.59,True,"{'accuracy': [0.65, 0.6, 0.45, 0.65, 0.6]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 59, 'p': 2, 'weights': 'uniform'}"
+90,1720630512.3428762,0.010747432708740234,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=17, weights='distance'))])",False,0.74,True,"{'accuracy': [0.85, 0.75, 0.7, 0.7, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 17, 'p': 2, 'weights': 'distance'}"
+91,1720630512.3550482,0.014790058135986328,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=2, p=1, weights='distance'))])",False,0.51,True,"{'accuracy': [0.6, 0.5, 0.45, 0.55, 0.45]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 2, 'p': 1, 'weights': 'distance'}"
+92,1720630512.3712835,0.012865304946899414,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=7, p=1, weights='distance'))])",False,0.7,True,"{'accuracy': [0.7, 0.75, 0.75, 0.7, 0.6]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 7, 'p': 1, 'weights': 'distance'}"
+93,1720630512.3866923,0.013004779815673828,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=29, p=1))])",False,0.65,True,"{'accuracy': [0.6, 0.5, 0.75, 0.75, 0.65]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 29, 'p': 1, 'weights': 'uniform'}"
+94,1720630512.4012003,0.011192560195922852,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=50, weights='distance'))])",False,0.67,True,"{'accuracy': [0.7, 0.6, 0.75, 0.7, 0.6]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 50, 'p': 2, 'weights': 'distance'}"
+95,1720630512.4161232,0.011900663375854492,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=8, p=1))])",False,0.7,True,"{'accuracy': [0.7, 0.75, 0.75, 0.7, 0.6]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 8, 'p': 1, 'weights': 'uniform'}"
+96,1720630512.4296408,0.0012862682342529297,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=3, p=1, weights='distance'))])",False,0.66,True,"{'accuracy': [0.65, 0.55, 0.65, 0.55, 0.9]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 3, 'p': 1, 'weights': 'distance'}"
+97,1720630512.4322116,0.010407686233520508,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=47, weights='distance'))])",False,0.73,True,"{'accuracy': [0.7, 0.65, 0.75, 0.8, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 47, 'p': 2, 'weights': 'distance'}"
+98,1720630512.4441936,0.009588241577148438,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=68, p=1))])",False,0.56,True,"{'accuracy': [0.6, 0.7, 0.5, 0.5, 0.5]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 68, 'p': 1, 'weights': 'uniform'}"
+99,1720630512.4550056,0.0009622573852539062,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1))])",False,0.55,True,"{'accuracy': [0.6, 0.5, 0.55, 0.55, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'uniform'}"
+100,1720630512.457109,0.0009405612945556641,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1, p=1))])",False,0.56,True,"{'accuracy': [0.5, 0.55, 0.45, 0.65, 0.65]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 1, 'weights': 'uniform'}"
+101,1720630512.45909,0.00867152214050293,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=48, weights='distance'))])",False,0.7,True,"{'accuracy': [0.65, 0.7, 0.65, 0.75, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 48, 'p': 2, 'weights': 'distance'}"
+102,1720630512.4688578,0.008912324905395508,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=80, p=1))])",False,0.5,True,"{'accuracy': [0.5, 0.5, 0.5, 0.5, 0.5]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 80, 'p': 1, 'weights': 'uniform'}"
+103,1720630512.4788017,0.009033918380737305,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=10, p=1))])",False,0.65,True,"{'accuracy': [0.75, 0.55, 0.55, 0.65, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 10, 'p': 1, 'weights': 'uniform'}"
+104,1720630512.4888759,0.0010631084442138672,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=6, weights='distance'))])",False,0.67,True,"{'accuracy': [0.7, 0.7, 0.5, 0.75, 0.7]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 6, 'p': 2, 'weights': 'distance'}"
+105,1720630512.4909568,0.0009067058563232422,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=3, p=1))])",False,0.72,True,"{'accuracy': [0.75, 0.7, 0.9, 0.6, 0.65]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 3, 'p': 1, 'weights': 'uniform'}"
+106,1720630512.492881,0.0010538101196289062,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=1, weights='distance'))])",False,0.46,True,"{'accuracy': [0.5, 0.35, 0.45, 0.45, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'distance'}"
+107,1720630512.4949596,0.0010509490966796875,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=1, weights='distance'))])",False,0.46,True,"{'accuracy': [0.5, 0.35, 0.45, 0.45, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'distance'}"
+108,1720630512.49702,0.01045989990234375,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=6, p=1, weights='distance'))])",False,0.68,True,"{'accuracy': [0.65, 0.65, 0.7, 0.65, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 6, 'p': 1, 'weights': 'distance'}"
+109,1720630512.508505,0.0008997917175292969,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1))])",False,0.55,True,"{'accuracy': [0.6, 0.5, 0.55, 0.55, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'uniform'}"
+110,1720630512.5104134,0.002368927001953125,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=98))])",False,0.72,True,"{'accuracy': [0.65, 0.65, 0.8, 0.8, 0.7]}",exception,"Traceback (most recent call last):
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/commons.py"", line 168, in evaluate
+    scores, evaluation_report = self.evaluation_fun(pl, self.X, self.y, [self.scoring] + self.side_scores)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 95, in __call__
+    scores = self.evaluate_splits(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 121, in evaluate_splits
+    split_results = self.evaluate_split(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/naiveautoml/evaluators.py"", line 169, in evaluate_split
+    out[scoring[""name""]] = scorer(pl_copy, X_test, y_test)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/metrics/_scorer.py"", line 253, in __call__
+    return self._score(partial(_cached_call, None), estimator, X, y_true, **_kwargs)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/metrics/_scorer.py"", line 345, in _score
+    y_pred = method_caller(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/metrics/_scorer.py"", line 87, in _cached_call
+    result, _ = _get_response_values(
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/utils/_response.py"", line 210, in _get_response_values
+    y_pred = prediction_method(X)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/pipeline.py"", line 603, in predict
+    return self.steps[-1][1].predict(Xt, **params)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/neighbors/_classification.py"", line 259, in predict
+    probabilities = self.predict_proba(X)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/neighbors/_classification.py"", line 366, in predict_proba
+    neigh_ind = self.kneighbors(X, return_distance=False)
+  File ""/home/till/PycharmProjects/watchplant_classification/venv/lib/python3.10/site-packages/sklearn/neighbors/_base.py"", line 835, in kneighbors
+    raise ValueError(
+ValueError: Expected n_neighbors <= n_samples_fit, but n_neighbors = 98, n_samples_fit = 77, n_samples = 20
+",sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 98, 'p': 2, 'weights': 'uniform'}"
+111,1720630512.5138092,0.0008876323699951172,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=8))])",False,0.75,True,"{'accuracy': [0.65, 0.75, 0.9, 0.7, 0.75]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 8, 'p': 2, 'weights': 'uniform'}"
+112,1720630512.516056,0.009340524673461914,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=30, p=1))])",False,0.7,True,"{'accuracy': [0.7, 0.65, 0.75, 0.7, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 30, 'p': 1, 'weights': 'uniform'}"
+113,1720630512.5266263,0.0010840892791748047,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=3, weights='distance'))])",False,0.58,True,"{'accuracy': [0.65, 0.5, 0.55, 0.65, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 3, 'p': 2, 'weights': 'distance'}"
+114,1720630512.5288174,0.011302947998046875,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=72, weights='distance'))])",False,0.75,True,"{'accuracy': [0.8, 0.65, 0.9, 0.65, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 72, 'p': 2, 'weights': 'distance'}"
+115,1720630512.5418715,0.010476112365722656,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=4, weights='distance'))])",False,0.6,True,"{'accuracy': [0.65, 0.65, 0.45, 0.6, 0.65]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 4, 'p': 2, 'weights': 'distance'}"
+116,1720630512.5539548,0.013807058334350586,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=19, p=1,
+                                      weights='distance'))])",False,0.65,True,"{'accuracy': [0.75, 0.6, 0.7, 0.65, 0.55]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 19, 'p': 1, 'weights': 'distance'}"
+117,1720630512.5692487,0.01167440414428711,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=24))])",False,0.7,True,"{'accuracy': [0.6, 0.75, 0.75, 0.65, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 24, 'p': 2, 'weights': 'uniform'}"
+118,1720630512.5823493,0.013430356979370117,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=21, p=1,
+                                      weights='distance'))])",False,0.71,True,"{'accuracy': [0.8, 0.65, 0.7, 0.65, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 21, 'p': 1, 'weights': 'distance'}"
+119,1720630512.5972679,0.012063741683959961,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=13, weights='distance'))])",False,0.7,True,"{'accuracy': [0.65, 0.75, 0.7, 0.65, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 13, 'p': 2, 'weights': 'distance'}"
+120,1720630512.6118145,0.0017147064208984375,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=10, p=1))])",False,0.65,True,"{'accuracy': [0.75, 0.55, 0.55, 0.65, 0.75]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 10, 'p': 1, 'weights': 'uniform'}"
+121,1720630512.6154778,0.017904281616210938,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=22, weights='distance'))])",False,0.68,True,"{'accuracy': [0.8, 0.65, 0.55, 0.75, 0.65]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 22, 'p': 2, 'weights': 'distance'}"
+122,1720630512.63485,0.0010323524475097656,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=13))])",False,0.71,True,"{'accuracy': [0.65, 0.8, 0.8, 0.6, 0.7]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 13, 'p': 2, 'weights': 'uniform'}"
+123,1720630512.6371365,0.018172740936279297,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=59, p=1))])",False,0.6,True,"{'accuracy': [0.65, 0.55, 0.6, 0.5, 0.7]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 59, 'p': 1, 'weights': 'uniform'}"
+124,1720630512.6567483,0.0009717941284179688,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=4))])",False,0.69,True,"{'accuracy': [0.75, 0.65, 0.65, 0.75, 0.65]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 4, 'p': 2, 'weights': 'uniform'}"
+125,1720630512.6589513,0.00970768928527832,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=21, p=1))])",False,0.67,True,"{'accuracy': [0.65, 0.7, 0.65, 0.6, 0.75]}",ok,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 21, 'p': 1, 'weights': 'uniform'}"
+126,1720630512.6698825,0.0012836456298828125,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=100, p=1,
+                                      weights='distance'))])",False,0.72,True,"{'accuracy': [0.65, 0.65, 0.8, 0.8, 0.7]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 100, 'p': 1, 'weights': 'distance'}"
+127,1720630512.6721907,0.0012364387512207031,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=19, p=1,
+                                      weights='distance'))])",False,0.65,True,"{'accuracy': [0.75, 0.6, 0.7, 0.65, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 19, 'p': 1, 'weights': 'distance'}"
+128,1720630512.6745126,0.0009210109710693359,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1, p=1))])",False,0.56,True,"{'accuracy': [0.5, 0.55, 0.45, 0.65, 0.65]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 1, 'weights': 'uniform'}"
+129,1720630512.6764488,0.0008857250213623047,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', KNeighborsClassifier(n_neighbors=1))])",False,0.55,True,"{'accuracy': [0.6, 0.5, 0.55, 0.55, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'uniform'}"
+130,1720630512.6783578,0.0010747909545898438,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner',
+                 KNeighborsClassifier(n_neighbors=1, weights='distance'))])",False,0.46,True,"{'accuracy': [0.5, 0.35, 0.45, 0.45, 0.55]}",cache,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.neighbors._classification.KNeighborsClassifier,"{'n_neighbors': 1, 'p': 2, 'weights': 'distance'}"

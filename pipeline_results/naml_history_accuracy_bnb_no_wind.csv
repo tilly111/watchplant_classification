@@ -1,0 +1,548 @@
+,time,runtime,pipeline,default_hp,accuracy,new_best,evaluation_report,status,exception,data-pre-processor_class,data-pre-processor_hps,feature-pre-processor_class,feature-pre-processor_hps,learner_class,learner_hps
+0,1723210402.760582,0.6343851089477539,"Pipeline(steps=[('learner', ExtraTreesClassifier())])",True,0.9438,True,"{'accuracy': [0.934640522875817, 0.9607843137254902, 0.9150326797385621, 0.9477124183006536, 0.9607843137254902]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,
+1,1723210404.8715572,2.110074043273926,"Pipeline(steps=[('learner', RandomForestClassifier())])",True,0.9203,False,"{'accuracy': [0.8954248366013072, 0.9215686274509803, 0.9477124183006536, 0.9084967320261438, 0.9281045751633987]}",ok,,,,,,sklearn.ensemble._forest.RandomForestClassifier,
+2,1723210418.781278,13.908474206924438,"Pipeline(steps=[('learner', HistGradientBoostingClassifier())])",True,0.9255,False,"{'accuracy': [0.9411764705882353, 0.9281045751633987, 0.9019607843137255, 0.9084967320261438, 0.9477124183006536]}",ok,,,,,,sklearn.ensemble.HistGradientBoostingClassifier,
+3,1723210418.819354,0.03743720054626465,"Pipeline(steps=[('learner', BernoulliNB())])",True,0.8366,False,"{'accuracy': [0.803921568627451, 0.8627450980392157, 0.8300653594771242, 0.8300653594771242, 0.8562091503267973]}",ok,,,,,,sklearn.naive_bayes.BernoulliNB,
+4,1723210419.744972,0.9249799251556396,"Pipeline(steps=[('learner', DecisionTreeClassifier())])",True,0.8549,False,"{'accuracy': [0.8888888888888888, 0.8366013071895425, 0.8169934640522876, 0.8496732026143791, 0.8823529411764706]}",ok,,,,,,sklearn.tree._classes.DecisionTreeClassifier,
+5,1723210419.7674408,0.022124052047729492,"Pipeline(steps=[('learner', GaussianNB())])",True,0.6078,False,"{'accuracy': [0.6143790849673203, 0.6209150326797386, 0.5751633986928104, 0.6143790849673203, 0.6143790849673203]}",ok,,,,,,sklearn.naive_bayes.GaussianNB,
+6,1723210419.95805,0.1901102066040039,"Pipeline(steps=[('learner', KNeighborsClassifier())])",True,0.7804,False,"{'accuracy': [0.803921568627451, 0.7320261437908496, 0.7973856209150327, 0.7777777777777778, 0.7908496732026143]}",ok,,,,,,sklearn.neighbors._classification.KNeighborsClassifier,
+7,1723210423.2479842,3.28800106048584,"Pipeline(steps=[('learner', LinearDiscriminantAnalysis())])",True,0.617,False,"{'accuracy': [0.5816993464052288, 0.673202614379085, 0.6209150326797386, 0.6013071895424836, 0.6078431372549019]}",ok,,,,,,sklearn.discriminant_analysis.LinearDiscriminantAnalysis,
+8,1723210424.7787662,1.5303330421447754,"Pipeline(steps=[('learner', QuadraticDiscriminantAnalysis())])",True,0.566,False,"{'accuracy': [0.5294117647058824, 0.5620915032679739, 0.5882352941176471, 0.5620915032679739, 0.5882352941176471]}",ok,,,,,,sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis,
+9,1723210440.470471,15.69070315361023,"Pipeline(steps=[('learner', SVC(kernel='linear'))])",True,0.7869,False,"{'accuracy': [0.7516339869281046, 0.7777777777777778, 0.8235294117647058, 0.7712418300653595, 0.8104575163398693]}",ok,,,,,,sklearn.svm._classes.SVC,
+10,1723210442.3164349,1.8446710109710693,"Pipeline(steps=[('learner', SVC())])",True,0.5569,False,"{'accuracy': [0.5816993464052288, 0.5359477124183006, 0.5490196078431373, 0.5751633986928104, 0.5424836601307189]}",ok,,,,,,sklearn.svm._classes.SVC,
+11,1723210444.2346199,1.9166967868804932,"Pipeline(steps=[('learner', SVC(kernel='poly'))])",True,0.5111,False,"{'accuracy': [0.5163398692810458, 0.5032679738562091, 0.5163398692810458, 0.5098039215686274, 0.5098039215686274]}",ok,,,,,,sklearn.svm._classes.SVC,
+12,1723210445.8746848,1.6386001110076904,"Pipeline(steps=[('learner', SVC(kernel='sigmoid'))])",True,0.5451,False,"{'accuracy': [0.5490196078431373, 0.5620915032679739, 0.49019607843137253, 0.5490196078431373, 0.5751633986928104]}",ok,,,,,,sklearn.svm._classes.SVC,
+13,1723210449.42258,3.54626727104187,"Pipeline(steps=[('learner', MLPClassifier())])",True,0.7451,False,"{'accuracy': [0.7973856209150327, 0.6928104575163399, 0.7124183006535948, 0.7516339869281046, 0.7712418300653595]}",ok,,,,,,sklearn.neural_network._multilayer_perceptron.MLPClassifier,
+14,1723210449.429753,0.006661891937255859,"Pipeline(steps=[('learner', MultinomialNB())])",True,,False,,exception,"Traceback (most recent call last):
+  File ""/Users/tillaust/PycharmProjects/watchplant_classification/venv/lib/python3.11/site-packages/naiveautoml/commons.py"", line 168, in evaluate
+    scores, evaluation_report = self.evaluation_fun(pl, self.X, self.y, [self.scoring] + self.side_scores)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/tillaust/PycharmProjects/watchplant_classification/venv/lib/python3.11/site-packages/naiveautoml/evaluators.py"", line 95, in __call__
+    scores = self.evaluate_splits(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/tillaust/PycharmProjects/watchplant_classification/venv/lib/python3.11/site-packages/naiveautoml/evaluators.py"", line 121, in evaluate_splits
+    split_results = self.evaluate_split(
+                    ^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/tillaust/PycharmProjects/watchplant_classification/venv/lib/python3.11/site-packages/naiveautoml/evaluators.py"", line 142, in evaluate_split
+    pl_copy.fit(X_train, y_train)
+  File ""/Users/tillaust/PycharmProjects/watchplant_classification/venv/lib/python3.11/site-packages/sklearn/base.py"", line 1351, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/tillaust/PycharmProjects/watchplant_classification/venv/lib/python3.11/site-packages/sklearn/pipeline.py"", line 475, in fit
+    self._final_estimator.fit(Xt, y, **last_step_params[""fit""])
+  File ""/Users/tillaust/PycharmProjects/watchplant_classification/venv/lib/python3.11/site-packages/sklearn/base.py"", line 1351, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/tillaust/PycharmProjects/watchplant_classification/venv/lib/python3.11/site-packages/sklearn/naive_bayes.py"", line 759, in fit
+    self._count(X, Y)
+  File ""/Users/tillaust/PycharmProjects/watchplant_classification/venv/lib/python3.11/site-packages/sklearn/naive_bayes.py"", line 881, in _count
+    check_non_negative(X, ""MultinomialNB (input X)"")
+  File ""/Users/tillaust/PycharmProjects/watchplant_classification/venv/lib/python3.11/site-packages/sklearn/utils/validation.py"", line 1572, in check_non_negative
+    raise ValueError(""Negative values in data passed to %s"" % whom)
+ValueError: Negative values in data passed to MultinomialNB (input X)
+",,,,,sklearn.naive_bayes.MultinomialNB,
+15,1723210449.4316201,0.0014231204986572266,"Pipeline(steps=[('data-pre-processor', MinMaxScaler()),
+                ('learner', ExtraTreesClassifier())])",True,,False,,avoided,,sklearn.preprocessing._data.MinMaxScaler,,,,sklearn.ensemble._forest.ExtraTreesClassifier,
+16,1723210450.070812,0.6382181644439697,"Pipeline(steps=[('data-pre-processor', Normalizer()),
+                ('learner', ExtraTreesClassifier())])",True,0.915,False,"{'accuracy': [0.8823529411764706, 0.9215686274509803, 0.934640522875817, 0.9084967320261438, 0.9281045751633987]}",ok,,sklearn.preprocessing._data.Normalizer,,,,sklearn.ensemble._forest.ExtraTreesClassifier,
+17,1723210450.072135,0.0009500980377197266,"Pipeline(steps=[('data-pre-processor', PowerTransformer()),
+                ('learner', ExtraTreesClassifier())])",True,,False,,avoided,,sklearn.preprocessing._data.PowerTransformer,,,,sklearn.ensemble._forest.ExtraTreesClassifier,
+18,1723210450.073664,0.0011341571807861328,"Pipeline(steps=[('data-pre-processor', QuantileTransformer()),
+                ('learner', ExtraTreesClassifier())])",True,,False,,avoided,,sklearn.preprocessing._data.QuantileTransformer,,,,sklearn.ensemble._forest.ExtraTreesClassifier,
+19,1723210450.0750809,0.0009989738464355469,"Pipeline(steps=[('data-pre-processor', RobustScaler()),
+                ('learner', ExtraTreesClassifier())])",True,,False,,avoided,,sklearn.preprocessing._data.RobustScaler,,,,sklearn.ensemble._forest.ExtraTreesClassifier,
+20,1723210450.076444,0.001050710678100586,"Pipeline(steps=[('data-pre-processor', StandardScaler()),
+                ('learner', ExtraTreesClassifier())])",True,,False,,avoided,,sklearn.preprocessing._data.StandardScaler,,,,sklearn.ensemble._forest.ExtraTreesClassifier,
+21,1723210450.663229,0.5864779949188232,"Pipeline(steps=[('data-pre-processor', VarianceThreshold()),
+                ('learner', ExtraTreesClassifier())])",True,0.9373,False,"{'accuracy': [0.934640522875817, 0.9477124183006536, 0.9673202614379085, 0.9281045751633987, 0.9084967320261438]}",ok,,sklearn.feature_selection._variance_threshold.VarianceThreshold,,,,sklearn.ensemble._forest.ExtraTreesClassifier,
+22,1723210894.285321,443.62141489982605,"Pipeline(steps=[('feature-pre-processor', FastICA()),
+                ('learner', ExtraTreesClassifier())])",True,0.5098,False,"{'accuracy': [0.5032679738562091, 0.5032679738562091, 0.5032679738562091, 0.5359477124183006, 0.5032679738562091]}",ok,,,,sklearn.decomposition._fastica.FastICA,,sklearn.ensemble._forest.ExtraTreesClassifier,
+23,1723210896.092691,1.8065640926361084,"Pipeline(steps=[('feature-pre-processor', FeatureAgglomeration()),
+                ('learner', ExtraTreesClassifier())])",True,0.7046,False,"{'accuracy': [0.7058823529411765, 0.6993464052287581, 0.7254901960784313, 0.7124183006535948, 0.6797385620915033]}",ok,,,,sklearn.cluster._agglomerative.FeatureAgglomeration,,sklearn.ensemble._forest.ExtraTreesClassifier,
+24,1723210896.0953338,0.0013561248779296875,"Pipeline(steps=[('feature-pre-processor', KernelPCA()),
+                ('learner', ExtraTreesClassifier())])",True,,False,,avoided,,,,sklearn.decomposition._kernel_pca.KernelPCA,,sklearn.ensemble._forest.ExtraTreesClassifier,
+25,1723210896.096713,0.0009720325469970703,"Pipeline(steps=[('feature-pre-processor', RBFSampler()),
+                ('learner', ExtraTreesClassifier())])",True,,False,,avoided,,,,sklearn.kernel_approximation.RBFSampler,,sklearn.ensemble._forest.ExtraTreesClassifier,
+26,1723210896.098432,0.0010950565338134766,"Pipeline(steps=[('feature-pre-processor', Nystroem()),
+                ('learner', ExtraTreesClassifier())])",True,,False,,avoided,,,,sklearn.kernel_approximation.Nystroem,,sklearn.ensemble._forest.ExtraTreesClassifier,
+27,1723210899.5182421,3.419404983520508,"Pipeline(steps=[('feature-pre-processor', PCA()),
+                ('learner', ExtraTreesClassifier())])",True,0.5908,False,"{'accuracy': [0.6143790849673203, 0.5882352941176471, 0.5620915032679739, 0.6143790849673203, 0.5751633986928104]}",ok,,,,sklearn.decomposition._pca.PCA,,sklearn.ensemble._forest.ExtraTreesClassifier,
+28,1723210920.519538,20.998481035232544,"Pipeline(steps=[('feature-pre-processor', PolynomialFeatures()),
+                ('learner', ExtraTreesClassifier())])",True,0.9216,False,"{'accuracy': [0.9084967320261438, 0.9411764705882353, 0.9215686274509803, 0.9019607843137255, 0.934640522875817]}",ok,,,,sklearn.preprocessing._polynomial.PolynomialFeatures,,sklearn.ensemble._forest.ExtraTreesClassifier,
+29,1723210920.842338,0.3219430446624756,"Pipeline(steps=[('feature-pre-processor', SelectPercentile()),
+                ('learner', ExtraTreesClassifier())])",True,0.9281,False,"{'accuracy': [0.9281045751633987, 0.9150326797385621, 0.9084967320261438, 0.9411764705882353, 0.9477124183006536]}",ok,,,,sklearn.feature_selection._univariate_selection.SelectPercentile,,sklearn.ensemble._forest.ExtraTreesClassifier,
+30,1723210921.091541,0.24858617782592773,"Pipeline(steps=[('feature-pre-processor', GenericUnivariateSelect()),
+                ('learner', ExtraTreesClassifier())])",True,0.7451,False,"{'accuracy': [0.738562091503268, 0.7189542483660131, 0.7320261437908496, 0.7581699346405228, 0.7777777777777778]}",ok,,,,sklearn.feature_selection._univariate_selection.GenericUnivariateSelect,,sklearn.ensemble._forest.ExtraTreesClassifier,
+31,1723210921.0991008,14.655793905258179,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.5210044182556248,
+                                      min_samples_leaf=6, min_samples_split=12,
+                                      n_estimators=512, warm_start=True))])",False,0.9307,True,"{'accuracy': [0.9281045751633987, 0.9215686274509803, 0.934640522875817, 0.934640522875817, 0.934640522875817]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.5210044182556248, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 6, 'min_samples_split': 12, 'min_weight_fraction_leaf': 0.0}"
+32,1723210935.756356,2.902272939682007,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.14261405497867496,
+                                      min_samples_leaf=19, min_samples_split=13,
+                                      n_estimators=512, warm_start=True))])",False,0.8837,True,"{'accuracy': [0.8954248366013072, 0.8758169934640523, 0.8758169934640523, 0.8823529411764706, 0.8888888888888888]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.14261405497867496, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 19, 'min_samples_split': 13, 'min_weight_fraction_leaf': 0.0}"
+33,1723210938.66023,8.852291107177734,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.6322448408829089,
+                                      min_samples_leaf=14, min_samples_split=3,
+                                      n_estimators=512, warm_start=True))])",False,0.8837,True,"{'accuracy': [0.8888888888888888, 0.9019607843137255, 0.8627450980392157, 0.9019607843137255, 0.8627450980392157]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.6322448408829089, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 14, 'min_samples_split': 3, 'min_weight_fraction_leaf': 0.0}"
+34,1723210947.5138838,13.078386068344116,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.5998065182589523,
+                                      min_samples_leaf=15, min_samples_split=6,
+                                      n_estimators=512, warm_start=True))])",False,0.9268,True,"{'accuracy': [0.9150326797385621, 0.9411764705882353, 0.9150326797385621, 0.9150326797385621, 0.9477124183006536]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.5998065182589523, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 15, 'min_samples_split': 6, 'min_weight_fraction_leaf': 0.0}"
+35,1723210960.593577,12.692802906036377,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.8699510518170029,
+                                      min_samples_leaf=11, n_estimators=512,
+                                      warm_start=True))])",False,0.9033,True,"{'accuracy': [0.9084967320261438, 0.934640522875817, 0.869281045751634, 0.9019607843137255, 0.9019607843137255]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.8699510518170029, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 11, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0}"
+36,1723210973.287673,16.20132303237915,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.8719383166377804,
+                                      min_samples_leaf=20, n_estimators=512,
+                                      warm_start=True))])",False,0.9163,True,"{'accuracy': [0.9019607843137255, 0.934640522875817, 0.9411764705882353, 0.9019607843137255, 0.9019607843137255]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.8719383166377804, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0}"
+37,1723210989.4902751,6.467257976531982,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.35048439670628795,
+                                      min_samples_leaf=9, min_samples_split=16,
+                                      n_estimators=512, warm_start=True))])",False,0.9085,True,"{'accuracy': [0.8954248366013072, 0.9150326797385621, 0.9281045751633987, 0.8954248366013072, 0.9084967320261438]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.35048439670628795, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 9, 'min_samples_split': 16, 'min_weight_fraction_leaf': 0.0}"
+38,1723210995.959029,23.72025203704834,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.9365245338287893,
+                                      min_samples_leaf=7, min_samples_split=3,
+                                      n_estimators=512, warm_start=True))])",False,0.9255,True,"{'accuracy': [0.9084967320261438, 0.9215686274509803, 0.9150326797385621, 0.954248366013072, 0.9281045751633987]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.9365245338287893, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 7, 'min_samples_split': 3, 'min_weight_fraction_leaf': 0.0}"
+39,1723211019.6805198,15.149161100387573,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.7513475814256569,
+                                      min_samples_leaf=16, n_estimators=512,
+                                      warm_start=True))])",False,0.9085,True,"{'accuracy': [0.8627450980392157, 0.8823529411764706, 0.9215686274509803, 0.9411764705882353, 0.934640522875817]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.7513475814256569, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 16, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0}"
+40,1723211034.8309069,10.133668184280396,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.61680238904472,
+                                      min_samples_leaf=9, min_samples_split=18,
+                                      n_estimators=512, warm_start=True))])",False,0.9085,True,"{'accuracy': [0.869281045751634, 0.9411764705882353, 0.9215686274509803, 0.8954248366013072, 0.9150326797385621]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.61680238904472, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 9, 'min_samples_split': 18, 'min_weight_fraction_leaf': 0.0}"
+41,1723211044.965845,5.10404896736145,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.1800120955736657,
+                                      min_samples_leaf=12, min_samples_split=7,
+                                      n_estimators=512, warm_start=True))])",False,0.9242,True,"{'accuracy': [0.9411764705882353, 0.9215686274509803, 0.9084967320261438, 0.9281045751633987, 0.9215686274509803]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.1800120955736657, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 12, 'min_samples_split': 7, 'min_weight_fraction_leaf': 0.0}"
+42,1723211050.071094,2.134058952331543,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.06283218531462686,
+                                      min_samples_leaf=13, min_samples_split=12,
+                                      n_estimators=512, warm_start=True))])",False,0.8693,True,"{'accuracy': [0.8888888888888888, 0.8954248366013072, 0.8431372549019608, 0.8823529411764706, 0.8366013071895425]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.06283218531462686, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 13, 'min_samples_split': 12, 'min_weight_fraction_leaf': 0.0}"
+43,1723211052.2063591,0.7366089820861816,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.001214665917033897,
+                                      min_samples_leaf=4, min_samples_split=16,
+                                      n_estimators=512, warm_start=True))])",False,0.8588,True,"{'accuracy': [0.8627450980392157, 0.9084967320261438, 0.8235294117647058, 0.8431372549019608, 0.8562091503267973]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.001214665917033897, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 4, 'min_samples_split': 16, 'min_weight_fraction_leaf': 0.0}"
+44,1723211052.944212,1.996485948562622,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.058057031872856935,
+                                      min_samples_leaf=15, min_samples_split=3,
+                                      n_estimators=512, warm_start=True))])",False,0.8601,True,"{'accuracy': [0.8627450980392157, 0.8366013071895425, 0.8888888888888888, 0.8496732026143791, 0.8627450980392157]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.058057031872856935, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 15, 'min_samples_split': 3, 'min_weight_fraction_leaf': 0.0}"
+45,1723211054.941896,6.621920108795166,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.46947410128103884,
+                                      min_samples_leaf=15, min_samples_split=7,
+                                      n_estimators=512, warm_start=True))])",False,0.8706,True,"{'accuracy': [0.8627450980392157, 0.8562091503267973, 0.8235294117647058, 0.9084967320261438, 0.9019607843137255]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.46947410128103884, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 15, 'min_samples_split': 7, 'min_weight_fraction_leaf': 0.0}"
+46,1723211061.5650282,8.041060209274292,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.37146180475513924,
+                                      min_samples_leaf=19, min_samples_split=8,
+                                      n_estimators=512, warm_start=True))])",False,0.9046,True,"{'accuracy': [0.8758169934640523, 0.9084967320261438, 0.9084967320261438, 0.9150326797385621, 0.9150326797385621]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.37146180475513924, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 19, 'min_samples_split': 8, 'min_weight_fraction_leaf': 0.0}"
+47,1723211069.607297,9.785897016525269,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.7076738259400501,
+                                      min_samples_leaf=13, min_samples_split=5,
+                                      n_estimators=512, warm_start=True))])",False,0.9007,True,"{'accuracy': [0.869281045751634, 0.9150326797385621, 0.8758169934640523, 0.9084967320261438, 0.934640522875817]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.7076738259400501, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 13, 'min_samples_split': 5, 'min_weight_fraction_leaf': 0.0}"
+48,1723211079.394412,2.377013683319092,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.05842778129262538,
+                                      min_samples_leaf=12, min_samples_split=6,
+                                      n_estimators=512, warm_start=True))])",False,0.9176,True,"{'accuracy': [0.8954248366013072, 0.9150326797385621, 0.9215686274509803, 0.9411764705882353, 0.9150326797385621]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.05842778129262538, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 12, 'min_samples_split': 6, 'min_weight_fraction_leaf': 0.0}"
+49,1723211081.772613,2.756747007369995,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.10342573581202741,
+                                      min_samples_leaf=11, min_samples_split=13,
+                                      n_estimators=512, warm_start=True))])",False,0.8758,True,"{'accuracy': [0.8562091503267973, 0.934640522875817, 0.8627450980392157, 0.8562091503267973, 0.869281045751634]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.10342573581202741, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 11, 'min_samples_split': 13, 'min_weight_fraction_leaf': 0.0}"
+50,1723211084.530625,5.916219711303711,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.26826342461241814,
+                                      min_samples_leaf=20, min_samples_split=19,
+                                      n_estimators=512, warm_start=True))])",False,0.898,True,"{'accuracy': [0.8954248366013072, 0.8954248366013072, 0.8954248366013072, 0.9150326797385621, 0.8888888888888888]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.26826342461241814, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 20, 'min_samples_split': 19, 'min_weight_fraction_leaf': 0.0}"
+51,1723211090.448113,2.662555694580078,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.05398426852268945,
+                                      min_samples_leaf=7, min_samples_split=16,
+                                      n_estimators=512, warm_start=True))])",False,0.919,True,"{'accuracy': [0.8823529411764706, 0.9084967320261438, 0.9477124183006536, 0.9281045751633987, 0.9281045751633987]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.05398426852268945, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 7, 'min_samples_split': 16, 'min_weight_fraction_leaf': 0.0}"
+52,1723211093.111933,15.190924882888794,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.6673356509677263,
+                                      min_samples_leaf=11, min_samples_split=6,
+                                      n_estimators=512, warm_start=True))])",False,0.8902,True,"{'accuracy': [0.8627450980392157, 0.9281045751633987, 0.8823529411764706, 0.8888888888888888, 0.8888888888888888]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.6673356509677263, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 11, 'min_samples_split': 6, 'min_weight_fraction_leaf': 0.0}"
+53,1723211108.304223,1.593991756439209,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.038985804356906684,
+                                      min_samples_leaf=20, min_samples_split=14,
+                                      n_estimators=512, warm_start=True))])",False,0.8549,True,"{'accuracy': [0.8366013071895425, 0.8823529411764706, 0.869281045751634, 0.8300653594771242, 0.8562091503267973]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.038985804356906684, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 20, 'min_samples_split': 14, 'min_weight_fraction_leaf': 0.0}"
+54,1723211109.899449,6.092223882675171,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.2654603038197523,
+                                      min_samples_leaf=3, min_samples_split=16,
+                                      n_estimators=512, warm_start=True))])",False,0.9294,True,"{'accuracy': [0.934640522875817, 0.9215686274509803, 0.934640522875817, 0.934640522875817, 0.9215686274509803]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.2654603038197523, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 3, 'min_samples_split': 16, 'min_weight_fraction_leaf': 0.0}"
+55,1723211115.992903,8.004758834838867,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.5444149354380958,
+                                      min_samples_leaf=13, min_samples_split=10,
+                                      n_estimators=512, warm_start=True))])",False,0.8954,True,"{'accuracy': [0.9084967320261438, 0.8954248366013072, 0.9150326797385621, 0.869281045751634, 0.8888888888888888]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.5444149354380958, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 13, 'min_samples_split': 10, 'min_weight_fraction_leaf': 0.0}"
+56,1723211123.9989161,7.396236896514893,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.45468955406182265,
+                                      min_samples_leaf=11, min_samples_split=13,
+                                      n_estimators=512, warm_start=True))])",False,0.9046,True,"{'accuracy': [0.9215686274509803, 0.8954248366013072, 0.8758169934640523, 0.934640522875817, 0.8954248366013072]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.45468955406182265, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 11, 'min_samples_split': 13, 'min_weight_fraction_leaf': 0.0}"
+57,1723211131.396555,17.162589073181152,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.8778343457761005,
+                                      min_samples_split=16, n_estimators=512,
+                                      warm_start=True))])",False,0.9333,True,"{'accuracy': [0.9281045751633987, 0.934640522875817, 0.954248366013072, 0.9281045751633987, 0.9215686274509803]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.8778343457761005, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 16, 'min_weight_fraction_leaf': 0.0}"
+58,1723211148.560506,9.523579120635986,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.4685148578727345,
+                                      min_samples_leaf=5, min_samples_split=12,
+                                      n_estimators=512, warm_start=True))])",False,0.902,True,"{'accuracy': [0.9281045751633987, 0.869281045751634, 0.9150326797385621, 0.8954248366013072, 0.9019607843137255]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.4685148578727345, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 5, 'min_samples_split': 12, 'min_weight_fraction_leaf': 0.0}"
+59,1723211158.087117,6.198868036270142,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.34115881687870653,
+                                      min_samples_leaf=17, min_samples_split=12,
+                                      n_estimators=512, warm_start=True))])",False,0.885,True,"{'accuracy': [0.8562091503267973, 0.9281045751633987, 0.8954248366013072, 0.8888888888888888, 0.8562091503267973]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.34115881687870653, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 17, 'min_samples_split': 12, 'min_weight_fraction_leaf': 0.0}"
+60,1723211164.2936928,24.75871992111206,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.9257719452677136,
+                                      min_samples_leaf=10, min_samples_split=13,
+                                      n_estimators=512, warm_start=True))])",False,0.9203,True,"{'accuracy': [0.9411764705882353, 0.9281045751633987, 0.8823529411764706, 0.9215686274509803, 0.9281045751633987]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.9257719452677136, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 10, 'min_samples_split': 13, 'min_weight_fraction_leaf': 0.0}"
+61,1723211189.059124,9.321862936019897,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.3776920583147827,
+                                      min_samples_leaf=17, min_samples_split=19,
+                                      n_estimators=512, warm_start=True))])",False,0.8876,True,"{'accuracy': [0.8954248366013072, 0.8823529411764706, 0.9411764705882353, 0.8627450980392157, 0.8562091503267973]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.3776920583147827, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 17, 'min_samples_split': 19, 'min_weight_fraction_leaf': 0.0}"
+62,1723211198.384057,9.178497076034546,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.6763252877007625,
+                                      min_samples_leaf=20, min_samples_split=11,
+                                      n_estimators=512, warm_start=True))])",False,0.8915,True,"{'accuracy': [0.869281045751634, 0.9084967320261438, 0.9084967320261438, 0.9150326797385621, 0.8562091503267973]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.6763252877007625, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 20, 'min_samples_split': 11, 'min_weight_fraction_leaf': 0.0}"
+63,1723211207.5676181,20.33351707458496,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.7591361346244865,
+                                      min_samples_leaf=13, min_samples_split=16,
+                                      n_estimators=512, warm_start=True))])",False,0.932,True,"{'accuracy': [0.9281045751633987, 0.954248366013072, 0.9215686274509803, 0.9150326797385621, 0.9411764705882353]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.7591361346244865, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 13, 'min_samples_split': 16, 'min_weight_fraction_leaf': 0.0}"
+64,1723211227.9058099,4.239725112915039,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.12550197311174538,
+                                      min_samples_leaf=18, min_samples_split=4,
+                                      n_estimators=512, warm_start=True))])",False,0.8837,True,"{'accuracy': [0.9215686274509803, 0.8431372549019608, 0.9019607843137255, 0.8888888888888888, 0.8627450980392157]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.12550197311174538, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 18, 'min_samples_split': 4, 'min_weight_fraction_leaf': 0.0}"
+65,1723211232.149066,7.9881510734558105,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.33216150489338814,
+                                      min_samples_leaf=18, min_samples_split=7,
+                                      n_estimators=512, warm_start=True))])",False,0.9046,True,"{'accuracy': [0.9150326797385621, 0.9084967320261438, 0.934640522875817, 0.9281045751633987, 0.8366013071895425]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.33216150489338814, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 18, 'min_samples_split': 7, 'min_weight_fraction_leaf': 0.0}"
+66,1723211240.1392179,10.110221147537231,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.5260764869999851,
+                                      min_samples_leaf=12, min_samples_split=17,
+                                      n_estimators=512, warm_start=True))])",False,0.9046,True,"{'accuracy': [0.9019607843137255, 0.9281045751633987, 0.9281045751633987, 0.8366013071895425, 0.9281045751633987]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.5260764869999851, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 12, 'min_samples_split': 17, 'min_weight_fraction_leaf': 0.0}"
+67,1723211250.2549021,19.973145008087158,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.8931235004909415,
+                                      min_samples_leaf=15, min_samples_split=6,
+                                      n_estimators=512, warm_start=True))])",False,0.9242,True,"{'accuracy': [0.934640522875817, 0.9019607843137255, 0.9019607843137255, 0.934640522875817, 0.9477124183006536]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.8931235004909415, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 15, 'min_samples_split': 6, 'min_weight_fraction_leaf': 0.0}"
+68,1723211270.2321558,13.372705936431885,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.4897537806956218,
+                                      min_samples_leaf=2, min_samples_split=20,
+                                      n_estimators=512, warm_start=True))])",False,0.9281,True,"{'accuracy': [0.934640522875817, 0.934640522875817, 0.9019607843137255, 0.9215686274509803, 0.9477124183006536]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.4897537806956218, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 2, 'min_samples_split': 20, 'min_weight_fraction_leaf': 0.0}"
+69,1723211283.608054,12.130493879318237,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.30048690659428345,
+                                      min_samples_split=17, n_estimators=512,
+                                      warm_start=True))])",False,0.9346,True,"{'accuracy': [0.9607843137254902, 0.9084967320261438, 0.9477124183006536, 0.9150326797385621, 0.9411764705882353]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.30048690659428345, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 17, 'min_weight_fraction_leaf': 0.0}"
+70,1723211295.7399948,10.691964864730835,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.7438848594829616,
+                                      min_samples_leaf=17, min_samples_split=19,
+                                      n_estimators=512, warm_start=True))])",False,0.8915,True,"{'accuracy': [0.9084967320261438, 0.8888888888888888, 0.869281045751634, 0.8888888888888888, 0.9019607843137255]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.7438848594829616, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 17, 'min_samples_split': 19, 'min_weight_fraction_leaf': 0.0}"
+71,1723211306.433265,8.642347812652588,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.34671930045526544,
+                                      min_samples_leaf=9, min_samples_split=12,
+                                      n_estimators=512, warm_start=True))])",False,0.9163,True,"{'accuracy': [0.9019607843137255, 0.9150326797385621, 0.9281045751633987, 0.9084967320261438, 0.9281045751633987]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.34671930045526544, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 9, 'min_samples_split': 12, 'min_weight_fraction_leaf': 0.0}"
+72,1723211315.0803468,9.644953966140747,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.48087106672859614,
+                                      min_samples_leaf=12, min_samples_split=12,
+                                      n_estimators=512, warm_start=True))])",False,0.9294,True,"{'accuracy': [0.954248366013072, 0.9477124183006536, 0.9084967320261438, 0.9150326797385621, 0.9215686274509803]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.48087106672859614, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 12, 'min_samples_split': 12, 'min_weight_fraction_leaf': 0.0}"
+73,1723211324.7299242,18.992522954940796,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.7890689281836394,
+                                      min_samples_leaf=9, min_samples_split=17,
+                                      n_estimators=512, warm_start=True))])",False,0.9268,True,"{'accuracy': [0.9281045751633987, 0.954248366013072, 0.9281045751633987, 0.9084967320261438, 0.9150326797385621]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.7890689281836394, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 9, 'min_samples_split': 17, 'min_weight_fraction_leaf': 0.0}"
+74,1723211343.724671,13.973574876785278,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.9138955316747795,
+                                      min_samples_leaf=9, min_samples_split=12,
+                                      n_estimators=512, warm_start=True))])",False,0.9176,True,"{'accuracy': [0.9281045751633987, 0.9411764705882353, 0.9019607843137255, 0.9019607843137255, 0.9150326797385621]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.9138955316747795, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 9, 'min_samples_split': 12, 'min_weight_fraction_leaf': 0.0}"
+75,1723211357.701968,8.494824886322021,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.6125970670097669,
+                                      min_samples_leaf=16, min_samples_split=6,
+                                      n_estimators=512, warm_start=True))])",False,0.9072,True,"{'accuracy': [0.9084967320261438, 0.9019607843137255, 0.9150326797385621, 0.9019607843137255, 0.9084967320261438]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.6125970670097669, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 16, 'min_samples_split': 6, 'min_weight_fraction_leaf': 0.0}"
+76,1723211366.19809,4.604474782943726,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.10620463694775428,
+                                      min_samples_leaf=2, min_samples_split=14,
+                                      n_estimators=512, warm_start=True))])",False,0.9425,True,"{'accuracy': [0.9281045751633987, 0.9607843137254902, 0.9803921568627451, 0.9215686274509803, 0.9215686274509803]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.10620463694775428, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 2, 'min_samples_split': 14, 'min_weight_fraction_leaf': 0.0}"
+77,1723211370.804899,9.69783329963684,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.28507984928226027,
+                                      min_samples_leaf=2, min_samples_split=11,
+                                      n_estimators=512, warm_start=True))])",False,0.9203,True,"{'accuracy': [0.9084967320261438, 0.9281045751633987, 0.9411764705882353, 0.9150326797385621, 0.9084967320261438]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.28507984928226027, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 2, 'min_samples_split': 11, 'min_weight_fraction_leaf': 0.0}"
+78,1723211380.5064042,6.653266906738281,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.42263071731748336,
+                                      min_samples_leaf=13, min_samples_split=18,
+                                      n_estimators=512, warm_start=True))])",False,0.8993,True,"{'accuracy': [0.8954248366013072, 0.8823529411764706, 0.9411764705882353, 0.8758169934640523, 0.9019607843137255]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.42263071731748336, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 13, 'min_samples_split': 18, 'min_weight_fraction_leaf': 0.0}"
+79,1723211387.161348,9.489887952804565,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.7843590803100271,
+                                      min_samples_leaf=19, min_samples_split=14,
+                                      n_estimators=512, warm_start=True))])",False,0.8797,True,"{'accuracy': [0.8366013071895425, 0.9215686274509803, 0.8823529411764706, 0.8562091503267973, 0.9019607843137255]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.7843590803100271, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 19, 'min_samples_split': 14, 'min_weight_fraction_leaf': 0.0}"
+80,1723211396.652552,8.995343208312988,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.39921370611820883,
+                                      min_samples_leaf=16, min_samples_split=10,
+                                      n_estimators=512, warm_start=True))])",False,0.9176,True,"{'accuracy': [0.9281045751633987, 0.9084967320261438, 0.9215686274509803, 0.8954248366013072, 0.934640522875817]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.39921370611820883, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 16, 'min_samples_split': 10, 'min_weight_fraction_leaf': 0.0}"
+81,1723211405.651245,2.936948299407959,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.1263021714656951,
+                                      min_samples_leaf=12, n_estimators=512,
+                                      warm_start=True))])",False,0.868,True,"{'accuracy': [0.8496732026143791, 0.8627450980392157, 0.8627450980392157, 0.8954248366013072, 0.869281045751634]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.1263021714656951, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 12, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0}"
+82,1723211408.589751,17.689759254455566,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.5175976929395113,
+                                      min_samples_leaf=4, min_samples_split=11,
+                                      n_estimators=512, warm_start=True))])",False,0.9542,True,"{'accuracy': [0.954248366013072, 0.9869281045751634, 0.9607843137254902, 0.9411764705882353, 0.9281045751633987]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.5175976929395113, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 4, 'min_samples_split': 11, 'min_weight_fraction_leaf': 0.0}"
+83,1723211426.2807748,1.4580740928649902,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.016801909673582305,
+                                      min_samples_leaf=8, min_samples_split=18,
+                                      n_estimators=512, warm_start=True))])",False,0.8889,True,"{'accuracy': [0.9150326797385621, 0.869281045751634, 0.8954248366013072, 0.8758169934640523, 0.8888888888888888]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.016801909673582305, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 8, 'min_samples_split': 18, 'min_weight_fraction_leaf': 0.0}"
+84,1723211427.740305,20.300822973251343,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.5620677484124956,
+                                      min_samples_leaf=6, min_samples_split=13,
+                                      n_estimators=512, warm_start=True))])",False,0.9464,True,"{'accuracy': [0.9477124183006536, 0.934640522875817, 0.954248366013072, 0.9281045751633987, 0.9673202614379085]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.5620677484124956, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 6, 'min_samples_split': 13, 'min_weight_fraction_leaf': 0.0}"
+85,1723211448.060243,3.697526216506958,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.10405886226962824,
+                                      min_samples_leaf=5, min_samples_split=11,
+                                      n_estimators=512, warm_start=True))])",False,0.9176,True,"{'accuracy': [0.9019607843137255, 0.9084967320261438, 0.9281045751633987, 0.9281045751633987, 0.9215686274509803]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.10405886226962824, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 5, 'min_samples_split': 11, 'min_weight_fraction_leaf': 0.0}"
+86,1723211451.759955,7.702425003051758,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.3469813480588355,
+                                      min_samples_leaf=18, min_samples_split=10,
+                                      n_estimators=512, warm_start=True))])",False,0.9281,True,"{'accuracy': [0.954248366013072, 0.9019607843137255, 0.9477124183006536, 0.9411764705882353, 0.8954248366013072]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.3469813480588355, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 18, 'min_samples_split': 10, 'min_weight_fraction_leaf': 0.0}"
+87,1723211459.463593,9.748463869094849,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.4317066815902555,
+                                      min_samples_leaf=2, min_samples_split=13,
+                                      n_estimators=512, warm_start=True))])",False,0.932,True,"{'accuracy': [0.9281045751633987, 0.934640522875817, 0.9215686274509803, 0.9084967320261438, 0.9673202614379085]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.4317066815902555, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 2, 'min_samples_split': 13, 'min_weight_fraction_leaf': 0.0}"
+88,1723211469.216236,8.382629871368408,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.6578983628955987,
+                                      min_samples_leaf=20, min_samples_split=8,
+                                      n_estimators=512, warm_start=True))])",False,0.8889,True,"{'accuracy': [0.8954248366013072, 0.8562091503267973, 0.9150326797385621, 0.8823529411764706, 0.8954248366013072]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.6578983628955987, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 20, 'min_samples_split': 8, 'min_weight_fraction_leaf': 0.0}"
+89,1723211477.601579,4.342323064804077,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.14689109659610855,
+                                      min_samples_leaf=18, min_samples_split=18,
+                                      n_estimators=512, warm_start=True))])",False,0.9059,True,"{'accuracy': [0.9084967320261438, 0.9150326797385621, 0.9019607843137255, 0.8758169934640523, 0.9281045751633987]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.14689109659610855, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 18, 'min_samples_split': 18, 'min_weight_fraction_leaf': 0.0}"
+90,1723211481.9476,6.327226161956787,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.36738900447406764,
+                                      min_samples_leaf=17, min_samples_split=16,
+                                      n_estimators=512, warm_start=True))])",False,0.902,True,"{'accuracy': [0.8888888888888888, 0.9150326797385621, 0.9019607843137255, 0.8758169934640523, 0.9281045751633987]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.36738900447406764, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 17, 'min_samples_split': 16, 'min_weight_fraction_leaf': 0.0}"
+91,1723211488.2788339,16.732450008392334,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.6706334193951377,
+                                      min_samples_split=3, n_estimators=512,
+                                      warm_start=True))])",False,0.9425,True,"{'accuracy': [0.9477124183006536, 0.9411764705882353, 0.9215686274509803, 0.934640522875817, 0.9673202614379085]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.6706334193951377, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 3, 'min_weight_fraction_leaf': 0.0}"
+92,1723211505.015197,24.553269863128662,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.7525414275513442,
+                                      min_samples_split=7, n_estimators=512,
+                                      warm_start=True))])",False,0.9477,True,"{'accuracy': [0.954248366013072, 0.9607843137254902, 0.9607843137254902, 0.9411764705882353, 0.9215686274509803]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.7525414275513442, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 7, 'min_weight_fraction_leaf': 0.0}"
+93,1723211529.569741,16.501715183258057,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.8290925319982835,
+                                      min_samples_leaf=3, min_samples_split=19,
+                                      n_estimators=512, warm_start=True))])",False,0.9085,True,"{'accuracy': [0.9281045751633987, 0.8954248366013072, 0.9019607843137255, 0.9019607843137255, 0.9150326797385621]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.8290925319982835, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 3, 'min_samples_split': 19, 'min_weight_fraction_leaf': 0.0}"
+94,1723211546.073931,23.113276958465576,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.5519047974190603,
+                                      n_estimators=512, warm_start=True))])",False,0.9359,True,"{'accuracy': [0.9215686274509803, 0.9150326797385621, 0.9281045751633987, 0.9673202614379085, 0.9477124183006536]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.5519047974190603, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0}"
+95,1723211569.191533,10.674428939819336,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.5346405218137383,
+                                      min_samples_leaf=2, min_samples_split=18,
+                                      n_estimators=512, warm_start=True))])",False,0.9399,True,"{'accuracy': [0.9411764705882353, 0.934640522875817, 0.9477124183006536, 0.9607843137254902, 0.9150326797385621]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.5346405218137383, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 2, 'min_samples_split': 18, 'min_weight_fraction_leaf': 0.0}"
+96,1723211579.867197,12.296372175216675,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.8402525209064357,
+                                      min_samples_leaf=11, min_samples_split=16,
+                                      n_estimators=512, warm_start=True))])",False,0.8719,True,"{'accuracy': [0.8431372549019608, 0.869281045751634, 0.8888888888888888, 0.8823529411764706, 0.8758169934640523]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.8402525209064357, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 11, 'min_samples_split': 16, 'min_weight_fraction_leaf': 0.0}"
+97,1723211592.168124,3.184926986694336,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.1631821645011443,
+                                      min_samples_leaf=19, min_samples_split=14,
+                                      n_estimators=512, warm_start=True))])",False,0.8784,True,"{'accuracy': [0.9084967320261438, 0.8627450980392157, 0.9019607843137255, 0.8888888888888888, 0.8300653594771242]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.1631821645011443, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 19, 'min_samples_split': 14, 'min_weight_fraction_leaf': 0.0}"
+98,1723211595.354395,13.343394041061401,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.6049914914489973,
+                                      min_samples_leaf=15, min_samples_split=4,
+                                      n_estimators=512, warm_start=True))])",False,0.9216,True,"{'accuracy': [0.9411764705882353, 0.9281045751633987, 0.9019607843137255, 0.934640522875817, 0.9019607843137255]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.6049914914489973, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 15, 'min_samples_split': 4, 'min_weight_fraction_leaf': 0.0}"
+99,1723211608.700616,10.97423005104065,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.5324266479378083,
+                                      min_samples_leaf=18, min_samples_split=15,
+                                      n_estimators=512, warm_start=True))])",False,0.9137,True,"{'accuracy': [0.8888888888888888, 0.9215686274509803, 0.8888888888888888, 0.9215686274509803, 0.9477124183006536]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.5324266479378083, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 18, 'min_samples_split': 15, 'min_weight_fraction_leaf': 0.0}"
+100,1723211619.676131,22.030363082885742,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.6628522588071589,
+                                      min_samples_split=18, n_estimators=512,
+                                      warm_start=True))])",False,0.9294,True,"{'accuracy': [0.934640522875817, 0.934640522875817, 0.954248366013072, 0.934640522875817, 0.8888888888888888]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.6628522588071589, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 18, 'min_weight_fraction_leaf': 0.0}"
+101,1723211641.7097769,3.117232084274292,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.13514791952532546,
+                                      min_samples_leaf=12, min_samples_split=6,
+                                      n_estimators=512, warm_start=True))])",False,0.8902,True,"{'accuracy': [0.9281045751633987, 0.8954248366013072, 0.869281045751634, 0.8823529411764706, 0.8758169934640523]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.13514791952532546, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 12, 'min_samples_split': 6, 'min_weight_fraction_leaf': 0.0}"
+102,1723211644.828591,11.260891199111938,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.5853700907376694,
+                                      min_samples_leaf=11, min_samples_split=18,
+                                      n_estimators=512, warm_start=True))])",False,0.9007,True,"{'accuracy': [0.9215686274509803, 0.9019607843137255, 0.934640522875817, 0.8888888888888888, 0.8562091503267973]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.5853700907376694, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 11, 'min_samples_split': 18, 'min_weight_fraction_leaf': 0.0}"
+103,1723211656.090754,6.707449913024902,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.2795908322320352,
+                                      min_samples_leaf=20, min_samples_split=19,
+                                      n_estimators=512, warm_start=True))])",False,0.9007,True,"{'accuracy': [0.8954248366013072, 0.9215686274509803, 0.8954248366013072, 0.8823529411764706, 0.9084967320261438]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.2795908322320352, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 20, 'min_samples_split': 19, 'min_weight_fraction_leaf': 0.0}"
+104,1723211662.799458,9.423444271087646,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.3418201684801191,
+                                      min_samples_leaf=19, min_samples_split=3,
+                                      n_estimators=512, warm_start=True))])",False,0.881,True,"{'accuracy': [0.8758169934640523, 0.8627450980392157, 0.8888888888888888, 0.8954248366013072, 0.8823529411764706]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.3418201684801191, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 19, 'min_samples_split': 3, 'min_weight_fraction_leaf': 0.0}"
+105,1723211672.227788,6.827085256576538,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.19734954701959972,
+                                      min_samples_leaf=5, min_samples_split=7,
+                                      n_estimators=512, warm_start=True))])",False,0.9255,True,"{'accuracy': [0.9281045751633987, 0.8954248366013072, 0.9477124183006536, 0.9150326797385621, 0.9411764705882353]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.19734954701959972, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 5, 'min_samples_split': 7, 'min_weight_fraction_leaf': 0.0}"
+106,1723211679.060311,13.122831106185913,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.8949768546555167,
+                                      min_samples_leaf=11, min_samples_split=4,
+                                      n_estimators=512, warm_start=True))])",False,0.9085,True,"{'accuracy': [0.8758169934640523, 0.934640522875817, 0.9150326797385621, 0.8888888888888888, 0.9281045751633987]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.8949768546555167, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 11, 'min_samples_split': 4, 'min_weight_fraction_leaf': 0.0}"
+107,1723211692.184614,14.87694001197815,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.5628136870298995,
+                                      min_samples_leaf=8, min_samples_split=6,
+                                      n_estimators=512, warm_start=True))])",False,0.9333,True,"{'accuracy': [0.934640522875817, 0.934640522875817, 0.954248366013072, 0.9019607843137255, 0.9411764705882353]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.5628136870298995, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 8, 'min_samples_split': 6, 'min_weight_fraction_leaf': 0.0}"
+108,1723211707.0645509,5.778093099594116,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.3474788884332032,
+                                      min_samples_leaf=13, min_samples_split=17,
+                                      n_estimators=512, warm_start=True))])",False,0.8941,True,"{'accuracy': [0.9084967320261438, 0.8758169934640523, 0.8496732026143791, 0.9150326797385621, 0.9215686274509803]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.3474788884332032, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 13, 'min_samples_split': 17, 'min_weight_fraction_leaf': 0.0}"
+109,1723211712.843939,14.349906206130981,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.6782657852924748,
+                                      min_samples_leaf=15, min_samples_split=4,
+                                      n_estimators=512, warm_start=True))])",False,0.9255,True,"{'accuracy': [0.9215686274509803, 0.9411764705882353, 0.9411764705882353, 0.9281045751633987, 0.8954248366013072]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.6782657852924748, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 15, 'min_samples_split': 4, 'min_weight_fraction_leaf': 0.0}"
+110,1723211727.195094,23.849494218826294,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.7541556842405203,
+                                      min_samples_leaf=3, min_samples_split=5,
+                                      n_estimators=512, warm_start=True))])",False,0.9307,True,"{'accuracy': [0.9673202614379085, 0.9215686274509803, 0.9411764705882353, 0.9084967320261438, 0.9150326797385621]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.7541556842405203, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 3, 'min_samples_split': 5, 'min_weight_fraction_leaf': 0.0}"
+111,1723211751.048245,6.3916120529174805,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.47555065996897017,
+                                      min_samples_leaf=17, min_samples_split=15,
+                                      n_estimators=512, warm_start=True))])",False,0.8706,True,"{'accuracy': [0.8627450980392157, 0.8431372549019608, 0.9281045751633987, 0.8496732026143791, 0.869281045751634]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.47555065996897017, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 17, 'min_samples_split': 15, 'min_weight_fraction_leaf': 0.0}"
+112,1723211757.441535,8.456494808197021,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.6274528246453769,
+                                      min_samples_leaf=17, min_samples_split=3,
+                                      n_estimators=512, warm_start=True))])",False,0.8915,True,"{'accuracy': [0.9019607843137255, 0.9084967320261438, 0.9084967320261438, 0.8888888888888888, 0.8496732026143791]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.6274528246453769, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 17, 'min_samples_split': 3, 'min_weight_fraction_leaf': 0.0}"
+113,1723211765.899647,20.884418964385986,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.9268850309150171,
+                                      min_samples_leaf=2, min_samples_split=16,
+                                      n_estimators=512, warm_start=True))])",False,0.9216,True,"{'accuracy': [0.934640522875817, 0.9019607843137255, 0.9411764705882353, 0.9215686274509803, 0.9084967320261438]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.9268850309150171, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 2, 'min_samples_split': 16, 'min_weight_fraction_leaf': 0.0}"
+114,1723211786.787801,12.736314058303833,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.754002696743752,
+                                      min_samples_leaf=10, min_samples_split=7,
+                                      n_estimators=512, warm_start=True))])",False,0.9046,True,"{'accuracy': [0.9281045751633987, 0.9019607843137255, 0.8888888888888888, 0.9150326797385621, 0.8888888888888888]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.754002696743752, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 10, 'min_samples_split': 7, 'min_weight_fraction_leaf': 0.0}"
+115,1723211799.5283468,10.451951026916504,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.3301005389143937,
+                                      min_samples_leaf=3, min_samples_split=19,
+                                      n_estimators=512, warm_start=True))])",False,0.9386,True,"{'accuracy': [0.954248366013072, 0.9411764705882353, 0.9281045751633987, 0.9281045751633987, 0.9411764705882353]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.3301005389143937, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 3, 'min_samples_split': 19, 'min_weight_fraction_leaf': 0.0}"
+116,1723211809.982408,16.40310502052307,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.8471483893899757,
+                                      min_samples_leaf=19, min_samples_split=12,
+                                      n_estimators=512, warm_start=True))])",False,0.9281,True,"{'accuracy': [0.9281045751633987, 0.9215686274509803, 0.934640522875817, 0.9215686274509803, 0.934640522875817]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.8471483893899757, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 19, 'min_samples_split': 12, 'min_weight_fraction_leaf': 0.0}"
+117,1723211826.389309,1.2925829887390137,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.007551699722824323,
+                                      min_samples_leaf=2, min_samples_split=16,
+                                      n_estimators=512, warm_start=True))])",False,0.8954,True,"{'accuracy': [0.869281045751634, 0.9019607843137255, 0.9019607843137255, 0.9019607843137255, 0.9019607843137255]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.007551699722824323, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 2, 'min_samples_split': 16, 'min_weight_fraction_leaf': 0.0}"
+118,1723211827.683191,3.9445910453796387,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.22847105495664288,
+                                      min_samples_leaf=17, min_samples_split=3,
+                                      n_estimators=512, warm_start=True))])",False,0.8562,True,"{'accuracy': [0.8954248366013072, 0.8431372549019608, 0.8366013071895425, 0.8562091503267973, 0.8496732026143791]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.22847105495664288, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 17, 'min_samples_split': 3, 'min_weight_fraction_leaf': 0.0}"
+119,1723211831.629419,14.406551837921143,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.744138163673419,
+                                      min_samples_leaf=19, min_samples_split=19,
+                                      n_estimators=512, warm_start=True))])",False,0.898,True,"{'accuracy': [0.9215686274509803, 0.9150326797385621, 0.8758169934640523, 0.8954248366013072, 0.8823529411764706]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.744138163673419, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 19, 'min_samples_split': 19, 'min_weight_fraction_leaf': 0.0}"
+120,1723211846.037197,8.544326066970825,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.647362172458538,
+                                      min_samples_leaf=16, min_samples_split=8,
+                                      n_estimators=512, warm_start=True))])",False,0.9033,True,"{'accuracy': [0.9281045751633987, 0.9150326797385621, 0.8823529411764706, 0.9215686274509803, 0.869281045751634]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.647362172458538, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 16, 'min_samples_split': 8, 'min_weight_fraction_leaf': 0.0}"
+121,1723211854.583116,10.863487958908081,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.7403894261235939,
+                                      min_samples_leaf=11, min_samples_split=18,
+                                      n_estimators=512, warm_start=True))])",False,0.9033,True,"{'accuracy': [0.8888888888888888, 0.9411764705882353, 0.9150326797385621, 0.8823529411764706, 0.8888888888888888]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.7403894261235939, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 11, 'min_samples_split': 18, 'min_weight_fraction_leaf': 0.0}"
+122,1723211865.447844,7.287504196166992,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.5411471771596698,
+                                      min_samples_leaf=16, min_samples_split=13,
+                                      n_estimators=512, warm_start=True))])",False,0.8771,True,"{'accuracy': [0.8627450980392157, 0.8823529411764706, 0.8888888888888888, 0.8888888888888888, 0.8627450980392157]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.5411471771596698, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 16, 'min_samples_split': 13, 'min_weight_fraction_leaf': 0.0}"
+123,1723211872.7365649,22.475898027420044,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.8586351544110559,
+                                      min_samples_leaf=9, min_samples_split=5,
+                                      n_estimators=512, warm_start=True))])",False,0.9242,True,"{'accuracy': [0.9019607843137255, 0.9215686274509803, 0.934640522875817, 0.9477124183006536, 0.9150326797385621]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.8586351544110559, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 9, 'min_samples_split': 5, 'min_weight_fraction_leaf': 0.0}"
+124,1723211895.2153652,9.645171880722046,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.6490691182843171,
+                                      min_samples_leaf=19, min_samples_split=7,
+                                      n_estimators=512, warm_start=True))])",False,0.9059,True,"{'accuracy': [0.8954248366013072, 0.9084967320261438, 0.9019607843137255, 0.9281045751633987, 0.8954248366013072]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.6490691182843171, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 19, 'min_samples_split': 7, 'min_weight_fraction_leaf': 0.0}"
+125,1723211904.8621252,9.805071115493774,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True, criterion='entropy',
+                                      max_features=0.7847721923115166,
+                                      min_samples_leaf=17, min_samples_split=10,
+                                      n_estimators=512, warm_start=True))])",False,0.8758,True,"{'accuracy': [0.8823529411764706, 0.8562091503267973, 0.8823529411764706, 0.869281045751634, 0.8888888888888888]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.7847721923115166, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 17, 'min_samples_split': 10, 'min_weight_fraction_leaf': 0.0}"
+126,1723211914.669138,2.7481119632720947,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.08284218822142664,
+                                      min_samples_leaf=16, min_samples_split=5,
+                                      n_estimators=512, warm_start=True))])",False,0.8876,True,"{'accuracy': [0.9019607843137255, 0.8888888888888888, 0.8954248366013072, 0.8627450980392157, 0.8888888888888888]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.08284218822142664, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 16, 'min_samples_split': 5, 'min_weight_fraction_leaf': 0.0}"
+127,1723211917.418472,1.6590080261230469,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.03452780761275198,
+                                      min_samples_leaf=20, min_samples_split=17,
+                                      n_estimators=512, warm_start=True))])",False,0.8471,True,"{'accuracy': [0.8627450980392157, 0.8562091503267973, 0.8104575163398693, 0.8562091503267973, 0.8496732026143791]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.03452780761275198, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 20, 'min_samples_split': 17, 'min_weight_fraction_leaf': 0.0}"
+128,1723211919.0787258,13.81912112236023,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(bootstrap=True,
+                                      max_features=0.8134081551901442,
+                                      min_samples_leaf=10, min_samples_split=11,
+                                      n_estimators=512, warm_start=True))])",False,0.9111,True,"{'accuracy': [0.8888888888888888, 0.934640522875817, 0.9019607843137255, 0.9281045751633987, 0.9019607843137255]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'True', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.8134081551901442, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 10, 'min_samples_split': 11, 'min_weight_fraction_leaf': 0.0}"
+129,1723211932.9001842,19.048975944519043,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(criterion='entropy',
+                                      max_features=0.8876984839784092,
+                                      min_samples_leaf=14, min_samples_split=18,
+                                      n_estimators=512, warm_start=True))])",False,0.9098,True,"{'accuracy': [0.8758169934640523, 0.9215686274509803, 0.9084967320261438, 0.9084967320261438, 0.934640522875817]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'entropy', 'max_depth': 'None', 'max_features': 0.8876984839784092, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 14, 'min_samples_split': 18, 'min_weight_fraction_leaf': 0.0}"
+130,1723211951.951075,8.557268142700195,"Pipeline(steps=[('learner',
+                 ExtraTreesClassifier(max_features=0.2070415423980122,
+                                      min_samples_split=7, n_estimators=512,
+                                      warm_start=True))])",False,0.9333,True,"{'accuracy': [0.9411764705882353, 0.9411764705882353, 0.9477124183006536, 0.9019607843137255, 0.934640522875817]}",ok,,,,,,sklearn.ensemble._forest.ExtraTreesClassifier,"{'bootstrap': 'False', 'criterion': 'gini', 'max_depth': 'None', 'max_features': 0.2070415423980122, 'max_leaf_nodes': 'None', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 7, 'min_weight_fraction_leaf': 0.0}"
