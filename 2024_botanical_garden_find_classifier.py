@@ -17,13 +17,10 @@ import logging
 
 def calc_best_classifier(stimuli, channel, path_to_data):
     naml = naiveautoml.NaiveAutoML(max_hpo_iterations=1024, show_progress=False, scoring="accuracy",
-                                   max_hpo_iterations_without_imp=100, num_cpus=1)  # , kwargs_as={'excluded_components': {"learner": ["HistGradientBoostingClassifier"]}}
+                                   max_hpo_iterations_without_imp=100, num_cpus=1, kwargs_as={'excluded_components': {"learner": ["HistGradientBoostingClassifier"]}})  # , kwargs_as={'excluded_components': {"learner": ["HistGradientBoostingClassifier"]}}
 
     x, y = load_botanical(stimuli, channel, path=path_to_data)
 
-    print(np.unique(y["class"], return_counts=True))
-    print(y)
-    return
 
     X_analysis, _, y_analysis, _ = train_test_split(x, y, test_size=0.2, random_state=42, stratify=y)
 
@@ -78,7 +75,9 @@ if __name__ == "__main__":
     os.cpu_count()
     pbar = tqdm(total=len(stimuli_settings) * 2)
     futures = []
-
+    # for stimuli in stimuli_settings:
+    #         for channel in [["CH1"], ["CH2"]]:
+    #             calc_best_classifier(stimuli, channel, path_to_data)
 
     with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
         for stimuli in stimuli_settings:
