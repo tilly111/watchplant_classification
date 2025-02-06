@@ -138,8 +138,68 @@ def load_eddy_feature(exp_name, sensors, feature_selection=None, manual_features
 
     return x_train, y_train, all_feature_names
 
-# x, y = load_tsfresh_feature("Exp44_Ivy2", ["pn1"], clean=True)
-#
-# # shuffle stuff and split into train and validation set; make reproducible by setting random state
-# x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=0.15, random_state=14)
-#
+
+def load_botanical(stimuli: list[str], channel: list[str], time_window=60, path="/Volumes/Data/watchplant/"):
+    """
+    Load the data for the botanical data for the given phytonode
+    :param stimuli: Can be cold, day, dry, night, rain, warm, wind, windless
+    :param channel: Can be CH1 or CH2
+    :param time_window: can be 60
+    :return:
+    """
+    x, y = None, None
+    for cls in stimuli:
+        for ch in channel:
+            for p in ["P1", "P2", "P3", "P5"]:
+                print(f"loading {p} {cls}")
+                x_tmp, y_tmp = _sub_load_botanical(p, cls, ch, time_window, path)
+                x = x_tmp if x is None else pd.concat([x, x_tmp], axis=0)
+                y = y_tmp if y is None else pd.concat([y, y_tmp], axis=0)
+    # remove any nan values
+    if x.isnull().values.any():
+        print(f"x contains {np.sum(x.isnull().values)} NaN values. Removing NaN features.")
+        # print columns containing nan values
+        print(f"List of NaN containing features: {x.columns[x.isnull().any()]}")
+        x.dropna(axis=1, inplace=True)
+    return x, y
+
+
+def _sub_load_botanical(phytonode, stimulus, channel, time_window=60, path="/Volumes/Data/watchplant/") -> tuple:
+    """
+    Load the features of the botanical data for the given phytonode and stimulus
+    :param phytonode: Can be P1, P2, P3, P5
+    :param stimulus: cold, day, dry, night, rain, warm, wind, windless
+    :param channel: can be CH1 or CH2
+    :param time_window: can be 60
+    :return:
+    """
+    x = pd.read_csv(f"{path}2024_botanical_data/Features/{phytonode}_{stimulus}_tw_{time_window}_features.csv")
+
+    # select channel
+    x = x[x["Unnamed: 0"] == channel]
+    y = pd.DataFrame(x["class"])
+
+    # drop meta information
+    x.drop(columns=['Unnamed: 0', 'datetime_end', 'datetime_start', 'class'], inplace=True)
+    x.reset_index(inplace=True, drop=True)
+    y.reset_index(inplace=True, drop=True)
+
+    # y = np.ones((x.shape[0],))
+    # if stimulus == "cold":
+    #     y *= 0
+    # elif stimulus == "day":
+    #     y *= 1
+    # elif stimulus == "dry":
+    #     y *= 2
+    # elif stimulus == "night":
+    #     y *= 3
+    # elif stimulus == "rain":
+    #     y *= 4
+    # elif stimulus == "warm":
+    #     y *= 5
+    # elif stimulus == "wind":
+    #     y *= 6
+    # elif stimulus == "windless":
+    #     y *= 7
+
+    return x, y
