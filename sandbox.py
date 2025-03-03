@@ -8,6 +8,7 @@ from datetime import timedelta
 import matplotlib
 import matplotlib.pyplot as plt
 from utils.helper import load_experiment_excel, load_experiment
+from sklearn.metrics import classification_report
 
 
 # for interactive plots
@@ -30,37 +31,18 @@ def exclude_data(df, begin, end):
     df = df.drop(df[((df.index >= begin) & (df.index <= end))].index)
     return df
 
-stim = pd.read_csv("/Volumes/Data/watchplant/gas_experiments/cut_samples/stim.csv", header=None)
-no = pd.read_csv("/Volumes/Data/watchplant/gas_experiments/cut_samples/no.csv", header=None)
+# Example data
+y_true = [0, 1, 1, 0, 1, 0]
+y_pred = [0, 1, 0, 0, 1, 1]
 
+# Generate classification report as a dictionary
+report = classification_report(y_true, y_pred, output_dict=True)
 
-idxs = random.sample(range(76), 53)
-stim_train = stim.iloc[idxs].reset_index(drop=True)
-no_train = no.iloc[idxs].reset_index(drop=True)
+# Convert to DataFrame
+report_df = pd.DataFrame(report).transpose()
 
-stim_test = stim.drop(idxs).reset_index(drop=True)
-no_test = no.drop(idxs).reset_index(drop=True)
-
-
-
-train_class = np.concatenate([np.zeros((no_train.shape[0],)), np.ones((stim_train.shape[0],))])
-test_class = np.concatenate([np.zeros((no_test.shape[0],)), np.ones((stim_test.shape[0],))])
-train_class = pd.DataFrame(train_class, columns=["class"])
-test_class = pd.DataFrame(test_class, columns=["class"])
-
-train_save = pd.concat([no_train, stim_train], axis=0, ignore_index=True)
-test_save = pd.concat([no_test, stim_test], axis=0)
-
-print(train_class.shape)
-print(test_class.shape)
-print(train_save.shape)
-print(test_save.shape)
-
-train_class.to_csv("/Volumes/Data/watchplant/gas_experiments/cut_samples/y_train.csv", index=False)
-test_class.to_csv("/Volumes/Data/watchplant/gas_experiments/cut_samples/y_test.csv", index=False)
-train_save.to_csv("/Volumes/Data/watchplant/gas_experiments/cut_samples/X_train.csv", index=False)
-test_save.to_csv("/Volumes/Data/watchplant/gas_experiments/cut_samples/X_test.csv", index=False)
-
+# Save to CSV
+report_df.to_csv('results/2024_botanical_garden/report/classification_report.csv', index=True)
 
 
 

@@ -40,7 +40,7 @@ def calc_best_classifier(stimuli, channel, path_to_data):
     # print(naml.history)
 
     naml.history.to_csv(
-            f"results/2024_botanical_garden/autoML_classifiers/naml_history_{channel}_tw_60_{'_'.join(stimuli)}.csv")
+            f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}tw_60_{'_'.join(stimuli)}.csv")
 
 
 
@@ -72,7 +72,6 @@ if __name__ == "__main__":
                         ["dry", "rain"],
                         ["wind", "windless"]]
 
-    os.cpu_count()
     pbar = tqdm(total=len(stimuli_settings) * 2)
     futures = []
     # for stimuli in stimuli_settings:

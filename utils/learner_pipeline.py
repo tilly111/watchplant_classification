@@ -1,4 +1,10 @@
 from sklearn.pipeline import Pipeline
+from sklearn.base import clone
+from sklearn.metrics import confusion_matrix, get_scorer
+import shap
+import pandas as pd
+import numpy as np
+import re
 
 
 # def get_pipeline_for_features(classifier, X, y, feature_list):
@@ -12,3 +18,71 @@ def get_pipeline_for_features(classifier, data_pre_processor, X=None, y=None, fe
         steps.append(('data-pre-processor', data_pre_processor))
     steps.append(("learner", classifier))
     return Pipeline(steps)
+
+def get_pipeline_from_config(config: str, scoring: str):
+    config = pd.read_csv(config)
+    # sort config by accuracy
+    config = config.sort_values(by=scoring, ascending=False)
+    pipeline_config = config["pipeline"].iloc[0]
+
+    # in case of select percentile we need to give a function which seems to be buggy
+    pattern = r"<function chi2[^>]*>"
+    pipeline_config = re.sub(pattern, "f_classif", pipeline_config)
+    pipeline_config = "from sklearn.pipeline import Pipeline \n" \
+                      "from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, HistGradientBoostingClassifier \n" \
+                      "from sklearn.neural_network import MLPClassifier \n" \
+                      "from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis \n" \
+                      "from sklearn.svm import SVC \n" \
+                      "from sklearn.tree import DecisionTreeClassifier \n" \
+                      "from sklearn.feature_selection import VarianceThreshold, SelectPercentile, chi2, f_classif \n" \
+                      "from sklearn.neighbors import KNeighborsClassifier \n" \
+                      "from sklearn.decomposition import PCA \n" \
+                      "from sklearn.preprocessing import OrdinalEncoder, PowerTransformer, QuantileTransformer, MinMaxScaler \n" \
+                      "from sklearn.preprocessing import Normalizer, PolynomialFeatures \n" \
+                      "pipe=" + pipeline_config
+    scope = {}
+    exec(pipeline_config, scope)
+    pipe = scope["pipe"]
+    return pipe
+
+
+def fit_classifier(learner, x_train, x_test, y_train, y_test, scoring="accuracy", use_shap=False, n_classes=2):
+    learner_c = clone(learner).fit(x_train.to_numpy(), y_train.values.ravel())
+    y_pred = learner_c.predict(x_test.values)
+
+    shap_values = pd.DataFrame(data=np.zeros((1, x_train.shape[1])), columns=x_train.columns)
+    if use_shap:
+        # explainer = shap.KernelExplainer(learner_c.predict_proba, shap.sample(x_train, 100))  # x_test or x_train?
+        explainer = shap.TreeExplainer(learner_c)
+        shap_values = explainer.shap_values(x_test.to_numpy())  #, check_additivity=False
+        # shap_value.values = shap_value.values[:, :, 1]
+        # shap_value.base_values = shap_value.base_values[:, 1]
+        # shap_values[:] = shap_value.abs.mean(axis=0).values
+        # instance_idx = 0
+        # shap.force_plot(explainer.expected_value[1], shap_values[1][instance_idx, :], x_test.iloc[instance_idx, :],
+        #                 feature_names=x_test.columns)
+        # plt.show()
+
+    scorer = get_scorer(scoring)  # roc_auc
+    c_m = confusion_matrix(y_test, y_pred, labels=range(n_classes))
+    # return accuracy_score(y_test, y_pred), confusion_matrix(y_test, y_pred), pl_interpretable
+    return scorer(learner_c, x_test.values, y_test), c_m, shap_values  # , pl_interpretable
+
+
+def fit_classifier_cf(learner, x_train, x_test, y_train, y_test, scoring="accuracy", use_shap=False):
+    learner_c = clone(learner).fit(x_train.to_numpy(), y_train.values.ravel())
+    y_pred = learner_c.predict(x_test.values)
+
+    shap_values = pd.DataFrame(data=np.zeros((1, x_train.shape[1])), columns=x_train.columns)
+    if use_shap:
+        explainer = shap.KernelExplainer(learner_c.predict_proba, shap.sample(x_train, 100))  # x_test or x_train?
+        shap_value = explainer(x_test)
+        shap_value.values = shap_value.values[:, :, 1]
+        shap_value.base_values = shap_value.base_values[:, 1]
+        shap_values[:] = shap_value.abs.mean(axis=0).values
+
+    scorer = get_scorer(scoring)  # roc_auc
+
+    # return accuracy_score(y_test, y_pred), confusion_matrix(y_test, y_pred), pl_interpretable
+    return scorer(learner_c, x_test.values, y_test), confusion_matrix(y_test, y_pred), shap_values, learner_c
+
