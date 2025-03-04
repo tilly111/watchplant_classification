@@ -51,7 +51,7 @@ if __name__ == '__main__':
         path_to_data = "data_preprocessed/"
 
 
-    stimuli_settings = [# ["cold", "warm"],
+    stimuli_settings = [["cold", "warm"],
                         ["day", "night"],
                         ["dry", "rain"],
                         ["wind", "windless"]]
