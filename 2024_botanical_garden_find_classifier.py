@@ -12,11 +12,13 @@ from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
 from utils.feature_loader import load_botanical
 
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
+from sklearn.metrics import f1_score, make_scorer
 import logging
 
 
 def calc_best_classifier(stimuli, channel, path_to_data):
-    naml = naiveautoml.NaiveAutoML(max_hpo_iterations=1024, show_progress=False, scoring="accuracy",
+    scoring = make_scorer(f1_score, average='weighted')
+    naml = naiveautoml.NaiveAutoML(max_hpo_iterations=1024, show_progress=False, scoring=scoring,
                                    max_hpo_iterations_without_imp=100, num_cpus=1, kwargs_as={'excluded_components': {"learner": ["HistGradientBoostingClassifier"]}})  # , kwargs_as={'excluded_components': {"learner": ["HistGradientBoostingClassifier"]}}
 
     x, y = load_botanical(stimuli, channel, path=path_to_data)
