@@ -18,7 +18,7 @@ import logging
 
 def calc_best_classifier(stimuli, channel, path_to_data):
     scoring = make_scorer(f1_score, average='weighted')
-    naml = naiveautoml.NaiveAutoML(max_hpo_iterations=1024, show_progress=False, scoring=scoring,
+    naml = naiveautoml.NaiveAutoML(max_hpo_iterations=1024, show_progress=True, scoring=scoring,
                                    max_hpo_iterations_without_imp=100, num_cpus=1, kwargs_as={'excluded_components': {"learner": ["HistGradientBoostingClassifier"]}})  # , kwargs_as={'excluded_components': {"learner": ["HistGradientBoostingClassifier"]}}
 
     x, y = load_botanical(stimuli, channel, path=path_to_data)
@@ -26,6 +26,9 @@ def calc_best_classifier(stimuli, channel, path_to_data):
 
     # X_analysis, _, y_analysis, _ = train_test_split(x, y, test_size=0.2, random_state=42, stratify=y)
     X_analysis, _, y_analysis, _ = train_test_split(x, y, test_size=0.2, random_state=42)
+    y_analysis.loc[y_analysis["class"] == stimuli[0]] = 0
+    y_analysis.loc[y_analysis["class"] == stimuli[1]] = 1
+    y_analysis = y_analysis.astype(int)
 
     # TODO SMOTE?
     from imblearn.over_sampling import SMOTE
@@ -33,7 +36,7 @@ def calc_best_classifier(stimuli, channel, path_to_data):
     X_analysis, y_analysis = smote.fit_resample(X_analysis, y_analysis)
     # print(f"[upsampled] X_train: {X_train.shape}, y_train: {y_train.shape}")
 
-    y_analysis = y_analysis["class"].to_numpy().ravel()
+    y_analysis = y_analysis["class"].to_numpy().ravel()  # .to_numpy().ravel()
 
     naml.fit(X_analysis, y_analysis)
 
