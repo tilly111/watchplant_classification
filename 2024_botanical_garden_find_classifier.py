@@ -22,12 +22,13 @@ def calc_best_classifier(stimuli, channel, path_to_data):
     x, y = load_botanical(stimuli, channel, path=path_to_data)
 
 
-    X_analysis, _, y_analysis, _ = train_test_split(x, y, test_size=0.2, random_state=42, stratify=y)
+    # X_analysis, _, y_analysis, _ = train_test_split(x, y, test_size=0.2, random_state=42, stratify=y)
+    X_analysis, _, y_analysis, _ = train_test_split(x, y, test_size=0.2, random_state=42)
 
     # TODO SMOTE?
-    # from imblearn.over_sampling import SMOTE
-    # smote = SMOTE(random_state=42)
-    # X_train, y_train = smote.fit_resample(X_train, y_train)
+    from imblearn.over_sampling import SMOTE
+    smote = SMOTE(random_state=42)
+    X_analysis, y_analysis = smote.fit_resample(X_analysis, y_analysis)
     # print(f"[upsampled] X_train: {X_train.shape}, y_train: {y_train.shape}")
 
     y_analysis = y_analysis["class"].to_numpy().ravel()
@@ -40,7 +41,7 @@ def calc_best_classifier(stimuli, channel, path_to_data):
     # print(naml.history)
 
     naml.history.to_csv(
-            f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}tw_60_{'_'.join(stimuli)}.csv")
+            f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}tw_60_{'_'.join(stimuli)}_with_smote.csv")
 
 
 
