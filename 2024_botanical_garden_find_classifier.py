@@ -18,7 +18,7 @@ import logging
 
 def calc_best_classifier(stimuli, channel, path_to_data):
     scoring = make_scorer(f1_score, average='weighted')
-    naml = naiveautoml.NaiveAutoML(max_hpo_iterations=1024, show_progress=True, scoring=scoring,
+    naml = naiveautoml.NaiveAutoML(max_hpo_iterations=1024, show_progress=False, scoring=scoring,
                                    max_hpo_iterations_without_imp=100, num_cpus=1, kwargs_as={'excluded_components': {"learner": ["HistGradientBoostingClassifier"]}})  # , kwargs_as={'excluded_components': {"learner": ["HistGradientBoostingClassifier"]}}
 
     x, y = load_botanical(stimuli, channel, path=path_to_data)
@@ -46,7 +46,7 @@ def calc_best_classifier(stimuli, channel, path_to_data):
     # print(naml.history)
 
     naml.history.to_csv(
-            f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}tw_60_{'_'.join(stimuli)}_with_smote.csv")
+            f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}_with_smote.csv")
 
 
 

@@ -57,14 +57,14 @@ if __name__ == '__main__':
                         ["wind", "windless"]]
 
     channels = [["CH1"], ["CH2"]]
-    number_of_repeats = 100
+    number_of_repeats = 10
     n_classes = 2
     for stimuli in stimuli_settings:
         for channel in channels:
-            config = f"results/2024_botanical_garden/autoML_classifiers/naml_history_{channel}_tw_60_{'_'.join(stimuli)}.csv"
+            config = f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}_with_smote.csv"
+            scoring = "f1_score"  # "accuracy"
 
-
-            pl_interpretable = get_pipeline_from_config(config, "accuracy")
+            pl_interpretable = get_pipeline_from_config(config, scoring)
 
 
             x, y = load_botanical(stimuli, channel, path=path_to_data)
@@ -80,6 +80,10 @@ if __name__ == '__main__':
             # y_test = y_test["class"].to_numpy().ravel()
 
             # TODO SMOTE?
+            from imblearn.over_sampling import SMOTE
+
+            smote = SMOTE(random_state=42)
+            X_analysis, y_analysis = smote.fit_resample(X_analysis, y_analysis)
 
             acc_all = []
             roc_all = []
@@ -128,7 +132,7 @@ if __name__ == '__main__':
 
                 rep = classification_report(y_test, c.predict(X_test.values), output_dict=True)
                 rep_df = pd.DataFrame(rep)
-                rep_df.to_csv(f"results/2024_botanical_garden/report/{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}.csv", index=True)
+                rep_df.to_csv(f"results/2024_botanical_garden/report/{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}_with_smote.csv", index=True)
 
                 # NOTE: confusion matrix depends on number of classes
                 if True:  # n_classes == 2:
