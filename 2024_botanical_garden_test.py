@@ -64,8 +64,6 @@ if __name__ == '__main__':
     for stimuli in stimuli_settings:
         for channel in channels:
             config = f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}tw_60_{'_'.join(stimuli)}_with_smote.csv"
-
-
             pl_interpretable = get_pipeline_from_config(config, scoring)
 
 
@@ -124,7 +122,7 @@ if __name__ == '__main__':
             test_cm_10, test_cm_11, test_cm_12 = [], [], []
             test_cm_20, test_cm_21, test_cm_22 = [], [], []
 
-            for c in classifier_all:
+            for j, c in enumerate(classifier_all):
                 test_roc = roc_auc_score(y_test, c.predict_proba(X_test.values)[:, 1]) if n_classes == 2 else \
                     roc_auc_score(y_test, c.predict_proba(X_test.values), multi_class='ovr', average='macro')
                 test_rocs.append(test_roc)
@@ -136,7 +134,7 @@ if __name__ == '__main__':
                 exit(22)
                 test_f1_macro.append(rep["macro avg"].iloc["f1-score"])
                 rep_df = pd.DataFrame(rep)
-                rep_df.to_csv(f"results/2024_botanical_garden/report/{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}.csv", index=False)
+                rep_df.to_csv(f"results/2024_botanical_garden/report/{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}_with_smote_{j}.csv", index=False)
 
                 # NOTE: confusion matrix depends on number of classes
                 if True:  # n_classes == 2:

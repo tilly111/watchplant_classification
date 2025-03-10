@@ -46,7 +46,7 @@ def calc_best_classifier(stimuli, channel, path_to_data):
     # print(naml.history)
 
     naml.history.to_csv(
-            f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}tw_60_{'_'.join(stimuli)}_with_smote.csv")
+            f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}_with_smote.csv")
 
 
 
