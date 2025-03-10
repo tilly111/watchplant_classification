@@ -59,7 +59,7 @@ if __name__ == '__main__':
 
     channels = [["CH1"], ["CH2"]]
     scoring = "f1_score"  # "accuracy"
-    number_of_repeats = 10
+    number_of_repeats = 100
     n_classes = 2
     for stimuli in stimuli_settings:
         for channel in channels:
