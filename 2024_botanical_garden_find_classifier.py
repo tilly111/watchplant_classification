@@ -17,7 +17,7 @@ import logging
 
 
 def calc_best_classifier(stimuli, channel, path_to_data):
-    scoring = make_scorer(f1_score, average='weighted')
+    scoring = make_scorer(f1_score, average='macro')
     naml = naiveautoml.NaiveAutoML(max_hpo_iterations=1024, show_progress=True, scoring=scoring,
                                    max_hpo_iterations_without_imp=100, num_cpus=1, kwargs_as={'excluded_components': {"learner": ["HistGradientBoostingClassifier"]}})  # , kwargs_as={'excluded_components': {"learner": ["HistGradientBoostingClassifier"]}}
 
@@ -64,13 +64,13 @@ if __name__ == "__main__":
 
 
     # do logging
-    logger = logging.getLogger('naiveautoml')
-    logger.setLevel(logging.INFO)
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    ch.setFormatter(formatter)
-    logger.addHandler(ch)
+    # logger = logging.getLogger('naiveautoml')
+    # logger.setLevel(logging.INFO)
+    # ch = logging.StreamHandler()
+    # ch.setLevel(logging.INFO)
+    # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    # ch.setFormatter(formatter)
+    # logger.addHandler(ch)
 
     # cold, day, dry, night, rain, warm, wind, windless
     stimuli_settings = [["cold", "warm"],

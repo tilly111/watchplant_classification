@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import naiveautoml
+from imblearn.over_sampling import SMOTE
 
 from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
 from sklearn.preprocessing import LabelEncoder
@@ -35,7 +36,7 @@ def fit_classifier_parallel(x_analysis, y_analysis, pl_interpretable, i_train, i
           roc_auc_score(y_validation, y_pred_proba, multi_class='ovr', average='macro')
 
     return accuracy_score(y_validation, y_pred), roc, \
-           f1_score(y_validation, y_pred, average='weighted'), trained, None  # shap_value if use_shap else None
+           f1_score(y_validation, y_pred, average='weighted'), trained
 
 
 if __name__ == '__main__':
@@ -57,14 +58,15 @@ if __name__ == '__main__':
                         ["wind", "windless"]]
 
     channels = [["CH1"], ["CH2"]]
-    number_of_repeats = 100
+    scoring = "f1_score"  # "accuracy"
+    number_of_repeats = 10
     n_classes = 2
     for stimuli in stimuli_settings:
         for channel in channels:
-            config = f"results/2024_botanical_garden/autoML_classifiers/naml_history_{channel}_tw_60_{'_'.join(stimuli)}.csv"
+            config = f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}tw_60_{'_'.join(stimuli)}_with_smote.csv"
 
 
-            pl_interpretable = get_pipeline_from_config(config, "accuracy")
+            pl_interpretable = get_pipeline_from_config(config, scoring)
 
 
             x, y = load_botanical(stimuli, channel, path=path_to_data)
@@ -79,7 +81,9 @@ if __name__ == '__main__':
             # y_analysis = y_analysis["class"].to_numpy().ravel()
             # y_test = y_test["class"].to_numpy().ravel()
 
-            # TODO SMOTE?
+            # SMOTING
+            smote = SMOTE(random_state=42)
+            X_analysis, y_analysis = smote.fit_resample(X_analysis, y_analysis)
 
             acc_all = []
             roc_all = []
@@ -107,7 +111,7 @@ if __name__ == '__main__':
             pbar.close()
 
             for i, future in enumerate(futures):
-                acc, roc, f1, classifier, shap_value = future.result()
+                acc, roc, f1, classifier = future.result()
                 acc_all.append(acc)
                 roc_all.append(roc)
                 f1_all.append(f1)
@@ -115,6 +119,7 @@ if __name__ == '__main__':
 
             test_accs = []
             test_rocs = []
+            test_f1_macro = []
             test_cm_00, test_cm_01, test_cm_02 = [], [], []
             test_cm_10, test_cm_11, test_cm_12 = [], [], []
             test_cm_20, test_cm_21, test_cm_22 = [], [], []
@@ -127,8 +132,11 @@ if __name__ == '__main__':
                 test_accs.append(test_acc)
 
                 rep = classification_report(y_test, c.predict(X_test.values), output_dict=True)
+                print(f"macro f1 {rep['macro avg'].iloc['f1-score']}")
+                exit(22)
+                test_f1_macro.append(rep["macro avg"].iloc["f1-score"])
                 rep_df = pd.DataFrame(rep)
-                rep_df.to_csv(f"results/2024_botanical_garden/report/{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}.csv", index=True)
+                rep_df.to_csv(f"results/2024_botanical_garden/report/{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}.csv", index=False)
 
                 # NOTE: confusion matrix depends on number of classes
                 if True:  # n_classes == 2:
@@ -151,9 +159,10 @@ if __name__ == '__main__':
 
             if True: # n_classes == 2:
                 save_frame = pd.DataFrame(data={"accuracy": acc_all, "roc_auc": roc_all, "f1_score": f1_all,
-                                                "test_accuracy": test_accs, "test_roc_auc": test_rocs,
+                                                "test_accuracy": test_accs, "test_roc_auc": test_rocs, "test_f1_macro": test_f1_macro,
                                                 "test_cm_00": test_cm_00, "test_cm_01": test_cm_01,
                                                 "test_cm_10": test_cm_10, "test_cm_11": test_cm_11})
+                save_frame.to_csv(f"results/2024_botanical_garden/test/{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}_with_smote.csv", index=False)
             else:
                 save_frame = pd.DataFrame(data={"accuracy": acc_all, "roc_auc": roc_all, "f1_score": f1_all,
                                                 "test_accuracy": test_accs, "test_roc_auc": test_rocs,
@@ -170,7 +179,3 @@ if __name__ == '__main__':
 
             print(f"confusion matrix:\n{save_frame[['test_cm_00', 'test_cm_01', 'test_cm_10', 'test_cm_11']].mean()}")
             print("----------------------------------")
-
-
-
-
