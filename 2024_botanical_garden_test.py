@@ -59,11 +59,11 @@ if __name__ == '__main__':
 
     channels = [["CH1"], ["CH2"]]
     scoring = "f1_score"  # "accuracy"
-    number_of_repeats = 100
+    number_of_repeats = 10
     n_classes = 2
     for stimuli in stimuli_settings:
         for channel in channels:
-            config = f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}tw_60_{'_'.join(stimuli)}_with_smote.csv"
+            config = f"results/2024_botanical_garden/autoML_classifiers/naml_history_{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}_with_smote.csv"
             pl_interpretable = get_pipeline_from_config(config, scoring)
 
 
@@ -89,7 +89,8 @@ if __name__ == '__main__':
             classifier_all = []
             pbar = tqdm(total=number_of_repeats)
             cv = StratifiedShuffleSplit(n_splits=number_of_repeats)
-            with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
+            workers = number_of_repeats if number_of_repeats < os.cpu_count() else os.cpu_count()
+            with ProcessPoolExecutor(max_workers=workers) as executor:
                 futures = [executor.submit(fit_classifier_parallel, X_analysis, y_analysis, pl_interpretable, i_train,
                                            i_validation, n_classes) for i_train, i_validation in
                            cv.split(X_analysis, y_analysis)]
@@ -130,9 +131,8 @@ if __name__ == '__main__':
                 test_accs.append(test_acc)
 
                 rep = classification_report(y_test, c.predict(X_test.values), output_dict=True)
-                print(f"macro f1 {rep['macro avg'].iloc['f1-score']}")
-                exit(22)
-                test_f1_macro.append(rep["macro avg"].iloc["f1-score"])
+                print(f"macro f1 {rep['macro avg']['f1-score']}")
+                test_f1_macro.append(rep['macro avg']['f1-score'])
                 rep_df = pd.DataFrame(rep)
                 rep_df.to_csv(f"results/2024_botanical_garden/report/{'_'.join(channel)}_tw_60_{'_'.join(stimuli)}_with_smote_{j}.csv", index=False)
 
